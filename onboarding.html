@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>Set up your profile — WAYMARK</title>
+  <meta name="description" content="Personalize your WAYMARK education and career guidance experience.">
+
+  <title>Get started — WAYMARK</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --ink: #152238;
-      --muted: #64748b;
-      --line: #e4e9f1;
-      --primary: #2855d9;
-      --primary-dark: #1d43b8;
-      --surface: #f7f9fc;
-      --danger: #b42318;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --text: #172033;
+      --muted: #68758a;
+      --border: #e4e9f0;
+      --primary: #315efb;
+      --primary-hover: #2449d8;
+      --primary-soft: #eef2ff;
+      --danger: #c62828;
+      --danger-bg: #fff1f1;
+      --success: #16794b;
+      --radius: 14px;
     }
 
     * {
@@ -29,45 +35,63 @@
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--ink);
-      background: #f8faff;
+      background: var(--bg);
+      color: var(--text);
       font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
     button,
     input,
-    select {
+    select,
+    textarea {
       font: inherit;
     }
 
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .topbar {
-      height: 72px;
       display: flex;
+      min-height: 78px;
       align-items: center;
       justify-content: space-between;
-      padding: 0 max(22px, calc((100% - 920px) / 2));
-      background: white;
-      border-bottom: 1px solid var(--line);
+      gap: 16px;
+      padding: 16px clamp(20px, 6vw, 80px);
+      border-bottom: 1px solid #edf0f5;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font: 800 21px Manrope, sans-serif;
-      letter-spacing: -.7px;
+      color: var(--text);
       text-decoration: none;
-      color: var(--ink);
     }
 
     .brand-mark {
-      width: 37px;
-      height: 37px;
       display: grid;
+      width: 38px;
+      height: 38px;
       place-items: center;
-      color: white;
+      border-radius: 11px;
       background: var(--primary);
-      border-radius: 12px;
+      color: white;
+      font-family: "Manrope", sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .brand-name {
+      font-family: "Manrope", sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .brand-name span {
+      color: var(--primary);
     }
 
     .step-label {
@@ -76,111 +100,172 @@
       font-weight: 700;
     }
 
-    main {
-      width: min(700px, calc(100% - 28px));
-      margin: 38px auto;
+    .page {
+      width: min(100% - 40px, 650px);
+      margin: 0 auto;
+      padding: 45px 0 35px;
     }
 
-    .progress {
-      height: 5px;
-      margin-bottom: 25px;
-      overflow: hidden;
-      background: #e6ebf5;
-      border-radius: 20px;
-    }
-
-    .progress span {
-      display: block;
-      width: 100%;
-      height: 100%;
-      background: var(--primary);
-      border-radius: inherit;
-    }
-
-    .card {
-      padding: clamp(22px, 5vw, 42px);
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      box-shadow: 0 8px 30px #172b4d06;
+    .intro {
+      margin-bottom: 29px;
+      animation: appear 0.35s ease both;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 17px;
+      padding: 7px 11px;
+      border: 1px solid #e0e7ff;
+      border-radius: 999px;
+      background: var(--primary-soft);
       color: var(--primary);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .7px;
+      letter-spacing: 0.7px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
     }
 
     h1 {
-      margin: 13px 0 10px;
-      font: 800 clamp(27px, 4vw, 36px)/1.2 Manrope, sans-serif;
-      letter-spacing: -1.2px;
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(31px, 6vw, 43px);
+      font-weight: 800;
+      letter-spacing: -1.8px;
+      line-height: 1.2;
     }
 
-    .intro {
-      margin-bottom: 30px;
+    .description {
+      max-width: 520px;
+      margin: 13px 0 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 15px;
       line-height: 1.8;
     }
 
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .progress-track {
+      height: 4px;
+      overflow: hidden;
+      margin-top: 27px;
+      border-radius: 999px;
+      background: #e9edf5;
+    }
+
+    .progress-fill {
+      width: 45%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 0.25s ease;
+    }
+
+    .card {
+      padding: clamp(20px, 5vw, 32px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 8px 32px rgb(30 50 90 / 4%);
+      animation: appear 0.45s ease both;
+    }
+
+    .section-heading {
+      margin: 0 0 6px;
+      font-family: "Manrope", sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .section-description {
+      margin: 0 0 25px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
     }
 
     .field {
-      min-width: 0;
-      margin-bottom: 18px;
+      margin-bottom: 21px;
     }
 
-    .full {
-      grid-column: 1 / -1;
+    .field-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
+    label,
+    .field-label {
+      color: #303b4f;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 700;
     }
 
-    .hint {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
+    .optional {
+      color: #8a95a6;
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 500;
     }
 
     input,
-    select {
+    select,
+    textarea {
+      display: block;
       width: 100%;
       min-height: 48px;
       padding: 12px 13px;
       border: 1px solid #dce3ed;
-      border-radius: 11px;
+      border-radius: 10px;
       outline: none;
-      color: var(--ink);
       background: white;
+      color: var(--text);
+      font-size: 14px;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #9ba5b4;
     }
 
     input:focus,
-    select:focus {
+    select:focus,
+    textarea:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px #2855d918;
+      box-shadow: 0 0 0 3px rgb(49 94 251 / 10%);
     }
 
-    .choices {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
+    select {
+      cursor: pointer;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .helper {
+      margin: 7px 0 0;
+      color: #8a95a6;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .choice {
@@ -191,134 +276,257 @@
       position: absolute;
       width: 1px;
       height: 1px;
+      min-height: 0;
       opacity: 0;
       pointer-events: none;
     }
 
-    .choice span {
-      min-height: 39px;
-      display: inline-flex;
+    .choice label {
+      display: flex;
+      min-height: 47px;
       align-items: center;
-      padding: 8px 12px;
-      color: #52647c;
-      background: white;
-      border: 1px solid var(--line);
+      gap: 9px;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
       border-radius: 10px;
+      background: white;
+      color: #48556b;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
-      transition: background .15s, border-color .15s, color .15s;
+      transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
     }
 
-    .choice input:checked + span {
-      color: var(--primary);
-      background: #edf3ff;
-      border-color: #a9c0ff;
+    .choice label::before {
+      display: grid;
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      place-items: center;
+      border: 1px solid #cbd4e1;
+      border-radius: 5px;
+      content: "";
     }
 
-    .choice input:focus-visible + span {
-      outline: 3px solid #2855d940;
+    .choice input:checked + label {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: #2349c6;
+    }
+
+    .choice input:checked + label::before {
+      border-color: var(--primary);
+      background: var(--primary);
+      content: "✓";
+      color: white;
+      font-size: 11px;
+    }
+
+    .choice input:focus-visible + label {
+      outline: 3px solid rgb(49 94 251 / 25%);
       outline-offset: 2px;
     }
 
     .message {
       display: none;
-      margin: 0 0 18px;
-      padding: 12px;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      border: 1px solid transparent;
       border-radius: 10px;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .message.visible {
+      display: block;
     }
 
     .message.error {
-      display: block;
+      border-color: #ffd5d5;
+      background: var(--danger-bg);
       color: var(--danger);
-      background: #fff2f0;
-      border: 1px solid #ffd6d1;
+    }
+
+    .message.success {
+      border-color: #c9efdc;
+      background: #effcf5;
+      color: var(--success);
     }
 
     .message.info {
-      display: block;
-      color: #2347a5;
-      background: #edf3ff;
-      border: 1px solid #dce7ff;
+      border-color: #d9e4ff;
+      background: #f1f5ff;
+      color: #2548a5;
     }
 
     .actions {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 30px;
+      padding-top: 23px;
+      border-top: 1px solid #edf0f5;
     }
 
-    .btn {
-      min-height: 46px;
+    .save-note {
+      max-width: 220px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .primary-button {
       display: inline-flex;
+      min-height: 49px;
       align-items: center;
       justify-content: center;
-      gap: 9px;
-      padding: 0 18px;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      color: var(--ink);
-      background: white;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      color: white;
+      gap: 10px;
+      padding: 0 20px;
+      border: 1px solid var(--primary);
+      border-radius: 10px;
       background: var(--primary);
-      border-color: var(--primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        opacity 0.18s ease;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-dark);
+    .primary-button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      background: var(--primary-hover);
     }
 
     button:disabled {
       cursor: not-allowed;
-      opacity: .6;
+      opacity: 0.65;
     }
 
-    .privacy-note {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      margin-top: 22px;
+    .signout-button {
+      padding: 8px 0;
+      border: 0;
+      background: none;
       color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .signout-button:hover {
+      color: var(--primary);
+    }
+
+    .footer {
+      padding: 20px 10px 0;
+      color: #8993a3;
+      font-size: 11px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #59677c;
+      text-decoration: none;
+    }
+
+    .loading-screen {
+      display: flex;
+      min-height: 65vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .spinner {
+      width: 29px;
+      height: 29px;
+      border: 3px solid #e2e8f5;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .loading-title {
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .loading-description {
+      max-width: 300px;
       font-size: 12px;
       line-height: 1.7;
     }
 
-    .privacy-note i {
-      flex-shrink: 0;
-      color: #16835d;
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
-    @media (max-width: 560px) {
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 480px) {
       .topbar {
-        height: 64px;
+        min-height: 68px;
+        padding: 13px 20px;
       }
 
-      main {
-        margin: 22px auto;
+      .page {
+        width: calc(100% - 32px);
+        padding-top: 32px;
       }
 
-      .field-grid {
-        grid-template-columns: 1fr;
-        gap: 0;
+      .choice-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      .full {
-        grid-column: auto;
+      .actions {
+        align-items: stretch;
+        flex-direction: column;
       }
 
-      .actions .btn {
-        padding: 0 13px;
-        font-size: 12px;
+      .save-note {
+        max-width: none;
+      }
+
+      .primary-button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -326,46 +534,75 @@
 
 <body>
   <header class="topbar">
-    <a class="brand" href="./">
-      <span class="brand-mark"><i data-lucide="compass"></i></span>
-      WAYMARK
+    <a class="brand" href="./index.html" aria-label="WAYMARK home">
+      <span class="brand-mark">W</span>
+      <span class="brand-name">WAY<span>MARK</span></span>
     </a>
 
-    <span class="step-label">PROFILE SETUP · 1 OF 1</span>
+    <span class="step-label">PERSONALIZE YOUR EXPERIENCE</span>
   </header>
 
-  <main>
-    <div class="progress" aria-label="Profile setup progress">
-      <span></span>
-    </div>
+  <main class="page">
+    <section id="loading-screen" class="loading-screen" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      <div class="loading-title" id="loading-title">Checking your account…</div>
+      <div class="loading-description" id="loading-description">
+        We're securely loading your WAYMARK profile.
+      </div>
+    </section>
 
-    <section class="card">
-      <div class="eyebrow">
-        <i data-lucide="user-round" size="16"></i>
-        Let's personalise your experience
+    <section id="onboarding-content" hidden>
+      <div class="intro">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          YOUR JOURNEY STARTS HERE
+        </div>
+
+        <h1>Let's find your direction.</h1>
+
+        <p class="description">
+          Tell us a little about your educational journey. We'll use your
+          answers to personalize your WAYMARK experience.
+        </p>
+
+        <div class="progress-track" aria-label="Onboarding progress">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
       </div>
 
-      <h1>Tell us about your goals.</h1>
+      <section class="card">
+        <h2 class="section-heading">About you</h2>
 
-      <p class="intro">
-        These details help WAYMARK tailor your experience.
-        You can update your profile later. Select the options that best
-        describe your current situation.
-      </p>
+        <p class="section-description">
+          Start with the basics. You can update your profile later.
+        </p>
 
-      <div id="message" class="message" role="alert" aria-live="polite"></div>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
 
-      <form id="profile-form">
-        <div class="field-grid">
+        <form id="onboarding-form">
           <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" name="name" autocomplete="name" maxlength="100" required placeholder="Enter your name">
+            <div class="field-header">
+              <label for="full-name">What should we call you?</label>
+            </div>
+
+            <input
+              id="full-name"
+              name="fullName"
+              type="text"
+              placeholder="Enter your name"
+              autocomplete="name"
+              maxlength="80"
+              required
+            >
           </div>
 
           <div class="field">
-            <label for="state">State or union territory</label>
+            <div class="field-header">
+              <label for="state">Which state or union territory are you from?</label>
+            </div>
+
             <select id="state" name="state" required>
-              <option value="">Choose your state</option>
+              <option value="">Select your state or territory</option>
               <option>Andhra Pradesh</option>
               <option>Arunachal Pradesh</option>
               <option>Assam</option>
@@ -402,164 +639,182 @@
               <option>Ladakh</option>
               <option>Lakshadweep</option>
               <option>Puducherry</option>
-            </select>
-          </div>
-
-          <div class="field full">
-            <label for="stage">Where are you in your education?</label>
-            <select id="stage" name="stage" required>
-              <option value="">Choose your current stage</option>
-              <option value="school">School student</option>
-              <option value="after-10">Completed Class 10</option>
-              <option value="after-12">Completed Class 12</option>
-              <option value="undergraduate">Undergraduate student</option>
-              <option value="graduate">Graduate</option>
-              <option value="postgraduate">Postgraduate student or graduate</option>
-              <option value="other">Other</option>
+              <option>Other</option>
             </select>
           </div>
 
           <div class="field">
-            <label for="class-level">Current or completed class</label>
-            <select id="class-level" name="classLevel">
-              <option value="">Not applicable</option>
-              <option value="8">Class 8</option>
-              <option value="9">Class 9</option>
-              <option value="10">Class 10</option>
-              <option value="11">Class 11</option>
-              <option value="12">Class 12</option>
+            <div class="field-header">
+              <label for="education-level">What is your current education level?</label>
+            </div>
+
+            <select id="education-level" name="educationLevel" required>
+              <option value="">Select your education level</option>
+              <option value="below-10th">Below Class 10</option>
+              <option value="class-10">Class 10</option>
+              <option value="class-11">Class 11</option>
+              <option value="class-12">Class 12</option>
               <option value="diploma">Diploma</option>
               <option value="undergraduate">Undergraduate</option>
-              <option value="graduate">Graduate</option>
               <option value="postgraduate">Postgraduate</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="stream">Stream or study area</label>
-            <select id="stream" name="stream">
-              <option value="">Not decided / not applicable</option>
-              <option value="science">Science</option>
-              <option value="commerce">Commerce</option>
-              <option value="arts-humanities">Arts and humanities</option>
-              <option value="vocational">Vocational</option>
-              <option value="engineering">Engineering and technology</option>
-              <option value="medical-health">Medical and health sciences</option>
-              <option value="law">Law</option>
-              <option value="management">Management</option>
+              <option value="graduate">Graduated</option>
               <option value="other">Other</option>
             </select>
           </div>
 
-          <div class="field full">
-            <label>What interests you? <span class="hint">Select any that apply.</span></label>
-
-            <div class="choices">
-              <label class="choice">
-                <input type="checkbox" name="interests" value="engineering">
-                <span>Engineering</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="technology">
-                <span>Technology</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="medicine">
-                <span>Medicine</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="science">
-                <span>Science</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="business">
-                <span>Business</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="law">
-                <span>Law</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="design">
-                <span>Design</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="public-service">
-                <span>Public service</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="research">
-                <span>Research</span>
-              </label>
-
-              <label class="choice">
-                <input type="checkbox" name="interests" value="undecided">
-                <span>Still exploring</span>
-              </label>
+          <div class="field">
+            <div class="field-header">
+              <label for="study-stream">Your stream or study area</label>
+              <span class="optional">Optional</span>
             </div>
+
+            <select id="study-stream" name="studyStream">
+              <option value="">Select a stream</option>
+              <option value="science-maths">Science — Mathematics</option>
+              <option value="science-biology">Science — Biology</option>
+              <option value="commerce">Commerce</option>
+              <option value="humanities">Humanities / Arts</option>
+              <option value="vocational">Vocational</option>
+              <option value="engineering">Engineering / Technology</option>
+              <option value="medical">Medical / Health Sciences</option>
+              <option value="computer-science">Computer Science / IT</option>
+              <option value="other">Other</option>
+              <option value="undecided">Not decided yet</option>
+            </select>
           </div>
 
-          <div class="field full">
-            <label for="career-goal">What would you like to achieve?</label>
-            <input
-              id="career-goal"
-              name="careerGoal"
-              maxlength="180"
-              placeholder="e.g. Explore engineering courses or prepare for an entrance exam"
-            >
-            <span class="hint">
-              Optional. Describe a goal in your own words.
-            </span>
+          <div class="field">
+            <div class="field-header">
+              <span class="field-label">What would you like help with?</span>
+            </div>
+
+            <div class="choice-grid">
+              <div class="choice">
+                <input
+                  id="interest-colleges"
+                  type="checkbox"
+                  name="interests"
+                  value="colleges"
+                >
+                <label for="interest-colleges">Finding colleges</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  id="interest-courses"
+                  type="checkbox"
+                  name="interests"
+                  value="courses"
+                >
+                <label for="interest-courses">Choosing courses</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  id="interest-scholarships"
+                  type="checkbox"
+                  name="interests"
+                  value="scholarships"
+                >
+                <label for="interest-scholarships">Scholarships</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  id="interest-admissions"
+                  type="checkbox"
+                  name="interests"
+                  value="admissions"
+                >
+                <label for="interest-admissions">Admissions</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  id="interest-careers"
+                  type="checkbox"
+                  name="interests"
+                  value="careers"
+                >
+                <label for="interest-careers">Career guidance</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  id="interest-exams"
+                  type="checkbox"
+                  name="interests"
+                  value="exams"
+                >
+                <label for="interest-exams">Entrance exams</label>
+              </div>
+            </div>
+
+            <p class="helper">
+              Choose any areas that interest you. This helps personalize your guidance.
+            </p>
           </div>
-        </div>
 
-        <div class="actions">
-          <button class="btn" id="signout-button" type="button">
-            Sign out
-          </button>
+          <div class="field">
+            <div class="field-header">
+              <label for="goal">What is your main goal?</label>
+              <span class="optional">Optional</span>
+            </div>
 
-          <button class="btn btn-primary" id="save-button" type="submit">
-            Save and continue
-            <i data-lucide="arrow-right" size="17"></i>
-          </button>
-        </div>
-      </form>
+            <textarea
+              id="goal"
+              name="goal"
+              maxlength="500"
+              placeholder="For example, explore engineering courses or find scholarships for college."
+            ></textarea>
+          </div>
 
-      <div class="privacy-note">
-        <i data-lucide="shield-check" size="17"></i>
-        <span>
-          Your profile is stored in your authenticated account.
-          Only select interests and share details you are comfortable providing.
-        </span>
+          <div class="actions">
+            <div class="save-note">
+              Your answers will be saved to your WAYMARK account.
+            </div>
+
+            <button class="primary-button" id="submit-button" type="submit">
+              <span id="submit-label">Complete setup</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <div class="footer">
+        <button class="signout-button" id="signout-button" type="button">
+          Sign out
+        </button>
+        <br>
+        © <span id="year"></span> WAYMARK · Fahad &amp; Team
+        <br>
+        <a href="./privacy.html">Privacy</a>
+        ·
+        <a href="./terms.html">Terms</a>
       </div>
     </section>
   </main>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
     import {
       getAuth,
       onAuthStateChanged,
       signOut
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
     import {
       getFirestore,
       doc,
       getDoc,
       setDoc,
       serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDEvA6u-qaPVWX_hYgyd_rpn17DOgrgm8",
+      apiKey: "AIzaSyDEvA6u-qa6PVWX_hYgydr_pn17DOgrgm8",
       authDomain: "way-mark-app.firebaseapp.com",
       projectId: "way-mark-app",
       storageBucket: "way-mark-app.firebasestorage.app",
@@ -572,143 +827,361 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const form = document.querySelector("#profile-form");
-    const saveButton = document.querySelector("#save-button");
-    const message = document.querySelector("#message");
-    const nameInput = document.querySelector("#name");
+    const $ = (id) => document.getElementById(id);
+
+    const loadingScreen = $("loading-screen");
+    const onboardingContent = $("onboarding-content");
+    const loadingTitle = $("loading-title");
+    const loadingDescription = $("loading-description");
+    const form = $("onboarding-form");
+    const submitButton = $("submit-button");
+    const submitLabel = $("submit-label");
+    const messageBox = $("message");
 
     let currentUser = null;
-    let existingProfile = {};
-    let ready = false;
+    let isSaving = false;
+    let isSigningOut = false;
+    let authResolved = false;
+    let profileLoaded = false;
 
-    function showMessage(text, type = "error") {
-      message.textContent = text;
-      message.className = `message ${type}`;
+    $("year").textContent = new Date().getFullYear();
+
+    function showMessage(message, type = "error") {
+      messageBox.textContent = message;
+      messageBox.className = `message visible ${type}`;
     }
 
-    function fillProfile(profile, user) {
-      nameInput.value = profile.name || user.displayName || "";
-      document.querySelector("#state").value = profile.state || "";
-      document.querySelector("#stage").value = profile.stage || "";
-      document.querySelector("#class-level").value = profile.classLevel || "";
-      document.querySelector("#stream").value = profile.stream || "";
-      document.querySelector("#career-goal").value =
-        Array.isArray(profile.careerGoals) ? profile.careerGoals[0] || "" : "";
-
-      const interests = Array.isArray(profile.interests) ? profile.interests : [];
-
-      document.querySelectorAll('input[name="interests"]').forEach((input) => {
-        input.checked = interests.includes(input.value);
-      });
+    function clearMessage() {
+      messageBox.textContent = "";
+      messageBox.className = "message";
     }
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        location.replace("./login.html");
-        return;
+    function showLoading(title, description) {
+      loadingTitle.textContent = title;
+      loadingDescription.textContent = description;
+      loadingScreen.hidden = false;
+      onboardingContent.hidden = true;
+    }
+
+    function showForm() {
+      loadingScreen.hidden = true;
+      onboardingContent.hidden = false;
+    }
+
+    function setSaving(saving) {
+      isSaving = saving;
+      submitButton.disabled = saving;
+      $("signout-button").disabled = saving || isSigningOut;
+
+      submitLabel.textContent = saving
+        ? "Saving your profile…"
+        : "Complete setup";
+    }
+
+    function getFriendlyError(error) {
+      const code = error?.code || "";
+      const message = error?.message || "";
+
+      const errors = {
+        "permission-denied":
+          "Firestore denied access to your profile. Check that the published security rules allow you to read and update users/{your UID}.",
+
+        "unavailable":
+          "Firestore is temporarily unavailable. Check your connection and try again.",
+
+        "unauthenticated":
+          "Your session has expired. Please sign in again.",
+
+        "auth/network-request-failed":
+          "A network error occurred. Check your internet connection.",
+
+        "auth/unauthorized-domain":
+          "This domain is not authorized for Firebase Authentication. Add it in Firebase Authentication settings.",
+
+        "auth/api-key-not-valid.-please-pass-a-valid-api-key.":
+          "Firebase rejected the API key. Verify the exact key in Firebase Console."
+      };
+
+      if (errors[code]) {
+        return errors[code];
       }
 
+      if (message.includes("API key not valid")) {
+        return "Firebase rejected the API key configured in this page.";
+      }
+
+      return message || "An unexpected error occurred. Please try again.";
+    }
+
+    function profileIsComplete(profile) {
+      return profile?.profileComplete === true ||
+        profile?.onboardingComplete === true ||
+        profile?.onboardingCompleted === true;
+    }
+
+    function populateForm(profile, user) {
+      $("full-name").value =
+        profile.displayName ||
+        user.displayName ||
+        "";
+
+      $("state").value = profile.state || "";
+
+      $("education-level").value =
+        profile.educationLevel || "";
+
+      $("study-stream").value =
+        profile.studyStream || "";
+
+      $("goal").value = profile.goal || "";
+
+      const interests = Array.isArray(profile.interests)
+        ? profile.interests
+        : [];
+
+      form.querySelectorAll('input[name="interests"]').forEach((input) => {
+        input.checked = interests.includes(input.value);
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const requiredFields = [
+        $("full-name").value.trim(),
+        $("state").value,
+        $("education-level").value
+      ];
+
+      const completed = requiredFields.filter(Boolean).length;
+      const percentage = Math.round((completed / requiredFields.length) * 100);
+
+      $("progress-fill").style.width = `${Math.max(10, percentage)}%`;
+    }
+
+    async function loadProfile(user) {
+      if (!user) return;
+
       currentUser = user;
+      profileLoaded = false;
+
+      showLoading(
+        "Loading your profile…",
+        "Please wait while we retrieve your saved information."
+      );
 
       try {
         const profileRef = doc(db, "users", user.uid);
         const snapshot = await getDoc(profileRef);
 
-        existingProfile = snapshot.exists() ? snapshot.data() : {};
-
-        if (existingProfile.onboardingComplete === true) {
-          location.replace("./dashboard.html");
+        if (!auth.currentUser || auth.currentUser.uid !== user.uid) {
           return;
         }
 
-        fillProfile(existingProfile, user);
-        ready = true;
+        let profile;
+
+        if (!snapshot.exists()) {
+          profile = {
+            uid: user.uid,
+            email: user.email || "",
+            displayName: user.displayName || "",
+            photoURL: user.photoURL || "",
+            profileComplete: false,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          };
+
+          await setDoc(profileRef, profile);
+        } else {
+          profile = snapshot.data();
+        }
+
+        if (!auth.currentUser || auth.currentUser.uid !== user.uid) {
+          return;
+        }
+
+        if (profileIsComplete(profile)) {
+          showLoading(
+            "Your profile is ready",
+            "Taking you to your dashboard…"
+          );
+
+          window.location.replace("./dashboard.html");
+          return;
+        }
+
+        populateForm(profile, user);
+
+        profileLoaded = true;
+        showForm();
       } catch (error) {
-        console.error("Profile loading error:", error);
+        console.error("WAYMARK onboarding profile error:", error);
+
+        profileLoaded = false;
+        showForm();
+
         showMessage(
-          "We couldn't load your profile. Check your Firestore rules and connection, then refresh this page."
+          `We couldn't load your profile. ${getFriendlyError(error)}`,
+          "error"
         );
       }
-    });
+    }
+
+    form.addEventListener("input", updateProgress);
+    form.addEventListener("change", updateProgress);
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      if (!ready || !currentUser) {
-        showMessage("Your account is still loading. Please wait a moment.");
+      if (isSaving) return;
+
+      if (!authResolved || !currentUser || !auth.currentUser) {
+        showMessage(
+          "Your authenticated session isn't ready. Please wait or sign in again."
+        );
         return;
       }
 
-      const name = nameInput.value.trim();
-      const state = document.querySelector("#state").value;
-      const stage = document.querySelector("#stage").value;
-      const classLevel = document.querySelector("#class-level").value;
-      const stream = document.querySelector("#stream").value;
-      const careerGoal = document.querySelector("#career-goal").value.trim();
-
-      const interests = [
-        ...document.querySelectorAll('input[name="interests"]:checked')
-      ].map((input) => input.value).slice(0, 10);
-
-      if (!name || !state || !stage) {
-        showMessage("Enter your name, state, and current education stage.");
+      if (!profileLoaded) {
+        showMessage(
+          "Your profile hasn't loaded successfully. Please resolve the profile error before saving."
+        );
         return;
       }
 
-      if (name.length > 100 || careerGoal.length > 180) {
-        showMessage("One of your answers is too long. Please shorten it.");
+      clearMessage();
+
+      const displayName = $("full-name").value.trim();
+      const state = $("state").value;
+      const educationLevel = $("education-level").value;
+      const studyStream = $("study-stream").value;
+      const goal = $("goal").value.trim();
+
+      const interests = Array.from(
+        form.querySelectorAll('input[name="interests"]:checked')
+      ).map((input) => input.value);
+
+      if (!displayName) {
+        showMessage("Please enter your name.");
+        $("full-name").focus();
         return;
       }
 
-      saveButton.disabled = true;
-      saveButton.textContent = "Saving your profile…";
-      message.className = "message";
+      if (!state) {
+        showMessage("Please select your state or union territory.");
+        $("state").focus();
+        return;
+      }
+
+      if (!educationLevel) {
+        showMessage("Please select your current education level.");
+        $("education-level").focus();
+        return;
+      }
+
+      setSaving(true);
 
       try {
-        const profileRef = doc(db, "users", currentUser.uid);
+        const user = auth.currentUser;
+
+        if (!user || user.uid !== currentUser.uid) {
+          throw new Error("Your authenticated session changed. Please sign in again.");
+        }
+
+        const profileRef = doc(db, "users", user.uid);
+
+        const existingSnapshot = await getDoc(profileRef);
+
+        if (!existingSnapshot.exists()) {
+          throw new Error(
+            "Your profile document could not be found. Please reload the page and try again."
+          );
+        }
 
         await setDoc(profileRef, {
-          name,
-          email: currentUser.email || existingProfile.email || "",
-          phoneNumber: currentUser.phoneNumber || existingProfile.phoneNumber || "",
-          stage,
-          classLevel,
-          stream,
+          uid: user.uid,
+          email: user.email || "",
+          displayName,
+          photoURL: user.photoURL || "",
           state,
+          educationLevel,
+          studyStream,
           interests,
-          careerGoals: careerGoal ? [careerGoal] : [],
-          onboardingComplete: true,
-          createdAt: existingProfile.createdAt || serverTimestamp(),
+          goal,
+          profileComplete: true,
+          onboardingCompleted: true,
           updatedAt: serverTimestamp()
-        });
-
-        location.replace("./dashboard.html");
-      } catch (error) {
-        console.error("Profile save error:", error);
+        }, { merge: true });
 
         showMessage(
-          "Your profile couldn't be saved. Check your Firestore rules and try again."
+          "Your profile has been saved. Opening your dashboard…",
+          "success"
         );
 
-        saveButton.disabled = false;
-        saveButton.innerHTML =
-          'Save and continue <i data-lucide="arrow-right" size="17"></i>';
+        showLoading(
+          "You're all set!",
+          "Your profile is saved. Opening your dashboard…"
+        );
 
-        if (window.lucide) window.lucide.createIcons();
+        window.location.replace("./dashboard.html");
+      } catch (error) {
+        console.error("WAYMARK onboarding save error:", error);
+
+        showForm();
+
+        showMessage(
+          `We couldn't save your profile. ${getFriendlyError(error)}`,
+          "error"
+        );
+
+        setSaving(false);
       }
     });
 
-    document.querySelector("#signout-button").addEventListener("click", async () => {
+    $("signout-button").addEventListener("click", async () => {
+      if (isSigningOut || isSaving) return;
+
+      isSigningOut = true;
+      $("signout-button").disabled = true;
+
       try {
         await signOut(auth);
-        location.replace("./login.html");
+        window.location.replace("./login.html");
       } catch (error) {
-        console.error("Sign-out error:", error);
-        showMessage("We couldn't sign you out. Please try again.");
+        console.error("WAYMARK sign-out error:", error);
+
+        isSigningOut = false;
+        $("signout-button").disabled = false;
+
+        showMessage(
+          `We couldn't sign you out. ${getFriendlyError(error)}`,
+          "error"
+        );
       }
     });
 
-    if (window.lucide) window.lucide.createIcons();
+    // wait for Firebase to confirm the user's authentication state
+    onAuthStateChanged(auth, async (user) => {
+      authResolved = true;
+
+      if (isSaving || isSigningOut) return;
+
+      if (!user) {
+        currentUser = null;
+        profileLoaded = false;
+
+        showLoading(
+          "Sign-in required",
+          "Redirecting you to the sign-in page…"
+        );
+
+        window.location.replace("./login.html");
+        return;
+      }
+
+      // do not redirect because of a Firestore read error
+      await loadProfile(user);
+    });
   </script>
 </body>
 </html>
