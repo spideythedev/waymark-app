@@ -1,0 +1,73 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownsUser(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read: if ownsUser(userId);
+
+      allow create: if ownsUser(userId)
+        && request.resource.data.keys().hasOnly([
+          'name',
+          'email',
+          'phoneNumber',
+          'stage',
+          'classLevel',
+          'stream',
+          'state',
+          'interests',
+          'careerGoals',
+          'onboardingComplete',
+          'createdAt',
+          'updatedAt'
+        ]);
+
+      allow update: if ownsUser(userId)
+        && request.resource.data.diff(resource.data)
+          .affectedKeys()
+          .hasOnly([
+            'name',
+            'phoneNumber',
+            'stage',
+            'classLevel',
+            'stream',
+            'state',
+            'interests',
+            'careerGoals',
+            'onboardingComplete',
+            'updatedAt'
+          ]);
+
+      allow delete: if ownsUser(userId);
+
+      match /saved/{itemId} {
+        allow read, create, update, delete: if ownsUser(userId);
+      }
+
+      match /roadmaps/{roadmapId} {
+        allow read, create, update, delete: if ownsUser(userId);
+      }
+
+      match /guidanceHistory/{requestId} {
+        allow read, create, delete: if ownsUser(userId);
+        allow update: if false;
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if ownsUser(userId);
+        allow create, update, delete: if false;
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
