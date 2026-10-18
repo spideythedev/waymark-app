@@ -2,1620 +2,271 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta
-    name="description"
-    content="WAYMARK is being built to help students in India navigate education, admissions, counselling, and career opportunities with evidence-based guidance."
-  >
-
-  <meta name="theme-color" content="#f8fafc">
-
-  <title>WAYMARK — Find Your Direction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="WAYMARK helps students explore education pathways, courses, colleges and opportunities in India.">
+  <title>WAYMARK — Find Your Way Forward</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      color-scheme: light;
-
-      --background: #f8fafc;
-      --surface: #ffffff;
-      --surface-soft: #f1f5f9;
-      --text: #172033;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --primary: #315efb;
-      --primary-dark: #2448d8;
-      --primary-soft: #edf2ff;
-      --green: #16845b;
-      --green-soft: #e9f8f0;
-      --radius: 22px;
-      --max-width: 1160px;
+      --blue: #245bdb;
+      --ink: #15213a;
+      --muted: #667085;
+      --line: #e8ecf3;
+      --surface: #f7f9fd;
     }
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 100px;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--background);
-      color: var(--text);
+      color: var(--ink);
+      background: white;
       font-family: "DM Sans", sans-serif;
-      -webkit-font-smoothing: antialiased;
     }
 
-    body.menu-open {
-      overflow: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button:focus-visible,
-    a:focus-visible {
-      outline: 3px solid rgba(49, 94, 251, 0.45);
-      outline-offset: 4px;
-    }
-
-    .container-wide {
-      width: min(calc(100% - 40px), var(--max-width));
-      margin-inline: auto;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(248, 250, 252, 0.94);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.85);
-      backdrop-filter: blur(16px);
-    }
-
-    .navbar-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+    .navbar {
+      min-height: 78px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 11px;
-      flex-shrink: 0;
-    }
-
-    .brand-mark {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      background: var(--primary);
-      color: white;
-    }
-
-    .brand-name {
-      font-family: "Manrope", sans-serif;
-      font-size: 21px;
-      font-weight: 800;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font: 800 23px "Manrope", sans-serif;
       letter-spacing: -1px;
     }
 
-    .brand-caption {
-      margin-top: -3px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 29px;
-    }
-
-    .nav-link {
-      padding: 10px 0;
-      color: #526078;
-      font-size: 13px;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--primary);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .button {
-      min-height: 44px;
-      padding: 0 18px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 9px;
-      border: 1px solid transparent;
-      border-radius: 12px;
-      font-family: "DM Sans", sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-    }
-
-    .button-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .button-primary:hover {
-      background: var(--primary-dark);
-      color: white;
-    }
-
-    .button-secondary {
-      border-color: var(--border);
-      background: white;
-      color: var(--text);
-    }
-
-    .button-secondary:hover {
-      border-color: #cbd5e1;
-      background: var(--surface-soft);
-    }
-
-    .menu-toggle {
-      width: 44px;
-      height: 44px;
-      display: none;
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
       place-items: center;
-      border: 1px solid var(--border);
+      color: white;
+      background: var(--blue);
       border-radius: 12px;
-      background: white;
-      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      border-radius: 10px;
+      padding: 12px 19px;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #1747ba;
+      border-color: #1747ba;
+    }
+
+    .btn-outline-secondary {
+      border-radius: 10px;
+      padding: 12px 19px;
+      font-weight: 700;
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 95px 0 82px;
-    }
-
-    .hero::before {
-      position: absolute;
-      top: 30px;
-      right: -160px;
-      width: 480px;
-      height: 480px;
-      border-radius: 50%;
-      background: radial-gradient(
-        circle,
-        rgba(49, 94, 251, 0.07),
-        transparent 68%
-      );
-      content: "";
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: center;
-      gap: 70px;
+      padding: 100px 0 88px;
+      background:
+        radial-gradient(ellipse at 85% 15%, #edf2ff 0, transparent 36%),
+        linear-gradient(180deg, #fff 0%, #fbfcff 100%);
     }
 
     .eyebrow {
-      width: fit-content;
       display: inline-flex;
+      gap: 8px;
       align-items: center;
-      gap: 9px;
       padding: 8px 12px;
-      border: 1px solid #dbe5ff;
-      border-radius: 100px;
-      background: var(--primary-soft);
-      color: #3153c7;
-      font-size: 11px;
+      border: 1px solid #dce6ff;
+      border-radius: 30px;
+      background: #f2f6ff;
+      color: var(--blue);
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.2px;
     }
 
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--primary);
+    h1 {
+      max-width: 790px;
+      margin: 24px auto;
+      font: 800 clamp(42px, 7vw, 76px)/1.08 "Manrope", sans-serif;
+      letter-spacing: -4px;
     }
 
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
+    h1 span { color: var(--blue); }
 
-    h1,
-    h2,
-    h3 {
-      font-family: "Manrope", sans-serif;
-      font-weight: 800;
-      letter-spacing: -1.8px;
-    }
-
-    .hero h1 {
-      max-width: 650px;
-      margin: 26px 0 22px;
-      font-size: clamp(42px, 5.1vw, 65px);
-      line-height: 1.1;
-    }
-
-    .hero h1 .highlight {
-      color: var(--primary);
-    }
-
-    .hero-description {
-      max-width: 510px;
-      margin-bottom: 29px;
+    .hero-copy {
+      max-width: 630px;
+      margin: 0 auto;
       color: var(--muted);
-      font-size: 16px;
-      line-height: 1.9;
+      font-size: 18px;
+      line-height: 1.8;
     }
 
     .hero-actions {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 12px;
+      margin-top: 32px;
     }
 
-    .hero-note {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.7;
-    }
+    .feature-section { padding: 78px 0; }
 
-    .hero-note svg {
-      flex-shrink: 0;
-      margin-top: 2px;
-      color: var(--green);
-    }
-
-    .hero-visual {
-      position: relative;
-      max-width: 470px;
-      width: 100%;
-      margin-inline: auto;
-    }
-
-    .visual-card {
-      position: relative;
-      overflow: hidden;
-      padding: 27px;
-      border: 1px solid var(--border);
-      border-radius: 25px;
-      background: var(--surface);
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.045);
-    }
-
-    .visual-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-      margin-bottom: 24px;
-    }
-
-    .visual-title {
-      margin-bottom: 5px;
-      font-family: "Manrope", sans-serif;
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .visual-subtitle {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .status-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 9px;
-      border-radius: 8px;
-      background: var(--surface-soft);
-      color: #526078;
-      font-size: 10px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .visual-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 17px 0;
-      border-top: 1px solid #edf0f5;
-    }
-
-    .visual-icon {
-      width: 43px;
-      height: 43px;
-      display: grid;
-      flex-shrink: 0;
-      place-items: center;
-      border-radius: 13px;
-      background: var(--primary-soft);
-      color: var(--primary);
-    }
-
-    .visual-item:nth-of-type(3) .visual-icon {
-      background: #fff4df;
-      color: #9b670c;
-    }
-
-    .visual-item:nth-of-type(4) .visual-icon {
-      background: var(--green-soft);
-      color: var(--green);
-    }
-
-    .visual-item-title {
-      margin-bottom: 5px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .visual-item-description {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    .visual-footer {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-top: 13px;
-      padding: 13px;
-      border-radius: 12px;
-      background: #f8fafc;
-      color: #526078;
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    .visual-footer svg {
-      flex-shrink: 0;
-      color: var(--green);
-    }
-
-    .section {
-      padding: 88px 0;
-    }
-
-    .section-white {
-      background: white;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-heading {
-      max-width: 650px;
-      margin: 0 auto 44px;
-      text-align: center;
-    }
-
-    .section-kicker {
-      margin-bottom: 12px;
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-    }
-
-    .section-heading h2 {
-      margin-bottom: 16px;
-      font-size: clamp(30px, 4vw, 43px);
-      line-height: 1.2;
-    }
-
-    .section-heading p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+    .section-title {
+      font: 800 clamp(28px, 4vw, 42px) "Manrope", sans-serif;
+      letter-spacing: -1.5px;
     }
 
     .feature-card {
-      padding: 27px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      height: 100%;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
       background: white;
-      transition:
-        border-color 0.2s ease,
-        transform 0.2s ease;
+      transition: border-color .2s, transform .2s;
     }
 
     .feature-card:hover {
+      border-color: #b8cbff;
       transform: translateY(-3px);
-      border-color: #c6d4ff;
     }
 
     .feature-icon {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       display: grid;
       place-items: center;
-      margin-bottom: 23px;
-      border: 1px solid #dfe7ff;
-      border-radius: 14px;
-      background: var(--primary-soft);
-      color: var(--primary);
-    }
-
-    .feature-card h3 {
-      margin-bottom: 11px;
-      font-size: 17px;
-      letter-spacing: -0.6px;
+      margin-bottom: 20px;
+      border-radius: 13px;
+      background: #edf2ff;
+      color: var(--blue);
     }
 
     .feature-card p {
-      margin-bottom: 0;
+      margin: 0;
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.9;
-    }
-
-    .feature-state {
-      display: inline-flex;
-      margin-top: 20px;
-      padding: 6px 9px;
-      border-radius: 8px;
-      background: #f1f5f9;
-      color: #64748b;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .principles-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      align-items: center;
-      gap: 75px;
-    }
-
-    .principles-copy h2 {
-      margin-bottom: 18px;
-      font-size: clamp(32px, 4vw, 44px);
-      line-height: 1.2;
-    }
-
-    .principles-copy > p {
-      margin-bottom: 24px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    .principle-list {
-      display: grid;
-      gap: 18px;
-    }
-
-    .principle {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-    }
-
-    .principle-check {
-      width: 27px;
-      height: 27px;
-      display: grid;
-      flex-shrink: 0;
-      place-items: center;
-      border-radius: 9px;
-      background: var(--green-soft);
-      color: var(--green);
-    }
-
-    .principle h3 {
-      margin-bottom: 5px;
-      font-size: 13px;
-      letter-spacing: -0.3px;
-    }
-
-    .principle p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .source-card {
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: white;
-    }
-
-    .source-card-heading {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    .source-card-heading h3 {
-      margin-bottom: 4px;
-      font-size: 16px;
-      letter-spacing: -0.5px;
-    }
-
-    .source-card-heading p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .source-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 15px 0;
-      border-top: 1px solid #edf0f5;
-    }
-
-    .source-name {
-      margin-bottom: 4px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .source-description {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 10px;
       line-height: 1.7;
     }
 
-    .source-link {
-      display: inline-flex;
-      flex-shrink: 0;
-      align-items: center;
-      gap: 5px;
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .source-link:hover {
-      color: var(--primary-dark);
-    }
-
-    .source-disclaimer {
-      margin: 15px 0 0;
-      padding: 13px;
-      border-radius: 10px;
-      background: var(--surface-soft);
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--line);
       color: var(--muted);
-      font-size: 10px;
-      line-height: 1.8;
-    }
-
-    .roadmap-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 17px;
-    }
-
-    .roadmap-step {
-      padding: 23px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: white;
-    }
-
-    .roadmap-number {
-      display: grid;
-      width: 36px;
-      height: 36px;
-      place-items: center;
-      margin-bottom: 19px;
-      border-radius: 11px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      font-family: "Manrope", sans-serif;
       font-size: 13px;
-      font-weight: 800;
     }
 
-    .roadmap-step h3 {
-      margin-bottom: 9px;
-      font-size: 14px;
-      letter-spacing: -0.5px;
-    }
-
-    .roadmap-step p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.9;
-    }
-
-    .closing {
-      padding: 70px 0;
-      background: #172033;
-      color: white;
-    }
-
-    .closing-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
-
-    .closing h2 {
-      max-width: 650px;
-      margin-bottom: 13px;
-      font-size: clamp(29px, 4vw, 43px);
-      line-height: 1.2;
-    }
-
-    .closing p {
-      max-width: 580px;
-      margin-bottom: 0;
-      color: #c1cad9;
-      font-size: 13px;
-      line-height: 1.9;
-    }
-
-    .closing .button {
-      flex-shrink: 0;
-    }
-
-    .site-footer {
-      padding: 30px 0;
-      background: white;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .footer-copy {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 10px;
-      line-height: 1.8;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .footer-links a:hover {
-      color: var(--primary);
-    }
-
-    .back-to-top {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 900;
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: white;
-      color: var(--text);
-      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.07);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(8px);
-      transition: 0.2s ease;
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    @media (min-width: 1400px) {
-      .hero {
-        padding-block: 115px 100px;
-      }
-    }
-
-    @media (max-width: 1000px) {
-      .nav-links {
-        gap: 17px;
-      }
-
-      .nav-actions .button {
-        padding-inline: 13px;
-      }
-
-      .hero-grid {
-        gap: 35px;
-      }
-
-      .hero h1 {
-        font-size: 49px;
-      }
-
-      .principles-grid {
-        gap: 40px;
-      }
-
-      .roadmap-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 760px) {
-      .container-wide {
-        width: min(calc(100% - 32px), var(--max-width));
-      }
-
-      .navbar-inner {
-        min-height: 68px;
-      }
-
-      .menu-toggle {
-        display: grid;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 68px;
-        right: 0;
-        left: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 4px;
-        padding: 18px 20px 25px;
-        border-bottom: 1px solid var(--border);
-        background: var(--background);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-8px);
-        transition: 0.2s ease;
-      }
-
-      .nav-links.open {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-
-      .nav-link {
-        padding: 13px 10px;
-        border-radius: 9px;
-      }
-
-      .nav-link:hover {
-        background: white;
-      }
-
-      .nav-actions {
-        display: none;
-      }
-
-      .hero {
-        padding: 67px 0 64px;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 43px;
-      }
-
-      .hero h1 {
-        max-width: 570px;
-        font-size: clamp(41px, 10vw, 58px);
-      }
-
-      .hero-description {
-        font-size: 14px;
-      }
-
-      .hero-visual {
-        max-width: 520px;
-      }
-
-      .section {
-        padding: 66px 0;
-      }
-
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .feature-card {
-        padding: 24px;
-      }
-
-      .feature-icon {
-        margin-bottom: 17px;
-      }
-
-      .principles-grid {
-        grid-template-columns: 1fr;
-        gap: 38px;
-      }
-
-      .closing-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .closing {
-        padding: 55px 0;
-      }
-
-      .footer-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .brand-mark {
-        width: 37px;
-        height: 37px;
-      }
-
-      .brand-name {
-        font-size: 19px;
-      }
-
-      .hero-actions {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .hero-actions .button {
-        width: 100%;
-      }
-
-      .visual-card {
-        padding: 20px;
-      }
-
-      .visual-top {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .roadmap-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .source-card {
-        padding: 20px;
-      }
-
-      .footer-links {
-        gap: 14px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+    @media (max-width: 576px) {
+      .hero { padding: 70px 0 60px; }
+      h1 { letter-spacing: -2px; }
+      .hero-copy { font-size: 16px; }
     }
   </style>
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container-wide">
-      <nav class="navbar-inner" aria-label="Main navigation">
-        <a class="brand" href="#home" aria-label="WAYMARK home">
-          <span class="brand-mark">
-            <i data-lucide="compass" width="22" height="22"></i>
-          </span>
+  <nav class="navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="brand" href="index.html">
+        <span class="brand-icon"><i data-lucide="compass"></i></span>
+        WAYMARK
+      </a>
 
-          <span>
-            <span class="brand-name d-block">WAYMARK</span>
-            <span class="brand-caption d-block">Find your direction</span>
-          </span>
-        </a>
-
-        <div class="nav-links" id="navigation">
-          <a class="nav-link" href="#how-it-works">How it works</a>
-          <a class="nav-link" href="#principles">Our principles</a>
-          <a class="nav-link" href="#sources">Official sources</a>
-          <a class="nav-link" href="#roadmap">Our roadmap</a>
-        </div>
-
-        <div class="nav-actions">
-          <a class="button button-secondary" href="#principles">
-            Our promise
-          </a>
-
-          <a class="button button-primary" href="#how-it-works">
-            Explore WAYMARK
-            <i data-lucide="arrow-up-right" width="16" height="16"></i>
-          </a>
-        </div>
-
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-          type="button"
-          aria-label="Open navigation menu"
-          aria-expanded="false"
-          aria-controls="navigation"
-        >
-          <i data-lucide="menu" width="21" height="21"></i>
-        </button>
-      </nav>
+      <a href="login.html" class="btn btn-primary">
+        Log in <i data-lucide="arrow-up-right" width="16"></i>
+      </a>
     </div>
-  </header>
+  </nav>
 
   <main>
-    <section class="hero" id="home">
-      <div class="container-wide">
-        <div class="hero-grid">
-          <div>
-            <div class="eyebrow">
-              <span class="eyebrow-dot"></span>
-              Built around the student's journey
-            </div>
-
-            <h1>
-              Your future isn't one-size-fits-all.
-              <span class="highlight">Your guidance shouldn't be either.</span>
-            </h1>
-
-            <p class="hero-description">
-              Education, admissions and career decisions can be
-              complicated. WAYMARK is being built to help students
-              in India understand their options and find opportunities
-              that fit their actual qualifications, preferences and goals.
-            </p>
-
-            <div class="hero-actions">
-              <a class="button button-primary" href="#how-it-works">
-                Discover the approach
-                <i data-lucide="arrow-right" width="17" height="17"></i>
-              </a>
-
-              <a class="button button-secondary" href="#principles">
-                Why WAYMARK?
-              </a>
-            </div>
-
-            <div class="hero-note">
-              <i data-lucide="shield-check" width="17" height="17"></i>
-
-              <span>
-                Our guiding principle: real information, transparent
-                uncertainty and no fabricated opportunities.
-              </span>
-            </div>
-          </div>
-
-          <div class="hero-visual">
-            <div class="visual-card">
-              <div class="visual-top">
-                <div>
-                  <div class="visual-title">A clearer path forward</div>
-                  <div class="visual-subtitle">
-                    The principles behind WAYMARK
-                  </div>
-                </div>
-
-                <span class="status-label">
-                  <i data-lucide="compass" width="13" height="13"></i>
-                  Our approach
-                </span>
-              </div>
-
-              <div class="visual-item">
-                <div class="visual-icon">
-                  <i data-lucide="user-round" width="21" height="21"></i>
-                </div>
-
-                <div>
-                  <div class="visual-item-title">
-                    Start with the student
-                  </div>
-
-                  <p class="visual-item-description">
-                    Understand qualifications, interests, constraints
-                    and goals before recommending options.
-                  </p>
-                </div>
-              </div>
-
-              <div class="visual-item">
-                <div class="visual-icon">
-                  <i data-lucide="search-check" width="21" height="21"></i>
-                </div>
-
-                <div>
-                  <div class="visual-item-title">
-                    Find evidence-backed options
-                  </div>
-
-                  <p class="visual-item-description">
-                    Use appropriate official sources for institutions,
-                    admission rules and opportunities.
-                  </p>
-                </div>
-              </div>
-
-              <div class="visual-item">
-                <div class="visual-icon">
-                  <i data-lucide="route" width="21" height="21"></i>
-                </div>
-
-                <div>
-                  <div class="visual-item-title">
-                    Make informed decisions
-                  </div>
-
-                  <p class="visual-item-description">
-                    Explain requirements, identify uncertainty and
-                    help students understand their next steps.
-                  </p>
-                </div>
-              </div>
-
-              <div class="visual-footer">
-                <i data-lucide="info" width="17" height="17"></i>
-
-                <span>
-                  These are product principles, not a claim that
-                  personalized recommendations are already available.
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-white" id="how-it-works">
-      <div class="container-wide">
-        <div class="section-heading">
-          <div class="section-kicker">The WAYMARK approach</div>
-
-          <h2>Guidance that starts with your reality.</h2>
-
-          <p>
-            Students have different qualifications, budgets, locations
-            and ambitions. The goal is to make guidance relevant to
-            those differences instead of offering the same generic list
-            to everyone.
-          </p>
+    <section class="hero text-center">
+      <div class="container">
+        <div class="eyebrow">
+          <i data-lucide="route" width="16"></i>
+          Your next chapter starts here
         </div>
 
-        <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-icon">
-              <i data-lucide="user-round-search" width="23" height="23"></i>
-            </div>
+        <h1>Find your way.<br><span>Build your future.</span></h1>
 
-            <h3>Understand your situation</h3>
+        <p class="hero-copy">
+          Explore education pathways, understand course requirements,
+          discover colleges and find opportunities that fit your goals.
+          Make informed decisions about what comes next.
+        </p>
 
-            <p>
-              Build a picture of your current education level,
-              qualifications, interests, preferences and practical
-              constraints before evaluating opportunities.
-            </p>
-
-            <span class="feature-state">Planned capability</span>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">
-              <i data-lucide="landmark" width="23" height="23"></i>
-            </div>
-
-            <h3>Explore real opportunities</h3>
-
-            <p>
-              Build a traceable information layer for universities,
-              colleges, courses, admission processes, counselling
-              and career opportunities.
-            </p>
-
-            <span class="feature-state">Data integration in development</span>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">
-              <i data-lucide="git-compare" width="23" height="23"></i>
-            </div>
-
-            <h3>Match with your conditions</h3>
-
-            <p>
-              Compare available requirements against your actual
-              profile. Explain why an option fits, what remains
-              uncertain and which alternatives may be worth exploring.
-            </p>
-
-            <span class="feature-state">Planned capability</span>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="principles">
-      <div class="container-wide">
-        <div class="principles-grid">
-          <div class="principles-copy">
-            <div class="section-kicker">Trust before technology</div>
-
-            <h2>Useful answers mean nothing without reliable information.</h2>
-
-            <p>
-              A convincing answer can still be wrong. WAYMARK is being
-              designed around evidence, source attribution and explicit
-              uncertainty—not merely the ability to generate an answer.
-            </p>
-
-            <div class="principle-list">
-              <div class="principle">
-                <div class="principle-check">
-                  <i data-lucide="check" width="16" height="16"></i>
-                </div>
-
-                <div>
-                  <h3>No invented opportunities</h3>
-
-                  <p>
-                    We won't fabricate colleges, fees, vacancies,
-                    deadlines or admission requirements.
-                  </p>
-                </div>
-              </div>
-
-              <div class="principle">
-                <div class="principle-check">
-                  <i data-lucide="check" width="16" height="16"></i>
-                </div>
-
-                <div>
-                  <h3>Sources matter</h3>
-
-                  <p>
-                    Factual information should be traceable to the
-                    appropriate source.
-                  </p>
-                </div>
-              </div>
-
-              <div class="principle">
-                <div class="principle-check">
-                  <i data-lucide="check" width="16" height="16"></i>
-                </div>
-
-                <div>
-                  <h3>Uncertainty stays visible</h3>
-
-                  <p>
-                    Unknown, outdated and unverified information
-                    must not be presented as confirmed fact.
-                  </p>
-                </div>
-              </div>
-
-              <div class="principle">
-                <div class="principle-check">
-                  <i data-lucide="check" width="16" height="16"></i>
-                </div>
-
-                <div>
-                  <h3>Eligibility is not a guess</h3>
-
-                  <p>
-                    Student recommendations must account for actual
-                    requirements and clearly explain missing evidence.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="source-card" id="sources">
-            <div class="source-card-heading">
-              <div class="feature-icon mb-0">
-                <i data-lucide="library-big" width="22" height="22"></i>
-              </div>
-
-              <div>
-                <h3>Official information sources</h3>
-
-                <p>Starting points for future integrations</p>
-              </div>
-            </div>
-
-            <div class="source-row">
-              <div>
-                <div class="source-name">
-                  University Grants Commission
-                </div>
-
-                <p class="source-description">
-                  University directory and higher-education information.
-                </p>
-              </div>
-
-              <a
-                class="source-link"
-                href="https://www.ugc.gov.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit
-                <i data-lucide="external-link" width="13" height="13"></i>
-              </a>
-            </div>
-
-            <div class="source-row">
-              <div>
-                <div class="source-name">
-                  JoSAA
-                </div>
-
-                <p class="source-description">
-                  Joint seat allocation and official counselling notices.
-                </p>
-              </div>
-
-              <a
-                class="source-link"
-                href="https://josaa.nic.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit
-                <i data-lucide="external-link" width="13" height="13"></i>
-              </a>
-            </div>
-
-            <div class="source-row">
-              <div>
-                <div class="source-name">
-                  National Career Service
-                </div>
-
-                <p class="source-description">
-                  Employment services and career-related information.
-                </p>
-              </div>
-
-              <a
-                class="source-link"
-                href="https://www.ncs.gov.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit
-                <i data-lucide="external-link" width="13" height="13"></i>
-              </a>
-            </div>
-
-            <div class="source-row">
-              <div>
-                <div class="source-name">
-                  Medical Counselling Committee
-                </div>
-
-                <p class="source-description">
-                  Official medical counselling information and notices.
-                </p>
-              </div>
-
-              <a
-                class="source-link"
-                href="https://mcc.nic.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit
-                <i data-lucide="external-link" width="13" height="13"></i>
-              </a>
-            </div>
-
-            <p class="source-disclaimer">
-              These are official source entry points, not a claim that
-              WAYMARK has imported, verified or synchronized their data.
-              Always consult the applicable official notice for current
-              requirements and deadlines.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-white" id="roadmap">
-      <div class="container-wide">
-        <div class="section-heading">
-          <div class="section-kicker">Building in the right order</div>
-
-          <h2>From reliable data to meaningful guidance.</h2>
-
-          <p>
-            Each stage depends on the previous one. We will not advertise
-            a capability as available until it has actually been built
-            and tested.
-          </p>
-        </div>
-
-        <div class="roadmap-grid">
-          <article class="roadmap-step">
-            <div class="roadmap-number">01</div>
-
-            <h3>Establish the data layer</h3>
-
-            <p>
-              Identify legitimate sources, obtain real datasets,
-              validate records and preserve provenance.
-            </p>
-          </article>
-
-          <article class="roadmap-step">
-            <div class="roadmap-number">02</div>
-
-            <h3>Build student profiles</h3>
-
-            <p>
-              Implement authentication, secure profile storage and
-              relevant student preferences.
-            </p>
-          </article>
-
-          <article class="roadmap-step">
-            <div class="roadmap-number">03</div>
-
-            <h3>Implement matching</h3>
-
-            <p>
-              Evaluate qualifications, requirements, constraints
-              and verified eligibility information.
-            </p>
-          </article>
-
-          <article class="roadmap-step">
-            <div class="roadmap-number">04</div>
-
-            <h3>Add AI guidance</h3>
-
-            <p>
-              Use source-backed information to explain choices,
-              answer questions and help students plan next steps.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="closing">
-      <div class="container-wide">
-        <div class="closing-inner">
-          <div>
-            <h2>Every student deserves to understand their options.</h2>
-
-            <p>
-              WAYMARK's mission is to make education and career
-              information easier to navigate, with guidance that
-              respects each student's actual circumstances.
-            </p>
-          </div>
-
-          <a class="button button-primary" href="#home">
-            Back to the beginning
-            <i data-lucide="arrow-up-right" width="17" height="17"></i>
+        <div class="hero-actions">
+          <a href="login.html" class="btn btn-primary btn-lg">
+            Get started <i data-lucide="arrow-right" width="18"></i>
           </a>
+
+          <a href="#features" class="btn btn-outline-secondary btn-lg">
+            Explore WAYMARK
+          </a>
+        </div>
+
+        <p class="small text-secondary mt-4 mb-0">
+          Built for students navigating their next education decision.
+        </p>
+      </div>
+    </section>
+
+    <section class="feature-section" id="features">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Your decisions, in one place.</h2>
+          <p class="text-secondary mt-3">
+            A connected workspace for exploring your options.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <article class="feature-card">
+              <div class="feature-icon"><i data-lucide="graduation-cap"></i></div>
+              <h3 class="h5 fw-bold">Explore education</h3>
+              <p>Discover courses and institutions using available, identifiable education sources.</p>
+            </article>
+          </div>
+
+          <div class="col-md-4">
+            <article class="feature-card">
+              <div class="feature-icon"><i data-lucide="brain-circuit"></i></div>
+              <h3 class="h5 fw-bold">Understand your options</h3>
+              <p>Get explanations and comparisons that distinguish verified facts from AI-generated guidance.</p>
+            </article>
+          </div>
+
+          <div class="col-md-4">
+            <article class="feature-card">
+              <div class="feature-icon"><i data-lucide="map"></i></div>
+              <h3 class="h5 fw-bold">Plan your next steps</h3>
+              <p>Organize your goals and keep your education planning connected to your profile.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container-wide">
-      <div class="footer-inner">
-        <div>
-          <a class="brand" href="#home" aria-label="WAYMARK home">
-            <span class="brand-mark">
-              <i data-lucide="compass" width="21" height="21"></i>
-            </span>
-
-            <span class="brand-name">WAYMARK</span>
-          </a>
-
-          <p class="footer-copy">
-            An education and opportunity guidance platform in development.
-            <br>
-            © <span id="currentYear"></span> WAYMARK. All rights reserved.
-          </p>
-        </div>
-
-        <div class="footer-links">
-          <a href="#how-it-works">How it works</a>
-          <a href="#principles">Our principles</a>
-          <a href="#sources">Official sources</a>
-          <a href="#home">Back to top</a>
-        </div>
-      </div>
+  <footer>
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+      <span>© <span id="year"></span> WAYMARK</span>
+      <span>Make informed decisions. Move forward with confidence.</span>
     </div>
   </footer>
 
-  <button
-    class="back-to-top"
-    id="backToTop"
-    type="button"
-    aria-label="Back to top"
-  >
-    <i data-lucide="arrow-up" width="19" height="19"></i>
-  </button>
-
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <script>
-    (() => {
-      const menuToggle = document.getElementById("menuToggle");
-      const navigation = document.getElementById("navigation");
-      const backToTop = document.getElementById("backToTop");
-      const currentYear = document.getElementById("currentYear");
-
-      function closeMenu() {
-        navigation.classList.remove("open");
-        document.body.classList.remove("menu-open");
-
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation menu");
-
-        menuToggle.innerHTML = '<i data-lucide="menu" width="21" height="21"></i>';
-
-        if (window.lucide) {
-          window.lucide.createIcons();
-        }
-      }
-
-      menuToggle.addEventListener("click", () => {
-        const isOpen = navigation.classList.toggle("open");
-
-        document.body.classList.toggle("menu-open", isOpen);
-
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-        menuToggle.setAttribute(
-          "aria-label",
-          isOpen ? "Close navigation menu" : "Open navigation menu"
-        );
-
-        menuToggle.innerHTML = isOpen
-          ? '<i data-lucide="x" width="21" height="21"></i>'
-          : '<i data-lucide="menu" width="21" height="21"></i>';
-
-        if (window.lucide) {
-          window.lucide.createIcons();
-        }
-      });
-
-      navigation.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", closeMenu);
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          closeMenu();
-        }
-      });
-
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 760) {
-          closeMenu();
-        }
-      });
-
-      window.addEventListener(
-        "scroll",
-        () => {
-          backToTop.classList.toggle("visible", window.scrollY > 500);
-        },
-        { passive: true }
-      );
-
-      backToTop.addEventListener("click", () => {
-        window.scrollTo({
-          top: 0,
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "auto"
-            : "smooth"
-        });
-      });
-
-      currentYear.textContent = new Date().getFullYear();
-
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
-    })();
+    document.getElementById("year").textContent = new Date().getFullYear();
+    lucide.createIcons();
   </script>
 </body>
 </html>
