@@ -1,5 +1,686 @@
 {
-  "version": "1.0.0",
-  "lastUpdated": null,
-  "records": []
+  "version": "1.1.0",
+  "lastUpdated": "2026-10-18",
+  "metadata": {
+    "name": "WAYMARK Education Directory",
+    "description": "A starter directory of Indian universities for education discovery.",
+    "country": "India",
+    "maintainer": "WAYMARK",
+    "recordType": "university",
+    "limitations": [
+      "This is a starter dataset, not a complete directory of Indian higher education institutions.",
+      "Institutional details and admission information should be confirmed with official sources.",
+      "No fees, admission deadlines, rankings, or eligibility criteria are asserted by this dataset."
+    ]
+  },
+  "records": [
+    {
+      "id": "anna-university",
+      "name": "Anna University",
+      "type": "State University",
+      "description": "A public university in Chennai, Tamil Nadu, known for engineering, technology, and related academic fields.",
+      "state": "Tamil Nadu",
+      "city": "Chennai",
+      "officialUrl": "https://www.annauniv.edu/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "engineering",
+        "technology",
+        "science",
+        "Tamil Nadu",
+        "public university"
+      ]
+    },
+    {
+      "id": "university-of-madras",
+      "name": "University of Madras",
+      "type": "State University",
+      "description": "A public university based in Chennai, Tamil Nadu, offering higher education and research across multiple disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Chennai",
+      "officialUrl": "https://www.unom.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "research",
+        "humanities",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "alagappa-university",
+      "name": "Alagappa University",
+      "type": "State University",
+      "description": "A public university located in Karaikudi, Tamil Nadu, offering higher education and research in multiple academic disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Karaikudi",
+      "officialUrl": "https://alagappauniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "management",
+        "research",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "annamalai-university",
+      "name": "Annamalai University",
+      "type": "State University",
+      "description": "A public university located in Annamalainagar, Tamil Nadu, with academic programmes across multiple disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Annamalainagar",
+      "officialUrl": "https://annamalaiuniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "engineering",
+        "agriculture",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "bharathiar-university",
+      "name": "Bharathiar University",
+      "type": "State University",
+      "description": "A public university based in Coimbatore, Tamil Nadu, supporting postgraduate education and research across several disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Coimbatore",
+      "officialUrl": "https://b-u.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "research",
+        "management",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "bharathidasan-university",
+      "name": "Bharathidasan University",
+      "type": "State University",
+      "description": "A public university in Tiruchirappalli, Tamil Nadu, offering higher education and research in a range of disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Tiruchirappalli",
+      "officialUrl": "https://www.bdu.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "research",
+        "humanities",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "madurai-kamaraj-university",
+      "name": "Madurai Kamaraj University",
+      "type": "State University",
+      "description": "A public university in Madurai, Tamil Nadu, providing higher education and supporting academic research.",
+      "state": "Tamil Nadu",
+      "city": "Madurai",
+      "officialUrl": "https://mkuniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "research",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "periyar-university",
+      "name": "Periyar University",
+      "type": "State University",
+      "description": "A public university located in Salem, Tamil Nadu, offering higher education and research across multiple disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Salem",
+      "officialUrl": "https://www.periyaruniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "research",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "manonmaniam-sundaranar-university",
+      "name": "Manonmaniam Sundaranar University",
+      "type": "State University",
+      "description": "A public university located in Tirunelveli, Tamil Nadu, serving higher education and research needs in southern Tamil Nadu.",
+      "state": "Tamil Nadu",
+      "city": "Tirunelveli",
+      "officialUrl": "https://www.msuniv.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "research",
+        "Tamil Nadu",
+        "southern Tamil Nadu"
+      ]
+    },
+    {
+      "id": "tamil-nadu-agricultural-university",
+      "name": "Tamil Nadu Agricultural University",
+      "type": "State University",
+      "description": "A public agricultural university in Coimbatore, Tamil Nadu, focused on agricultural education, research, and related fields.",
+      "state": "Tamil Nadu",
+      "city": "Coimbatore",
+      "officialUrl": "https://tnau.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "agriculture",
+        "agricultural science",
+        "research",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "jawaharlal-nehru-university",
+      "name": "Jawaharlal Nehru University",
+      "type": "Central University",
+      "description": "A central university in New Delhi with academic and research programmes across several disciplines.",
+      "state": "Delhi",
+      "city": "New Delhi",
+      "officialUrl": "https://www.jnu.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "humanities",
+        "social sciences",
+        "languages",
+        "research",
+        "Delhi"
+      ]
+    },
+    {
+      "id": "university-of-delhi",
+      "name": "University of Delhi",
+      "type": "Central University",
+      "description": "A central university in Delhi with undergraduate, postgraduate, and research education across a broad range of disciplines.",
+      "state": "Delhi",
+      "city": "Delhi",
+      "officialUrl": "https://www.du.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "commerce",
+        "science",
+        "humanities",
+        "Delhi"
+      ]
+    },
+    {
+      "id": "banaras-hindu-university",
+      "name": "Banaras Hindu University",
+      "type": "Central University",
+      "description": "A central university in Varanasi, Uttar Pradesh, with education and research across a wide range of academic and professional disciplines.",
+      "state": "Uttar Pradesh",
+      "city": "Varanasi",
+      "officialUrl": "https://www.bhu.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "medicine",
+        "engineering",
+        "Uttar Pradesh"
+      ]
+    },
+    {
+      "id": "aligarh-muslim-university",
+      "name": "Aligarh Muslim University",
+      "type": "Central University",
+      "description": "A central university in Aligarh, Uttar Pradesh, providing education and research across a variety of disciplines.",
+      "state": "Uttar Pradesh",
+      "city": "Aligarh",
+      "officialUrl": "https://www.amu.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "engineering",
+        "medicine",
+        "arts",
+        "science",
+        "Uttar Pradesh"
+      ]
+    },
+    {
+      "id": "university-of-hyderabad",
+      "name": "University of Hyderabad",
+      "type": "Central University",
+      "description": "A central university in Hyderabad, Telangana, known for postgraduate education and research across multiple disciplines.",
+      "state": "Telangana",
+      "city": "Hyderabad",
+      "officialUrl": "https://uohyd.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "humanities",
+        "social sciences",
+        "research",
+        "Telangana"
+      ]
+    },
+    {
+      "id": "andhra-university",
+      "name": "Andhra University",
+      "type": "State University",
+      "description": "A public university in Visakhapatnam, Andhra Pradesh, offering education and research in multiple academic disciplines.",
+      "state": "Andhra Pradesh",
+      "city": "Visakhapatnam",
+      "officialUrl": "https://www.andhrauniversity.edu.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "engineering",
+        "science",
+        "arts",
+        "research",
+        "Andhra Pradesh"
+      ]
+    },
+    {
+      "id": "acharya-nagarjuna-university",
+      "name": "Acharya Nagarjuna University",
+      "type": "State University",
+      "description": "A public university in Andhra Pradesh providing higher education and research across multiple disciplines.",
+      "state": "Andhra Pradesh",
+      "city": "Guntur",
+      "officialUrl": "https://www.nagarjunauniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "commerce",
+        "Andhra Pradesh"
+      ]
+    },
+    {
+      "id": "university-of-kerala",
+      "name": "University of Kerala",
+      "type": "State University",
+      "description": "A public university based in Thiruvananthapuram, Kerala, supporting higher education and research across multiple disciplines.",
+      "state": "Kerala",
+      "city": "Thiruvananthapuram",
+      "officialUrl": "https://www.keralauniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "research",
+        "Kerala"
+      ]
+    },
+    {
+      "id": "cochin-university-science-technology",
+      "name": "Cochin University of Science and Technology",
+      "type": "State University",
+      "description": "A public university in Kochi, Kerala, with a strong focus on science, technology, engineering, and research.",
+      "state": "Kerala",
+      "city": "Kochi",
+      "officialUrl": "https://cusat.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "technology",
+        "engineering",
+        "research",
+        "Kerala"
+      ]
+    },
+    {
+      "id": "university-of-calcutta",
+      "name": "University of Calcutta",
+      "type": "State University",
+      "description": "A public university in Kolkata, West Bengal, offering education and research across a range of disciplines.",
+      "state": "West Bengal",
+      "city": "Kolkata",
+      "officialUrl": "https://www.caluniv.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "commerce",
+        "research",
+        "West Bengal"
+      ]
+    },
+    {
+      "id": "savitribai-phule-pune-university",
+      "name": "Savitribai Phule Pune University",
+      "type": "State University",
+      "description": "A public university in Pune, Maharashtra, providing higher education and research in many academic disciplines.",
+      "state": "Maharashtra",
+      "city": "Pune",
+      "officialUrl": "https://www.unipune.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "commerce",
+        "research",
+        "Maharashtra"
+      ]
+    },
+    {
+      "id": "university-of-mysore",
+      "name": "University of Mysore",
+      "type": "State University",
+      "description": "A public university in Mysuru, Karnataka, offering education and research across multiple disciplines.",
+      "state": "Karnataka",
+      "city": "Mysuru",
+      "officialUrl": "https://uni-mysore.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "research",
+        "Karnataka"
+      ]
+    },
+    {
+      "id": "gujarat-university",
+      "name": "Gujarat University",
+      "type": "State University",
+      "description": "A public university in Ahmedabad, Gujarat, offering higher education across several academic disciplines.",
+      "state": "Gujarat",
+      "city": "Ahmedabad",
+      "officialUrl": "https://www.gujaratuniversity.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "science",
+        "arts",
+        "commerce",
+        "Gujarat"
+      ]
+    },
+    {
+      "id": "university-of-rajasthan",
+      "name": "University of Rajasthan",
+      "type": "State University",
+      "description": "A public university based in Jaipur, Rajasthan, providing higher education and research in several disciplines.",
+      "state": "Rajasthan",
+      "city": "Jaipur",
+      "officialUrl": "https://www.uniraj.ac.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "arts",
+        "science",
+        "commerce",
+        "Rajasthan"
+      ]
+    },
+    {
+      "id": "amrita-vishwa-vidyapeetham",
+      "name": "Amrita Vishwa Vidyapeetham",
+      "type": "Deemed University",
+      "description": "A deemed-to-be university with campuses in India and academic programmes across multiple disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Coimbatore",
+      "officialUrl": "https://www.amrita.edu/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "engineering",
+        "medicine",
+        "science",
+        "technology",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "srm-institute-science-technology",
+      "name": "SRM Institute of Science and Technology",
+      "type": "Deemed University",
+      "description": "A deemed-to-be university with its main campus in Kattankulathur, Tamil Nadu, offering programmes in engineering, science, medicine, and other disciplines.",
+      "state": "Tamil Nadu",
+      "city": "Kattankulathur",
+      "officialUrl": "https://www.srmist.edu.in/",
+      "source": {
+        "id": "ugc-hei-directory",
+        "name": "University Grants Commission",
+        "url": "https://www.ugc.gov.in/studentcorner"
+      },
+      "verification": {
+        "status": "official",
+        "method": "Institution website and UGC directory reference",
+        "checkedAt": "2026-10-18"
+      },
+      "tags": [
+        "engineering",
+        "technology",
+        "medicine",
+        "science",
+        "Tamil Nadu"
+      ]
+    }
+  ]
 }
