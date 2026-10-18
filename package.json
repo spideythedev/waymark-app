@@ -1,0 +1,13 @@
+{
+  "name": "waymark",
+  "version": "2.0.0",
+  "private": true,
+  "description": "An AI-powered education and opportunity guidance platform for India.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check:imports": "node --input-type=module -e \"await import('./lib/config.js'); await import('./lib/validation.js'); await import('./lib/auth.js'); await import('./lib/data-service.js'); await import('./lib/ai-service.js'); console.log('WAYMARK backend modules loaded successfully.')\""
+  }
+}
