@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="WAYMARK helps students explore education pathways and make informed decisions with source-aware guidance.">
+  <title>WAYMARK — Find Your Direction</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --surface: #f7f9fc;
+      --ink: #152238;
+      --muted: #64748b;
+      --line: #e7ebf2;
+      --primary: #2855d9;
+      --primary-dark: #1d43b8;
+      --soft-blue: #edf3ff;
+      --green: #16835d;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-family: Manrope, sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--primary);
+      border-radius: 12px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, transform .18s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: white;
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 64px;
+      padding: 90px 0 78px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      color: var(--primary);
+      background: var(--soft-blue);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin: 22px 0;
+      font-family: Manrope, sans-serif;
+      font-size: clamp(40px, 5.5vw, 65px);
+      line-height: 1.08;
+      letter-spacing: -3px;
+    }
+
+    h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .fine-print {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .visual {
+      position: relative;
+      padding: 25px;
+      background: linear-gradient(145deg, #f1f5ff, #fafcff);
+      border: 1px solid #e6ecfa;
+      border-radius: 28px;
+    }
+
+    .visual-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .visual-title {
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .path-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 17px;
+      margin-top: 12px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .path-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      flex-shrink: 0;
+      place-items: center;
+      color: var(--primary);
+      background: var(--soft-blue);
+      border-radius: 13px;
+    }
+
+    .path-card strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .path-card small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .path-arrow {
+      margin-left: auto;
+      color: #94a3b8;
+    }
+
+    .section {
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      max-width: 620px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 12px;
+      font-family: Manrope, sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -1.4px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      color: var(--primary);
+      background: var(--soft-blue);
+      border-radius: 14px;
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .feature p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .integrity {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 22px;
+      margin-top: 28px;
+      background: #f7fbf9;
+      border: 1px solid #d9eee4;
+      border-radius: 16px;
+    }
+
+    .integrity i {
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .integrity p {
+      margin: 0;
+      color: #48675a;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 60px 0;
+      }
+
+      .visual {
+        max-width: 540px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .navbar {
+        height: 68px;
+      }
+
+      .brand {
+        font-size: 19px;
+      }
+
+      .nav-actions .btn {
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 13px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      .visual {
+        padding: 15px;
+      }
+
+      .section {
+        padding: 52px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="container">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="./" aria-label="WAYMARK home">
+        <span class="brand-mark"><i data-lucide="compass"></i></span>
+        WAYMARK
+      </a>
+
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="./login.html">Log in</a>
+        <a class="btn btn-primary" href="./login.html?mode=signup">
+          Get started <i data-lucide="arrow-up-right" size="17"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <div class="eyebrow">
+          <i data-lucide="route" size="15"></i>
+          Your next chapter starts here
+        </div>
+
+        <h1>Make your next move with <span>clarity.</span></h1>
+
+        <p class="hero-copy">
+          Explore education pathways, understand your options, and organise
+          your next steps with a platform designed around your goals.
+          Your future deserves more than guesswork.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="./login.html?mode=signup">
+            Start your journey <i data-lucide="arrow-right" size="17"></i>
+          </a>
+          <a class="btn btn-secondary" href="#how-it-works">
+            Discover WAYMARK
+          </a>
+        </div>
+
+        <p class="fine-print">
+          Built for students making important education decisions.
+        </p>
+      </div>
+
+      <div class="visual" aria-label="Illustration of education pathways">
+        <div class="visual-top">
+          <div class="visual-title">Your possibilities</div>
+          <div class="status">
+            <i data-lucide="check-circle" size="15"></i>
+            Goal-oriented
+          </div>
+        </div>
+
+        <div class="path-card">
+          <div class="path-icon"><i data-lucide="graduation-cap"></i></div>
+          <div>
+            <strong>Education pathways</strong>
+            <small>Explore courses and study options</small>
+          </div>
+          <i class="path-arrow" data-lucide="chevron-right"></i>
+        </div>
+
+        <div class="path-card">
+          <div class="path-icon"><i data-lucide="calendar-check"></i></div>
+          <div>
+            <strong>Admissions & counselling</strong>
+            <small>Understand processes and next steps</small>
+          </div>
+          <i class="path-arrow" data-lucide="chevron-right"></i>
+        </div>
+
+        <div class="path-card">
+          <div class="path-icon"><i data-lucide="wallet"></i></div>
+          <div>
+            <strong>Scholarship opportunities</strong>
+            <small>Find information relevant to you</small>
+          </div>
+          <i class="path-arrow" data-lucide="chevron-right"></i>
+        </div>
+
+        <div class="path-card">
+          <div class="path-icon"><i data-lucide="map"></i></div>
+          <div>
+            <strong>Your personal roadmap</strong>
+            <small>Organise your next steps</small>
+          </div>
+          <i class="path-arrow" data-lucide="chevron-right"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="section-heading">
+          <h2>A clearer way forward</h2>
+          <p>
+            Bring your goals and questions together in one place.
+            Make informed decisions at your own pace.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon"><i data-lucide="search-check"></i></div>
+            <h3>Explore your options</h3>
+            <p>
+              Search education information and understand the different
+              pathways available to you.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i data-lucide="brain"></i></div>
+            <h3>Understand the details</h3>
+            <p>
+              Get guidance that distinguishes available evidence from
+              information that still needs verification.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i data-lucide="list-checks"></i></div>
+            <h3>Plan your next steps</h3>
+            <p>
+              Keep your goals and personal education details together
+              so your decisions are easier to organise.
+            </p>
+          </article>
+        </div>
+
+        <div class="integrity">
+          <i data-lucide="shield-check"></i>
+          <p>
+            <strong>Accuracy matters.</strong>
+            Education information can change. WAYMARK is being built to
+            distinguish registered official sources, connected data,
+            and verified records instead of presenting them as the same thing.
+            Always confirm important deadlines and eligibility with the
+            responsible official authority.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>WAYMARK</strong>
+        <span> · Fahad & Team — Arshath, Saajid, Nayeem, and Althaf</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="./login.html">Sign in</a>
+        <a href="https://www.ugc.gov.in/" target="_blank" rel="noopener noreferrer">UGC</a>
+        <a href="https://nta.ac.in/" target="_blank" rel="noopener noreferrer">NTA</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEvA6u-qaPVWX_hYgyd_rpn17DOgrgm8",
+      authDomain: "way-mark-app.firebaseapp.com",
+      projectId: "way-mark-app",
+      storageBucket: "way-mark-app.firebasestorage.app",
+      messagingSenderId: "746746866759",
+      appId: "1:746746866759:web:2fd78631f814d63c7e9562",
+      measurementId: "G-V0FYKMSJ93"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+
+      try {
+        const snapshot = await getDoc(doc(db, "users", user.uid));
+        const complete = snapshot.exists() &&
+          snapshot.data().onboardingComplete === true;
+
+        window.location.replace(
+          complete ? "./dashboard.html" : "./onboarding.html"
+        );
+      } catch (error) {
+        console.error("Could not load the student profile:", error);
+      }
+    });
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
