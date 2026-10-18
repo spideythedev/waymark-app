@@ -2,38 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Your personal WAYMARK education dashboard.">
+  <meta name="description" content="Your WAYMARK dashboard for education guidance, courses, colleges, admissions, and career opportunities.">
+
   <title>Dashboard — WAYMARK</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --ink: #152238;
-      --muted: #64748b;
-      --line: #e4e9f1;
-      --primary: #2855d9;
-      --primary-dark: #1d43b8;
-      --surface: #f7f9fc;
-      --sidebar: 250px;
-      --green: #16835d;
-      --amber: #95600c;
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #68758a;
+      --border: #e6eaf1;
+      --primary: #315efb;
+      --primary-hover: #2449d8;
+      --primary-soft: #eef2ff;
+      --green: #16835b;
+      --green-soft: #eaf8f1;
+      --orange: #b76a17;
+      --orange-soft: #fff4e6;
+      --purple: #7651cf;
+      --purple-soft: #f2edff;
+      --radius: 16px;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      color: var(--ink);
-      background: #f8faff;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
       font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 
     a {
@@ -42,51 +64,130 @@
     }
 
     button {
-      font: inherit;
+      cursor: pointer;
     }
 
-    .layout {
+    [hidden] {
+      display: none !important;
+    }
+
+    .loading-screen {
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .loading-card {
+      width: 100%;
+      max-width: 390px;
+      padding: 32px 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      margin: 0 auto 18px;
+      border: 3px solid #e7ecf6;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .loading-title {
+      margin: 0 0 8px;
+      font-family: "Manrope", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .loading-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    .loading-action {
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 18px;
+      padding: 11px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 246px minmax(0, 1fr);
       min-height: 100vh;
     }
 
     .sidebar {
-      position: fixed;
-      inset: 0 auto 0 0;
-      z-index: 20;
-      width: var(--sidebar);
+      position: sticky;
+      top: 0;
       display: flex;
+      height: 100vh;
       flex-direction: column;
-      padding: 22px 15px;
+      padding: 25px 17px 18px;
+      border-right: 1px solid var(--border);
       background: white;
-      border-right: 1px solid var(--line);
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 0 9px;
-      font: 800 21px Manrope, sans-serif;
-      letter-spacing: -.7px;
+      width: fit-content;
+      margin: 0 0 37px 7px;
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
       display: grid;
+      width: 39px;
+      height: 39px;
       place-items: center;
-      color: white;
-      background: var(--primary);
       border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-family: "Manrope", sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .brand-name {
+      font-family: "Manrope", sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .brand-name span {
+      color: var(--primary);
     }
 
     .nav-label {
-      padding: 0 12px;
-      margin: 33px 0 10px;
-      color: #94a3b8;
+      margin: 0 0 10px 11px;
+      color: #96a0b0;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 1.1px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
     }
 
@@ -96,183 +197,250 @@
     }
 
     .nav-link {
-      min-height: 43px;
       display: flex;
+      min-height: 43px;
       align-items: center;
       gap: 12px;
-      padding: 0 12px;
-      color: #64748b;
+      padding: 10px 12px;
+      border: 1px solid transparent;
       border-radius: 10px;
+      color: #637087;
       font-size: 13px;
-      font-weight: 700;
-      transition: background .15s, color .15s;
+      font-weight: 600;
+      transition: background 0.18s ease, color 0.18s ease;
     }
 
-    .nav-link.active,
     .nav-link:hover {
-      color: var(--primary);
-      background: #edf3ff;
+      background: #f7f8fc;
+      color: var(--text);
     }
 
-    .nav-link i {
-      width: 18px;
-      height: 18px;
+    .nav-link.active {
+      border-color: #e1e8ff;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .nav-icon {
+      display: grid;
+      width: 21px;
+      height: 21px;
+      flex-shrink: 0;
+      place-items: center;
+    }
+
+    .nav-icon svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
     }
 
     .sidebar-bottom {
       margin-top: auto;
-      padding: 15px 8px 0;
-      border-top: 1px solid var(--line);
     }
 
-    .account {
+    .profile-mini {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 3px;
-      min-width: 0;
+      padding: 14px 7px 0;
+      border-top: 1px solid var(--border);
     }
 
     .avatar {
-      width: 38px;
-      height: 38px;
       display: grid;
+      width: 39px;
+      height: 39px;
       flex-shrink: 0;
       place-items: center;
+      overflow: hidden;
+      border: 1px solid #e0e7ff;
+      border-radius: 50%;
+      background: var(--primary-soft);
       color: var(--primary);
-      background: #edf3ff;
-      border-radius: 12px;
+      font-size: 14px;
       font-weight: 800;
     }
 
-    .account-info {
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-mini-info {
       min-width: 0;
     }
 
-    .account-info strong,
-    .account-info small {
-      display: block;
+    .profile-mini-name {
       overflow: hidden;
+      max-width: 145px;
+      font-size: 12px;
+      font-weight: 700;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .account-info strong {
-      font-size: 12px;
-    }
-
-    .account-info small {
-      margin-top: 3px;
+    .profile-mini-email {
+      overflow: hidden;
+      max-width: 145px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .main {
-      min-height: 100vh;
-      margin-left: var(--sidebar);
+      min-width: 0;
     }
 
     .topbar {
-      height: 70px;
+      position: sticky;
+      z-index: 5;
+      top: 0;
       display: flex;
+      min-height: 76px;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
-      padding: 0 30px;
-      background: white;
-      border-bottom: 1px solid var(--line);
+      gap: 16px;
+      padding: 15px clamp(20px, 4vw, 48px);
+      border-bottom: 1px solid var(--border);
+      background: rgb(255 255 255 / 94%);
+      backdrop-filter: blur(12px);
     }
 
-    .breadcrumbs {
+    .breadcrumb {
       color: var(--muted);
       font-size: 12px;
     }
 
-    .breadcrumbs strong {
-      color: var(--ink);
+    .breadcrumb strong {
+      color: var(--text);
     }
 
-    .top-actions {
+    .topbar-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .icon-button {
-      width: 40px;
-      height: 40px;
       display: grid;
+      width: 39px;
+      height: 39px;
       place-items: center;
-      color: var(--muted);
-      background: white;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: 11px;
-      cursor: pointer;
+      background: white;
+      color: #56647a;
     }
 
     .icon-button:hover {
-      color: var(--primary);
-      background: var(--surface);
+      border-color: #cbd5e5;
+      background: #f8faff;
+    }
+
+    .icon-button svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
     }
 
     .content {
-      width: min(1150px, 100%);
-      padding: 32px 30px 50px;
+      width: 100%;
+      max-width: 1500px;
       margin: 0 auto;
+      padding: 35px clamp(20px, 4vw, 48px) 40px;
     }
 
     .welcome {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-bottom: 27px;
+      gap: 22px;
+      margin-bottom: 29px;
+      animation: appear 0.35s ease both;
+    }
+
+    .welcome-label {
+      margin-bottom: 11px;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     h1 {
-      margin: 0 0 9px;
-      font: 800 clamp(25px, 3vw, 33px)/1.2 Manrope, sans-serif;
-      letter-spacing: -1.2px;
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
     }
 
-    .welcome p {
-      margin: 0;
+    .welcome-description {
+      max-width: 550px;
+      margin: 12px 0 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
-    .date-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .date-badge {
+      flex-shrink: 0;
       padding: 10px 13px;
-      color: #52647c;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       background: white;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      font-size: 12px;
+      color: #58667a;
+      font-size: 11px;
       font-weight: 700;
     }
 
     .notice {
-      display: none;
-      padding: 13px 15px;
-      margin-bottom: 20px;
-      border: 1px solid #f1d8a7;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 23px;
+      padding: 15px 16px;
+      border: 1px solid #dfe7ff;
       border-radius: 12px;
-      color: #82540d;
-      background: #fff9eb;
-      font-size: 13px;
-      line-height: 1.7;
+      background: #f5f7ff;
+      color: #344d8e;
+      font-size: 12px;
+      line-height: 1.8;
     }
 
-    .notice.show {
+    .notice-icon {
+      display: grid;
+      width: 27px;
+      height: 27px;
+      flex-shrink: 0;
+      place-items: center;
+      border-radius: 8px;
+      background: #e4eaff;
+      font-size: 14px;
+    }
+
+    .notice strong {
       display: block;
+      margin-bottom: 2px;
+      font-size: 13px;
     }
 
-    .section-title {
+    .section-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -280,490 +448,854 @@
       margin: 30px 0 15px;
     }
 
-    .section-title h2 {
+    .section-heading h2 {
       margin: 0;
-      font: 800 17px Manrope, sans-serif;
-      letter-spacing: -.3px;
+      font-family: "Manrope", sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
     }
 
-    .section-title span {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .summary-card {
-      min-width: 0;
-      padding: 19px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-    }
-
-    .summary-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .summary-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      background: #edf3ff;
-      border-radius: 12px;
-    }
-
-    .summary-card small {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .summary-card h3 {
-      margin: 0 0 5px;
-      font-size: 15px;
-    }
-
-    .summary-card p {
-      margin: 0;
+    .section-heading p {
+      margin: 5px 0 0;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.7;
     }
 
-    .profile-panel {
+    .section-link {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .feature-grid {
       display: grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .feature-card {
+      display: flex;
+      min-width: 0;
+      min-height: 177px;
+      flex-direction: column;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: white;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd6f8;
+    }
+
+    .feature-icon {
+      display: grid;
+      width: 43px;
+      height: 43px;
+      place-items: center;
+      border-radius: 12px;
+      font-size: 19px;
+    }
+
+    .feature-icon.blue {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .feature-icon.green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .feature-icon.orange {
+      background: var(--orange-soft);
+      color: var(--orange);
+    }
+
+    .feature-icon.purple {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .feature-card h3 {
+      margin: 18px 0 7px;
+      font-family: "Manrope", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .feature-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 17px;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .feature-arrow span:last-child {
+      font-size: 16px;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
       gap: 16px;
+      margin-top: 29px;
     }
 
     .panel {
       min-width: 0;
       padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       background: white;
-      border: 1px solid var(--line);
-      border-radius: 16px;
     }
 
-    .panel-heading {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .panel-heading h3 {
+    .panel-title {
       margin: 0;
-      font-size: 14px;
-    }
-
-    .panel-heading i {
-      color: var(--primary);
-    }
-
-    .profile-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-      padding: 13px 0;
-      border-bottom: 1px solid #edf0f5;
-    }
-
-    .profile-item:last-child {
-      border-bottom: 0;
-    }
-
-    .profile-item span {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .profile-item strong {
-      max-width: 65%;
-      overflow-wrap: anywhere;
-      text-align: right;
-      font-size: 12px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 12px;
-    }
-
-    .tag {
-      padding: 6px 9px;
-      color: var(--primary);
-      background: #edf3ff;
-      border-radius: 8px;
-      font-size: 10px;
+      font-family: "Manrope", sans-serif;
+      font-size: 15px;
       font-weight: 800;
     }
 
-    .empty {
-      padding: 16px;
+    .panel-description {
+      margin: 8px 0 18px;
       color: var(--muted);
-      background: var(--surface);
-      border: 1px dashed #dbe2ed;
-      border-radius: 12px;
       font-size: 12px;
       line-height: 1.8;
     }
 
-    .source-row {
+    .quick-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quick-link {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid #edf0f5;
+      padding: 12px;
+      border: 1px solid #edf0f5;
+      border-radius: 11px;
+      transition: background 0.18s ease;
     }
 
-    .source-row:last-child {
-      border-bottom: 0;
+    .quick-link:hover {
+      background: #f8faff;
     }
 
-    .source-dot {
-      width: 9px;
-      height: 9px;
+    .quick-link-icon {
+      display: grid;
+      width: 35px;
+      height: 35px;
       flex-shrink: 0;
-      margin-top: 5px;
-      background: #c38a20;
-      border-radius: 50%;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--surface);
+      font-size: 15px;
     }
 
-    .source-row strong {
-      display: block;
+    .quick-link-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .quick-link-title {
       font-size: 12px;
+      font-weight: 700;
     }
 
-    .source-row small {
-      display: block;
+    .quick-link-description {
       margin-top: 4px;
       color: var(--muted);
-      font-size: 10px;
+      font-size: 11px;
       line-height: 1.6;
     }
 
-    .source-row a {
-      color: var(--primary);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+    .quick-link-arrow {
+      color: #8a96a8;
+      font-size: 17px;
+    }
+
+    .profile-details {
+      display: grid;
+      gap: 15px;
+    }
+
+    .detail {
+      padding-bottom: 13px;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .detail:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .detail-label {
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .detail-value {
+      font-size: 13px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .profile-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 43px;
+      margin-top: 21px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .profile-action:hover {
+      border-color: #cbd6f8;
+      background: #f8faff;
     }
 
     .footer {
       margin-top: 35px;
       padding-top: 20px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
+      border-top: 1px solid var(--border);
+      color: #8993a3;
       font-size: 11px;
       line-height: 1.8;
+      text-align: center;
     }
 
-    .mobile-menu {
+    .footer a {
+      color: #59677c;
+    }
+
+    .footer a:hover {
+      color: var(--primary);
+    }
+
+    .error-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .secondary-button {
+      border-color: var(--border);
+      background: white;
+      color: var(--text);
+    }
+
+    .signout-button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+      padding: 11px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: #68758a;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .signout-button:hover {
+      background: #fff1f1;
+      color: #c62828;
+    }
+
+    .mobile-brand {
       display: none;
     }
 
-    .loading {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    @media (max-width: 1000px) {
-      :root {
-        --sidebar: 215px;
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
       }
 
-      .summary-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .profile-panel {
-        grid-template-columns: 1fr;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 215px minmax(0, 1fr);
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .feature-card:last-child {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .app {
+        display: block;
+      }
+
       .sidebar {
-        transform: translateX(-100%);
-        transition: transform .2s ease;
-        box-shadow: none;
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 12px 16px 10px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
       }
 
-      .sidebar.open {
-        transform: translateX(0);
-        box-shadow: 10px 0 35px #0f172a18;
+      .brand {
+        margin: 0 0 12px;
       }
 
-      .main {
-        margin-left: 0;
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+      }
+
+      .brand-name {
+        font-size: 19px;
+      }
+
+      .nav-label,
+      .sidebar-bottom {
+        display: none;
+      }
+
+      .nav {
+        display: flex;
+        overflow-x: auto;
+        gap: 7px;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-link {
+        min-height: 37px;
+        flex-shrink: 0;
+        gap: 7px;
+        padding: 8px 11px;
+        border: 1px solid var(--border);
+        font-size: 11px;
+      }
+
+      .nav-icon {
+        width: 17px;
+        height: 17px;
+      }
+
+      .nav-icon svg {
+        width: 16px;
+        height: 16px;
       }
 
       .topbar {
-        height: 62px;
-        padding: 0 16px;
-      }
-
-      .mobile-menu {
-        display: grid;
+        position: static;
+        min-height: 58px;
+        padding: 10px 20px;
       }
 
       .content {
-        padding: 24px 16px 40px;
+        padding-top: 27px;
       }
 
-      .summary-grid {
-        grid-template-columns: 1fr;
+      .bottom-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
+    }
 
-      .summary-card {
-        padding: 17px;
-      }
-
+    @media (max-width: 520px) {
       .welcome {
-        gap: 13px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .date-badge {
+        align-self: flex-start;
+      }
+
+      .feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .feature-card:last-child {
+        grid-column: auto;
+      }
+
+      .feature-card {
+        min-height: 155px;
+      }
+
+      .content {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      .topbar {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .section-heading h2 {
+        font-size: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <a class="brand" href="./dashboard.html">
-        <span class="brand-mark"><i data-lucide="compass"></i></span>
-        WAYMARK
+  <section class="loading-screen" id="loading-screen" aria-live="polite">
+    <div class="loading-card">
+      <div class="spinner" id="loading-spinner" aria-hidden="true"></div>
+      <h1 class="loading-title" id="loading-title">Checking your account…</h1>
+      <p class="loading-description" id="loading-description">
+        Waiting for Firebase to confirm your session.
+      </p>
+
+      <div class="error-actions" id="loading-actions" hidden>
+        <button class="primary-button" id="retry-button" type="button">
+          Try again
+        </button>
+
+        <button class="secondary-button" id="loading-signout-button" type="button">
+          Sign out
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="./dashboard.html" aria-label="WAYMARK dashboard">
+        <span class="brand-mark">W</span>
+        <span class="brand-name">WAY<span>MARK</span></span>
       </a>
 
-      <div class="nav-label">Workspace</div>
+      <p class="nav-label">Workspace</p>
 
       <nav class="nav" aria-label="Main navigation">
         <a class="nav-link active" href="./dashboard.html">
-          <i data-lucide="layout-dashboard"></i>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            </svg>
+          </span>
           Dashboard
         </a>
 
-        <a class="nav-link" href="./onboarding.html">
-          <i data-lucide="user-round-pen"></i>
-          Edit my profile
+        <a class="nav-link" href="./guidance.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3 14.8 9.2 21 12l-6.2 2.8L12 21l-2.8-6.2L3 12l6.2-2.8L12 3Z"/>
+            </svg>
+          </span>
+          AI guidance
         </a>
 
-        <a class="nav-link" href="./" id="home-link">
-          <i data-lucide="compass"></i>
-          WAYMARK home
-        </a>
-      </nav>
-
-      <div class="nav-label">Platform status</div>
-
-      <nav class="nav">
-        <a class="nav-link" href="./api/health" target="_blank" rel="noopener noreferrer">
-          <i data-lucide="activity"></i>
-          API health
+        <a class="nav-link" href="./colleges.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m3 9 9-6 9 6"/>
+              <path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18M2 10h20"/>
+            </svg>
+          </span>
+          Colleges
         </a>
 
-        <a class="nav-link" href="./api/education" target="_blank" rel="noopener noreferrer">
-          <i data-lucide="database"></i>
-          Education data
+        <a class="nav-link" href="./courses.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+              <path d="M8 7h8M8 11h6"/>
+            </svg>
+          </span>
+          Courses
+        </a>
+
+        <a class="nav-link" href="./opportunities.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="7" width="18" height="14" rx="2"/>
+              <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/>
+            </svg>
+          </span>
+          Opportunities
+        </a>
+
+        <a class="nav-link" href="./counselling.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h2v-7H5v-2a7 7 0 0 1 14 0v2h-3v7h2a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9Z"/>
+            </svg>
+          </span>
+          Counselling
+        </a>
+
+        <a class="nav-link" href="./roadmap.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="6" cy="5" r="2"/>
+              <circle cx="18" cy="19" r="2"/>
+              <path d="M6 7v4a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v0"/>
+              <path d="M15 5h5M18 3l2 2-2 2"/>
+            </svg>
+          </span>
+          My roadmap
+        </a>
+
+        <a class="nav-link" href="./saved.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 3h12a2 2 0 0 1 2 2v16l-8-5-8 5V5a2 2 0 0 1 2-2Z"/>
+            </svg>
+          </span>
+          Saved items
+        </a>
+
+        <a class="nav-link" href="./profile.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+          </span>
+          My profile
         </a>
       </nav>
 
       <div class="sidebar-bottom">
-        <div class="account">
-          <div class="avatar" id="avatar">W</div>
-          <div class="account-info">
-            <strong id="sidebar-name">Loading profile…</strong>
-            <small id="sidebar-email">Loading account…</small>
-          </div>
-        </div>
-
-        <button class="nav-link" id="signout-button" style="width:100%;background:white;border:0;text-align:left;cursor:pointer">
-          <i data-lucide="log-out"></i>
+        <button class="signout-button" id="signout-button" type="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 17l5-5-5-5M15 12H3"/>
+              <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/>
+            </svg>
+          </span>
           Sign out
         </button>
+
+        <div class="profile-mini">
+          <div class="avatar" id="mini-avatar">W</div>
+
+          <div class="profile-mini-info">
+            <div class="profile-mini-name" id="mini-name">WAYMARK user</div>
+            <div class="profile-mini-email" id="mini-email">Signed in</div>
+          </div>
+        </div>
       </div>
     </aside>
 
     <main class="main">
       <header class="topbar">
-        <div style="display:flex;align-items:center;gap:12px">
-          <button class="icon-button mobile-menu" id="menu-button" aria-label="Open navigation">
-            <i data-lucide="menu"></i>
-          </button>
-
-          <div class="breadcrumbs">Workspace / <strong>Dashboard</strong></div>
+        <div class="breadcrumb">
+          Workspace <span aria-hidden="true">/</span>
+          <strong>Dashboard</strong>
         </div>
 
-        <div class="top-actions">
-          <button class="icon-button" id="refresh-button" aria-label="Refresh dashboard">
-            <i data-lucide="refresh-cw"></i>
-          </button>
+        <div class="topbar-actions">
+          <a class="icon-button" href="./profile.html" aria-label="Open profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+          </a>
         </div>
       </header>
 
       <div class="content">
         <section class="welcome">
           <div>
-            <h1 id="welcome-title">Your journey starts here.</h1>
-            <p>
-              Your education goals, profile, and platform information in one place.
+            <div class="welcome-label">Your education workspace</div>
+            <h1>Welcome back, <span id="welcome-name">there</span>.</h1>
+
+            <p class="welcome-description">
+              Explore your options, organize your next steps, and make informed
+              decisions about your education and career.
             </p>
           </div>
 
-          <div class="date-chip">
-            <i data-lucide="calendar-days" size="16"></i>
-            <span id="today"></span>
+          <div class="date-badge" id="current-date"></div>
+        </section>
+
+        <div class="notice">
+          <span class="notice-icon" aria-hidden="true">i</span>
+
+          <div>
+            <strong>Your next step starts here</strong>
+            Use the tools below to explore education pathways and opportunities.
+            Verify admissions, deadlines, eligibility, and scholarship details
+            with the relevant official source.
+          </div>
+        </div>
+
+        <section aria-labelledby="explore-heading">
+          <div class="section-heading">
+            <div>
+              <h2 id="explore-heading">Explore WAYMARK</h2>
+              <p>Tools to help you plan your educational journey.</p>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <a class="feature-card" href="./guidance.html">
+              <span class="feature-icon blue" aria-hidden="true">✳</span>
+              <h3>AI education guidance</h3>
+              <p>
+                Explore possible pathways and get help organizing your next steps.
+              </p>
+              <div class="feature-arrow">
+                <span>Explore guidance</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
+
+            <a class="feature-card" href="./colleges.html">
+              <span class="feature-icon green" aria-hidden="true">⌂</span>
+              <h3>Find colleges</h3>
+              <p>
+                Explore college options and check their official admission information.
+              </p>
+              <div class="feature-arrow">
+                <span>Explore colleges</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
+
+            <a class="feature-card" href="./courses.html">
+              <span class="feature-icon purple" aria-hidden="true">▤</span>
+              <h3>Discover courses</h3>
+              <p>
+                Compare study areas and explore potential education pathways.
+              </p>
+              <div class="feature-arrow">
+                <span>Browse courses</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
+
+            <a class="feature-card" href="./opportunities.html">
+              <span class="feature-icon orange" aria-hidden="true">↗</span>
+              <h3>Scholarships & opportunities</h3>
+              <p>
+                Find relevant opportunities and review their official eligibility criteria.
+              </p>
+              <div class="feature-arrow">
+                <span>Explore opportunities</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
+
+            <a class="feature-card" href="./counselling.html">
+              <span class="feature-icon blue" aria-hidden="true">◎</span>
+              <h3>Admissions & counselling</h3>
+              <p>
+                Learn about admission processes, counselling, and official resources.
+              </p>
+              <div class="feature-arrow">
+                <span>Explore admissions</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
+
+            <a class="feature-card" href="./roadmap.html">
+              <span class="feature-icon green" aria-hidden="true">⌁</span>
+              <h3>My roadmap</h3>
+              <p>
+                Organize your goals and plan the steps you want to take next.
+              </p>
+              <div class="feature-arrow">
+                <span>View roadmap</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
           </div>
         </section>
 
-        <div class="notice" id="notice" role="status"></div>
+        <div class="bottom-grid">
+          <section class="panel">
+            <h2 class="panel-title">Quick access</h2>
 
-        <section class="summary-grid" aria-label="Dashboard summary">
-          <article class="summary-card">
-            <div class="summary-top">
-              <div class="summary-icon"><i data-lucide="user-round"></i></div>
-              <small>Account</small>
-            </div>
-            <h3 id="profile-status">Loading…</h3>
-            <p>Your student profile and preferences.</p>
-          </article>
+            <p class="panel-description">
+              Jump straight to the parts of your workspace you want to use.
+            </p>
 
-          <article class="summary-card">
-            <div class="summary-top">
-              <div class="summary-icon"><i data-lucide="database"></i></div>
-              <small>Education data</small>
-            </div>
-            <h3 id="data-status">Checking…</h3>
-            <p id="data-detail">Checking the connected education dataset.</p>
-          </article>
+            <div class="quick-list">
+              <a class="quick-link" href="./saved.html">
+                <span class="quick-link-icon" aria-hidden="true">▱</span>
+                <span class="quick-link-info">
+                  <span class="quick-link-title">Saved items</span>
+                  <span class="quick-link-description">
+                    Return to the items you've saved.
+                  </span>
+                </span>
+                <span class="quick-link-arrow" aria-hidden="true">→</span>
+              </a>
 
-          <article class="summary-card">
-            <div class="summary-top">
-              <div class="summary-icon"><i data-lucide="brain"></i></div>
-              <small>AI guidance</small>
-            </div>
-            <h3 id="ai-status">Checking…</h3>
-            <p id="ai-detail">Checking backend configuration.</p>
-          </article>
-        </section>
+              <a class="quick-link" href="./profile.html">
+                <span class="quick-link-icon" aria-hidden="true">◉</span>
+                <span class="quick-link-info">
+                  <span class="quick-link-title">Your profile</span>
+                  <span class="quick-link-description">
+                    Review your education details and interests.
+                  </span>
+                </span>
+                <span class="quick-link-arrow" aria-hidden="true">→</span>
+              </a>
 
-        <div class="section-title">
-          <h2>Your profile</h2>
-          <span>Saved to your account</span>
-        </div>
-
-        <section class="profile-panel">
-          <article class="panel">
-            <div class="panel-heading">
-              <i data-lucide="contact-round"></i>
-              <h3>Student information</h3>
-            </div>
-
-            <div id="profile-content" class="loading" aria-live="polite">
-              Loading your profile…
-            </div>
-
-            <div style="margin-top:18px">
-              <a href="./onboarding.html" style="color:#2855d9;font-size:12px;font-weight:800">
-                Update profile <span aria-hidden="true">→</span>
+              <a class="quick-link" href="./settings.html">
+                <span class="quick-link-icon" aria-hidden="true">⚙</span>
+                <span class="quick-link-info">
+                  <span class="quick-link-title">Settings</span>
+                  <span class="quick-link-description">
+                    Access your account settings.
+                  </span>
+                </span>
+                <span class="quick-link-arrow" aria-hidden="true">→</span>
               </a>
             </div>
-          </article>
+          </section>
 
-          <article class="panel">
-            <div class="panel-heading">
-              <i data-lucide="landmark"></i>
-              <h3>Official source registry</h3>
-            </div>
+          <section class="panel">
+            <h2 class="panel-title">Your profile</h2>
 
-            <p style="color:#64748b;font-size:12px;line-height:1.8">
-              These sources are registered for future integrations.
-              Registration does not mean live data is connected or verified.
+            <p class="panel-description">
+              Your saved education preferences.
             </p>
 
-            <div id="source-content" class="loading" aria-live="polite">
-              Loading source registry…
-            </div>
-          </article>
-        </section>
+            <div class="profile-details">
+              <div class="detail">
+                <div class="detail-label">Full name</div>
+                <div class="detail-value" id="profile-name">—</div>
+              </div>
 
-        <div class="section-title">
-          <h2>Next steps</h2>
-          <span>Based on your current setup</span>
+              <div class="detail">
+                <div class="detail-label">State / territory</div>
+                <div class="detail-value" id="profile-state">Not provided</div>
+              </div>
+
+              <div class="detail">
+                <div class="detail-label">Education level</div>
+                <div class="detail-value" id="profile-education">Not provided</div>
+              </div>
+
+              <div class="detail">
+                <div class="detail-label">Study area</div>
+                <div class="detail-value" id="profile-stream">Not provided</div>
+              </div>
+            </div>
+
+            <a class="profile-action" href="./profile.html">
+              Manage profile <span aria-hidden="true">→</span>
+            </a>
+          </section>
         </div>
 
-        <section class="panel">
-          <div class="panel-heading">
-            <i data-lucide="list-checks"></i>
-            <h3>Your starting checklist</h3>
-          </div>
-
-          <div class="source-row">
-            <div class="source-dot" style="background:#16835d"></div>
-            <div>
-              <strong>Set up your student profile</strong>
-              <small id="check-profile">Checking profile completion…</small>
-            </div>
-          </div>
-
-          <div class="source-row">
-            <div class="source-dot"></div>
-            <div>
-              <strong>Explore verified education information</strong>
-              <small>
-                The current dataset may be empty. Check the data endpoint
-                for the actual available records before making decisions.
-              </small>
-            </div>
-          </div>
-
-          <div class="source-row">
-            <div class="source-dot"></div>
-            <div>
-              <strong>Confirm important details with official authorities</strong>
-              <small>
-                Verify admissions, deadlines, eligibility, and fees directly
-                with the relevant institution or official authority.
-              </small>
-            </div>
-          </div>
-        </section>
-
         <footer class="footer">
-          <strong>WAYMARK</strong> · Fahad & Team — Arshath, Saajid, Nayeem, and Althaf.
+          © <span id="year"></span> WAYMARK · Fahad &amp; Team
           <br>
-          Information availability depends on connected datasets.
-          Do not treat a registered source as proof that a record is current or verified.
+          <a href="./about.html">About</a>
+          ·
+          <a href="./privacy.html">Privacy</a>
+          ·
+          <a href="./terms.html">Terms</a>
         </footer>
       </div>
     </main>
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
     import {
       getAuth,
       onAuthStateChanged,
       signOut
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
     import {
       getFirestore,
       doc,
       getDoc
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
+    // use the exact configuration from the Firebase Console
     const firebaseConfig = {
-      apiKey: "AIzaSyDEvA6u-qaPVWX_hYgyd_rpn17DOgrgm8",
+      apiKey: "AIzaSyDEvA6u-qa6PVWX_hYgydr_pn17DOgrgm8",
       authDomain: "way-mark-app.firebaseapp.com",
       projectId: "way-mark-app",
       storageBucket: "way-mark-app.firebasestorage.app",
@@ -776,317 +1308,294 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const $ = (selector) => document.querySelector(selector);
+    const $ = (id) => document.getElementById(id);
 
-    let currentUser = null;
+    let authResolved = false;
     let loadingProfile = false;
+    let redirecting = false;
+    let currentUserId = null;
 
-    $("#today").textContent = new Intl.DateTimeFormat("en-IN", {
+    $("year").textContent = new Date().getFullYear();
+
+    $("current-date").textContent = new Intl.DateTimeFormat("en-IN", {
       day: "numeric",
       month: "short",
       year: "numeric"
     }).format(new Date());
 
-    function showNotice(text) {
-      const notice = $("#notice");
-      notice.textContent = text;
-      notice.classList.add("show");
+    function setLoading(title, description, options = {}) {
+      $("app").hidden = true;
+      $("loading-screen").hidden = false;
+
+      $("loading-title").textContent = title;
+      $("loading-description").textContent = description;
+
+      $("loading-spinner").hidden = !options.spinner;
+      $("loading-actions").hidden = !options.actions;
     }
 
-    function hideNotice() {
-      $("#notice").textContent = "";
-      $("#notice").classList.remove("show");
+    function showError(title, description) {
+      setLoading(title, description, {
+        spinner: false,
+        actions: true
+      });
     }
 
-    function setText(selector, value) {
-      $(selector).textContent = value;
+    function showDashboard() {
+      $("loading-screen").hidden = true;
+      $("app").hidden = false;
     }
 
-    function makeProfileItem(label, value) {
-      const row = document.createElement("div");
-      row.className = "profile-item";
+    function friendlyError(error) {
+      const code = error?.code || "";
+      const message = error?.message || "";
 
-      const name = document.createElement("span");
-      name.textContent = label;
+      const errors = {
+        "permission-denied":
+          "Firestore denied access to your profile. Check the published Firestore rules for users/{uid}.",
 
-      const detail = document.createElement("strong");
-      detail.textContent = value || "Not provided";
+        "unavailable":
+          "Firestore is temporarily unavailable. Check your connection and try again.",
 
-      row.append(name, detail);
-      return row;
-    }
+        "unauthenticated":
+          "Firebase could not authorize the profile request.",
 
-    function renderProfile(profile, user) {
-      const displayName = profile.name || user.displayName || "Student";
-      const email = user.email || profile.email || "No email available";
+        "auth/network-request-failed":
+          "A network error occurred. Check your internet connection.",
 
-      setText("#welcome-title", `Welcome, ${displayName.split(" ")[0]}.`);
-      setText("#sidebar-name", displayName);
-      setText("#sidebar-email", email);
-      setText("#avatar", displayName.trim().charAt(0).toUpperCase() || "W");
-      setText("#profile-status", profile.onboardingComplete ? "Profile complete" : "Profile incomplete");
+        "auth/invalid-api-key":
+          "The Firebase API key is invalid. Verify your Firebase configuration."
+      };
 
-      const content = $("#profile-content");
-      content.replaceChildren();
+      if (errors[code]) return errors[code];
 
-      content.append(
-        makeProfileItem("Name", displayName),
-        makeProfileItem("Email", email),
-        makeProfileItem("State / UT", profile.state),
-        makeProfileItem("Education stage", profile.stage),
-        makeProfileItem("Class / level", profile.classLevel),
-        makeProfileItem("Stream", profile.stream)
-      );
-
-      if (Array.isArray(profile.careerGoals) && profile.careerGoals.length) {
-        content.append(makeProfileItem("Goal", profile.careerGoals.join(", ")));
+      if (message.includes("API key not valid")) {
+        return "Firebase rejected the configured API key.";
       }
 
-      if (Array.isArray(profile.interests) && profile.interests.length) {
-        const wrapper = document.createElement("div");
-        wrapper.style.paddingTop = "14px";
-
-        const label = document.createElement("div");
-        label.style.color = "#64748b";
-        label.style.fontSize = "12px";
-        label.style.fontWeight = "700";
-        label.textContent = "Interests";
-
-        const tags = document.createElement("div");
-        tags.className = "tags";
-
-        for (const interest of profile.interests) {
-          const tag = document.createElement("span");
-          tag.className = "tag";
-          tag.textContent = interest.replaceAll("-", " ");
-          tags.append(tag);
-        }
-
-        wrapper.append(label, tags);
-        content.append(wrapper);
-      }
-
-      setText(
-        "#check-profile",
-        profile.onboardingComplete
-          ? "Your profile is saved to your authenticated account."
-          : "Your profile is incomplete. Finish setup to personalise your experience."
-      );
+      return message || "An unexpected error occurred.";
     }
 
-    function renderSources(sources) {
-      const content = $("#source-content");
-      content.replaceChildren();
+    function isProfileComplete(profile) {
+      return profile?.profileComplete === true ||
+        profile?.onboardingComplete === true ||
+        profile?.onboardingCompleted === true;
+    }
 
-      if (!Array.isArray(sources) || sources.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "No source entries are currently available.";
-        content.append(empty);
-        return;
-      }
+    function getInitials(name) {
+      const parts = String(name || "W")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
 
-      for (const source of sources) {
-        const row = document.createElement("div");
-        row.className = "source-row";
+      if (parts.length === 0) return "W";
 
-        const dot = document.createElement("div");
-        dot.className = "source-dot";
+      return parts
+        .slice(0, 2)
+        .map((part) => part.charAt(0).toUpperCase())
+        .join("");
+    }
 
-        const info = document.createElement("div");
-        const title = document.createElement("strong");
-        title.textContent = source.name || source.id || "Unnamed source";
+    function displayValue(value) {
+      return typeof value === "string" && value.trim()
+        ? value.trim()
+        : "Not provided";
+    }
 
-        const detail = document.createElement("small");
-        detail.textContent =
-          `Integration: ${source.integration || "unknown"} · Status: ${source.status || "unknown"}`;
+    function renderAvatar(element, name, photoURL) {
+      element.replaceChildren();
 
-        info.append(title, detail);
+      if (photoURL) {
+        const image = document.createElement("img");
+        image.src = photoURL;
+        image.alt = "";
+        image.referrerPolicy = "no-referrer";
 
-        if (typeof source.url === "string" && /^https:\/\/[a-z0-9.-]+\.[a-z]{2,}(\/|$)/i.test(source.url)) {
-          const link = document.createElement("a");
-          link.href = source.url;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.textContent = "Official website";
-          link.style.display = "inline-block";
-          link.style.marginTop = "6px";
-          link.style.fontSize = "11px";
-          info.append(link);
-        }
+        image.addEventListener("error", () => {
+          element.textContent = getInitials(name);
+        }, { once: true });
 
-        row.append(dot, info);
-        content.append(row);
+        element.appendChild(image);
+      } else {
+        element.textContent = getInitials(name);
       }
     }
 
-    async function loadPlatformStatus() {
-      try {
-        const response = await fetch("./api/health", {
-          headers: { "Accept": "application/json" },
-          cache: "no-store"
-        });
+    function renderProfile(user, profile) {
+      const name =
+        profile.displayName ||
+        user.displayName ||
+        (user.email ? user.email.split("@")[0] : "Student");
 
-        if (!response.ok) throw new Error("Health endpoint unavailable");
+      $("welcome-name").textContent = name;
+      $("profile-name").textContent = name;
+      $("profile-state").textContent = displayValue(profile.state);
+      $("profile-education").textContent =
+        displayValue(profile.educationLevel);
+      $("profile-stream").textContent =
+        displayValue(profile.studyStream);
 
-        const data = await response.json();
+      $("mini-name").textContent = name;
+      $("mini-email").textContent = user.email || "Signed in";
 
-        setText("#ai-status", data.aiConfigured ? "Configured" : "Not configured");
-        setText(
-          "#ai-detail",
-          data.aiConfigured
-            ? "An AI provider is configured on the backend."
-            : "AI guidance requires a server-side GROQ_API_KEY."
-        );
-
-        if (data.liveOfficialData === true) {
-          setText("#data-status", "Live connection reported");
-        } else {
-          setText("#data-status", "Curated dataset");
-        }
-
-        setText(
-          "#data-detail",
-          data.liveOfficialData === true
-            ? "The API reports a live-data connection. Verify each record's own source and freshness."
-            : "Live official data is not connected according to the health endpoint."
-        );
-      } catch (error) {
-        console.error("Platform status error:", error);
-        setText("#ai-status", "Status unavailable");
-        setText("#ai-detail", "The health endpoint could not be reached.");
-        setText("#data-status", "Status unavailable");
-        setText("#data-detail", "The backend health endpoint could not be reached.");
-        showNotice("Some platform information could not be loaded. Your account may still be available.");
-      }
-
-      try {
-        const response = await fetch("./api/education", {
-          headers: { "Accept": "application/json" },
-          cache: "no-store"
-        });
-
-        if (!response.ok) throw new Error("Education endpoint unavailable");
-
-        const data = await response.json();
-        const count = Number.isFinite(data.total) ? data.total : 0;
-
-        setText(
-          "#data-detail",
-          `${count} education records currently returned by the dataset. This is not a measure of total Indian education coverage.`
-        );
-
-        renderSources(data.sources);
-      } catch (error) {
-        console.error("Education data error:", error);
-
-        const content = $("#source-content");
-        content.replaceChildren();
-
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "The source registry could not be loaded. Try refreshing the dashboard.";
-        content.append(empty);
-      }
+      renderAvatar($("mini-avatar"), name, user.photoURL || profile.photoURL);
     }
 
-    async function loadProfile(user) {
-      if (loadingProfile) return;
+    async function loadDashboard(user) {
+      if (!user || loadingProfile || redirecting) return;
 
       loadingProfile = true;
-      hideNotice();
+      currentUserId = user.uid;
+
+      setLoading(
+        "Loading your dashboard…",
+        "Checking your saved WAYMARK profile.",
+        { spinner: true }
+      );
 
       try {
-        const snapshot = await getDoc(doc(db, "users", user.uid));
+        const profileRef = doc(db, "users", user.uid);
+        const snapshot = await getDoc(profileRef);
+
+        // ignore results if the active account changed during the request
+        if (
+          !auth.currentUser ||
+          auth.currentUser.uid !== user.uid ||
+          currentUserId !== user.uid
+        ) {
+          return;
+        }
 
         if (!snapshot.exists()) {
-          location.replace("./onboarding.html");
+          redirecting = true;
+
+          setLoading(
+            "Your profile needs setup",
+            "Taking you to onboarding to finish setting up your account.",
+            { spinner: true }
+          );
+
+          window.location.replace("./onboarding.html");
           return;
         }
 
         const profile = snapshot.data();
 
-        if (profile.onboardingComplete !== true) {
-          location.replace("./onboarding.html");
+        if (!isProfileComplete(profile)) {
+          redirecting = true;
+
+          setLoading(
+            "Finish setting up your profile",
+            "Taking you to onboarding to complete your profile.",
+            { spinner: true }
+          );
+
+          window.location.replace("./onboarding.html");
           return;
         }
 
-        renderProfile(profile, user);
+        renderProfile(user, profile);
+        showDashboard();
       } catch (error) {
-        console.error("Profile loading error:", error);
-        showNotice(
-          "We couldn't load your saved profile. Check your Firestore rules and connection, then refresh."
+        console.error("WAYMARK dashboard profile error:", error);
+
+        // Keep the user on this page when Firestore fails.
+        // This prevents a profile-read error from creating a redirect loop.
+        showError(
+          "We couldn't load your profile",
+          friendlyError(error)
         );
-        setText("#profile-status", "Unavailable");
-        $("#profile-content").textContent = "Your profile could not be loaded.";
       } finally {
         loadingProfile = false;
       }
     }
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        location.replace("./login.html");
+    async function handleSignOut() {
+      const buttons = [
+        $("signout-button"),
+        $("loading-signout-button")
+      ];
+
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
+
+      setLoading(
+        "Signing out…",
+        "Ending your WAYMARK session.",
+        { spinner: true }
+      );
+
+      try {
+        await signOut(auth);
+
+        redirecting = true;
+        window.location.replace("./login.html");
+      } catch (error) {
+        console.error("WAYMARK sign-out error:", error);
+
+        buttons.forEach((button) => {
+          button.disabled = false;
+        });
+
+        showError(
+          "Couldn't sign you out",
+          friendlyError(error)
+        );
+      }
+    }
+
+    $("signout-button").addEventListener("click", handleSignOut);
+    $("loading-signout-button").addEventListener("click", handleSignOut);
+
+    $("retry-button").addEventListener("click", async () => {
+      if (!authResolved) {
+        setLoading(
+          "Checking your account…",
+          "Waiting for Firebase Authentication.",
+          { spinner: true }
+        );
         return;
       }
 
-      currentUser = user;
+      const user = auth.currentUser;
 
-      await Promise.all([
-        loadProfile(user),
-        loadPlatformStatus()
-      ]);
-    });
-
-    $("#refresh-button").addEventListener("click", async () => {
-      if (!currentUser) return;
-
-      const button = $("#refresh-button");
-      button.disabled = true;
-
-      try {
-        await Promise.all([
-          loadProfile(currentUser),
-          loadPlatformStatus()
-        ]);
-      } finally {
-        button.disabled = false;
+      if (!user) {
+        redirecting = true;
+        window.location.replace("./login.html");
+        return;
       }
+
+      if (loadingProfile) return;
+
+      await loadDashboard(user);
     });
 
-    $("#signout-button").addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        location.replace("./login.html");
-      } catch (error) {
-        console.error("Sign-out error:", error);
-        showNotice("We couldn't sign you out. Please try again.");
+    // Firebase resolves the current session before this callback decides where to go.
+    onAuthStateChanged(auth, async (user) => {
+      authResolved = true;
+
+      if (redirecting) return;
+
+      if (!user) {
+        currentUserId = null;
+
+        setLoading(
+          "Sign-in required",
+          "No active session was found. Taking you to the login page.",
+          { spinner: true }
+        );
+
+        redirecting = true;
+        window.location.replace("./login.html");
+        return;
       }
+
+      // avoid restarting the profile request for the same account
+      if (loadingProfile && currentUserId === user.uid) return;
+
+      await loadDashboard(user);
     });
-
-    $("#menu-button").addEventListener("click", () => {
-      const sidebar = $("#sidebar");
-      const open = sidebar.classList.toggle("open");
-
-      $("#menu-button").setAttribute("aria-expanded", String(open));
-      $("#menu-button").setAttribute(
-        "aria-label",
-        open ? "Close navigation" : "Open navigation"
-      );
-    });
-
-    document.addEventListener("click", (event) => {
-      if (
-        window.innerWidth <= 720 &&
-        !$("#sidebar").contains(event.target) &&
-        !$("#menu-button").contains(event.target)
-      ) {
-        $("#sidebar").classList.remove("open");
-        $("#menu-button").setAttribute("aria-expanded", "false");
-      }
-    });
-
-    if (window.lucide) window.lucide.createIcons();
   </script>
 </body>
 </html>
