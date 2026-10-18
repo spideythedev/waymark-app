@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Sign in — WAYMARK</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --ink: #152238;
+      --muted: #64748b;
+      --line: #e4e9f1;
+      --primary: #2855d9;
+      --primary-dark: #1d43b8;
+      --surface: #f7f9fc;
+      --danger: #b42318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      color: var(--ink);
+      background: white;
+      font-family: "DM Sans", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 34px;
+      background: #f4f7ff;
+      border-right: 1px solid #e6ebf7;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font: 800 22px Manrope, sans-serif;
+      letter-spacing: -.8px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--primary);
+      border-radius: 12px;
+    }
+
+    .side-content {
+      max-width: 470px;
+      margin: auto;
+      padding: 40px 0;
+    }
+
+    .side-content h1 {
+      margin: 0 0 18px;
+      font: 800 clamp(35px, 4vw, 54px)/1.12 Manrope, sans-serif;
+      letter-spacing: -2.5px;
+    }
+
+    .side-content h1 span {
+      color: var(--primary);
+    }
+
+    .side-content p {
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .side-note {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #52647c;
+      font-size: 12px;
+    }
+
+    .side-note i {
+      color: #16835d;
+    }
+
+    .form-side {
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .form-wrap {
+      width: min(100%, 410px);
+    }
+
+    .mobile-brand {
+      display: none;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font: 800 30px Manrope, sans-serif;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .google-btn,
+    .submit-btn {
+      width: 100%;
+      min-height: 49px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s, transform .18s;
+    }
+
+    .google-btn:hover {
+      background: var(--surface);
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      color: white;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .65;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin: 22px 0;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid #dce3ed;
+      border-radius: 11px;
+      outline: none;
+      background: white;
+      color: var(--ink);
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px #2855d918;
+    }
+
+    .message {
+      display: none;
+      margin: 0 0 17px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .message.error {
+      display: block;
+      color: var(--danger);
+      background: #fff2f0;
+      border: 1px solid #ffd6d1;
+    }
+
+    .message.info {
+      display: block;
+      color: #2347a5;
+      background: #edf3ff;
+      border: 1px solid #dce7ff;
+    }
+
+    .switch-mode {
+      margin-top: 22px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .switch-mode button {
+      padding: 0;
+      color: var(--primary);
+      background: none;
+      border: 0;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .legal {
+      margin-top: 28px;
+      color: #94a3b8;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      body {
+        display: block;
+      }
+
+      .side {
+        display: none;
+      }
+
+      .form-side {
+        min-height: 100vh;
+        padding: 28px 22px;
+      }
+
+      .mobile-brand {
+        display: inline-flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="side">
+    <a class="brand" href="./">
+      <span class="brand-mark"><i data-lucide="compass"></i></span>
+      WAYMARK
+    </a>
+
+    <div class="side-content">
+      <h1>Your future.<br>Your choices.<br><span>Your direction.</span></h1>
+      <p>
+        Make education decisions with more clarity.
+        Keep your goals in view and take your next step with confidence.
+      </p>
+    </div>
+
+    <div class="side-note">
+      <i data-lucide="shield-check" size="17"></i>
+      Your account is protected by Firebase Authentication.
+    </div>
+  </aside>
+
+  <main class="form-side">
+    <div class="form-wrap">
+      <a class="brand mobile-brand" href="./">
+        <span class="brand-mark"><i data-lucide="compass"></i></span>
+        WAYMARK
+      </a>
+
+      <h2 id="form-title">Welcome back</h2>
+      <p class="subtitle" id="form-subtitle">
+        Sign in to continue your journey.
+      </p>
+
+      <div id="message" class="message" role="alert" aria-live="polite"></div>
+
+      <button class="google-btn" id="google-button" type="button">
+        <svg width="19" height="19" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.92 46.98 31.8 46.98 24.55z"/>
+          <path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.55 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="divider">or use your email</div>
+
+      <form id="auth-form">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128" placeholder="At least 6 characters">
+        </div>
+
+        <button class="submit-btn" id="submit-button" type="submit">
+          Sign in <i data-lucide="arrow-right" size="17"></i>
+        </button>
+      </form>
+
+      <div class="switch-mode">
+        <span id="switch-label">New to WAYMARK?</span>
+        <button type="button" id="switch-button">Create an account</button>
+      </div>
+
+      <a class="back-link" href="./">
+        <i data-lucide="arrow-left" size="16"></i>
+        Back to home
+      </a>
+
+      <p class="legal">
+        Sign in only with an email account you control.
+        Keep your password private.
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      updateProfile,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEvA6u-qaPVWX_hYgyd_rpn17DOgrgm8",
+      authDomain: "way-mark-app.firebaseapp.com",
+      projectId: "way-mark-app",
+      storageBucket: "way-mark-app.firebasestorage.app",
+      messagingSenderId: "746746866759",
+      appId: "1:746746866759:web:2fd78631f814d63c7e9562",
+      measurementId: "G-V0FYKMSJ93"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const form = document.querySelector("#auth-form");
+    const emailInput = document.querySelector("#email");
+    const passwordInput = document.querySelector("#password");
+    const submitButton = document.querySelector("#submit-button");
+    const googleButton = document.querySelector("#google-button");
+    const switchButton = document.querySelector("#switch-button");
+    const message = document.querySelector("#message");
+
+    let mode = new URLSearchParams(location.search).get("mode") === "signup"
+      ? "signup"
+      : "login";
+
+    let busy = false;
+
+    function showMessage(text, type = "error") {
+      message.textContent = text;
+      message.className = `message ${type}`;
+    }
+
+    function clearMessage() {
+      message.textContent = "";
+      message.className = "message";
+    }
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      clearMessage();
+
+      const signup = mode === "signup";
+
+      document.querySelector("#form-title").textContent =
+        signup ? "Create your account" : "Welcome back";
+
+      document.querySelector("#form-subtitle").textContent =
+        signup
+          ? "Create an account to start planning your next steps."
+          : "Sign in to continue your journey.";
+
+      submitButton.innerHTML = signup
+        ? 'Create account <i data-lucide="arrow-right" size="17"></i>'
+        : 'Sign in <i data-lucide="arrow-right" size="17"></i>';
+
+      passwordInput.autocomplete = signup ? "new-password" : "current-password";
+
+      document.querySelector("#switch-label").textContent =
+        signup ? "Already have an account?" : "New to WAYMARK?";
+
+      switchButton.textContent =
+        signup ? "Sign in" : "Create an account";
+
+      history.replaceState(
+        {},
+        "",
+        signup ? "./login.html?mode=signup" : "./login.html"
+      );
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function explainError(error) {
+      const messages = {
+        "auth/email-already-in-use": "An account already exists for this email. Try signing in.",
+        "auth/invalid-email": "Enter a valid email address.",
+        "auth/weak-password": "Choose a stronger password with at least 6 characters.",
+        "auth/invalid-credential": "The email or password is incorrect.",
+        "auth/user-disabled": "This account has been disabled.",
+        "auth/too-many-requests": "Too many attempts. Please wait before trying again.",
+        "auth/popup-closed-by-user": "The Google sign-in window was closed before completion.",
+        "auth/popup-blocked": "Your browser blocked the sign-in window. Allow pop-ups and try again.",
+        "auth/operation-not-allowed": "This sign-in method is disabled in Firebase Authentication.",
+        "auth/unauthorized-domain": "This website domain is not authorised in Firebase Authentication."
+      };
+
+      return messages[error.code] ||
+        "We couldn't complete sign-in. Check your connection and try again.";
+    }
+
+    async function routeUser(user) {
+      const profileRef = doc(db, "users", user.uid);
+      const profileSnapshot = await getDoc(profileRef);
+
+      if (!profileSnapshot.exists()) {
+        await setDoc(profileRef, {
+          name: user.displayName || "",
+          email: user.email || "",
+          phoneNumber: user.phoneNumber || "",
+          stage: "",
+          classLevel: "",
+          stream: "",
+          state: "",
+          interests: [],
+          careerGoals: [],
+          onboardingComplete: false,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+      }
+
+      const data = profileSnapshot.exists()
+        ? profileSnapshot.data()
+        : { onboardingComplete: false };
+
+      location.replace(
+        data.onboardingComplete === true
+          ? "./dashboard.html"
+          : "./onboarding.html"
+      );
+    }
+
+    async function runAuth(action) {
+      if (busy) return;
+
+      busy = true;
+      clearMessage();
+      submitButton.disabled = true;
+      googleButton.disabled = true;
+      switchButton.disabled = true;
+
+      try {
+        const user = await action();
+        await routeUser(user);
+      } catch (error) {
+        console.error("Authentication error:", error);
+        showMessage(explainError(error));
+      } finally {
+        busy = false;
+        submitButton.disabled = false;
+        googleButton.disabled = false;
+        switchButton.disabled = false;
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (password.length < 6) {
+        showMessage("Your password must contain at least 6 characters.");
+        return;
+      }
+
+      await runAuth(async () => {
+        if (mode === "signup") {
+          const credential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          await updateProfile(credential.user, {
+            displayName: email.split("@")[0]
+          });
+
+          return credential.user;
+        }
+
+        const credential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        return credential.user;
+      });
+    });
+
+    googleButton.addEventListener("click", () => {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+
+      runAuth(async () => {
+        const result = await signInWithPopup(auth, provider);
+        return result.user;
+      });
+    });
+
+    switchButton.addEventListener("click", () => {
+      setMode(mode === "login" ? "signup" : "login");
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+
+      try {
+        await routeUser(user);
+      } catch (error) {
+        console.error("Could not load profile:", error);
+        showMessage(
+          "You signed in, but your profile could not be loaded. Check your Firestore rules and try again."
+        );
+      }
+    });
+
+    setMode(mode);
+
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+</body>
+</html>
