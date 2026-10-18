@@ -1,186 +1,492 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <title>AI Guidance — WAYMARK</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Personalized education guidance with WAYMARK.">
+  <title>AI Guidance — WAYMARK</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>  <style>
+    :root {
+      --blue: #315efb;
+      --ink: #172033;
+      --muted: #68738a;
+      --line: #e5eaf2;
+      --background: #f7f9fd;
+    }
 
-  <style>
-    :root { --blue:#315efb; --ink:#172033; --muted:#68738a; --line:#e5eaf2; --bg:#f7f9fd; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,sans-serif; }
-    h1,h2,h3 { font-family:Manrope,sans-serif; letter-spacing:-.04em; }
-    .topbar { background:white; border-bottom:1px solid var(--line); padding:17px 0; }
-    .brand { display:flex; align-items:center; gap:10px; color:var(--ink); font:800 22px Manrope,sans-serif; text-decoration:none; }
-    .brand-icon { display:grid; place-items:center; width:36px; height:36px; border-radius:11px; background:var(--blue); color:white; }
-    .main { max-width:900px; margin:auto; padding:34px 15px; }
-    .hero { padding:28px; border-radius:20px; color:white; background:linear-gradient(120deg,#1c3478,#315efb); }
-    .hero p { color:#e0e8ff; line-height:1.8; }
-    .chat-card { margin-top:18px; border:1px solid var(--line); border-radius:18px; overflow:hidden; background:white; }
-    .chat-head { padding:19px 22px; border-bottom:1px solid var(--line); }
-    .chat-body { padding:22px; }
-    .bubble { max-width:100%; padding:15px 17px; border-radius:14px; line-height:1.8; font-size:14px; white-space:pre-wrap; overflow-wrap:anywhere; }
-    .assistant-bubble { background:#f3f6fc; border:1px solid #e7ecf5; }
-    .user-bubble { margin-left:auto; color:white; background:var(--blue); }
-    .form-control { min-height:52px; border-radius:12px; border-color:#dfe5ef; box-shadow:none!important; }
-    .form-control:focus { border-color:var(--blue); }
-    .btn-main { min-height:49px; padding:12px 17px; background:var(--blue); color:white; border:0; border-radius:12px; font-weight:700; }
-    .btn-main:hover { background:#2148db; color:white; }
-    .suggestion { padding:10px 13px; background:white; border:1px solid var(--line); border-radius:10px; color:#35415a; font-size:13px; font-weight:600; text-align:left; }
-    .suggestion:hover { background:#f1f5ff; border-color:#cbd8ff; }
-    .muted { color:var(--muted); }
-    .source-note { font-size:12px; color:var(--muted); line-height:1.8; }
-  </style>
-</head>
+    * { box-sizing: border-box; }
 
-<body>
-  <header class="topbar">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a href="dashboard.html" class="brand"><span class="brand-icon"><i data-lucide="navigation"></i></span> WAYMARK</a>
-      <a href="dashboard.html" class="btn btn-outline-secondary btn-sm rounded-3">Dashboard</a>
-    </div>
-  </header>
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+      font-family: Inter, sans-serif;
+    }
 
-  <main class="main">
-    <section class="hero">
-      <div class="d-flex align-items-center gap-2 small mb-3" style="color:#d4dfff">
-        <i data-lucide="sparkles" style="width:17px"></i> EDUCATION GUIDANCE
-      </div>
-      <h1 class="fw-bold">Let's explore your next step.</h1>
-      <p class="mb-0">Ask about courses, study pathways, entrance exams or how to compare your options. Share only information you're comfortable providing.</p>
-    </section>
+    h1, h2, h3 {
+      font-family: Manrope, sans-serif;
+      letter-spacing: -.04em;
+    }
 
-    <section class="chat-card">
-      <div class="chat-head d-flex align-items-center gap-3">
-        <div class="rounded-3 d-grid place-items-center p-2" style="background:#eef2ff;color:#315efb">
-          <i data-lucide="messages-square"></i>
-        </div>
-        <div>
-          <div class="fw-bold">WAYMARK Guidance</div>
-          <div class="muted small">Answers depend on the configured AI backend and available source data.</div>
-        </div>
-      </div>
+    .topbar {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      padding: 17px 0;
+    }
 
-      <div class="chat-body">
-        <div id="conversation" aria-live="polite">
-          <div class="bubble assistant-bubble mb-3">
-            Hi! Tell me what you're studying and what you'd like to explore. I can help you organize questions and compare possible pathways. Verify admission requirements and deadlines with official sources.
-          </div>
-        </div>
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font: 800 22px Manrope, sans-serif;
+      text-decoration: none;
+    }
 
-        <div class="small muted fw-bold mb-2">TRY ASKING</div>
-        <div class="d-flex flex-wrap gap-2 mb-4">
-          <button class="suggestion" type="button" data-prompt="How can I compare different courses after Class 12?">Compare courses after Class 12</button>
-          <button class="suggestion" type="button" data-prompt="What should I check before choosing a college?">Choosing a college</button>
-          <button class="suggestion" type="button" data-prompt="Help me create a study and career exploration plan.">Plan my next steps</button>
-        </div>
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: var(--blue);
+      color: white;
+    }
 
-        <form id="promptForm">
-          <label class="form-label fw-semibold small" for="prompt">Your question</label>
-          <textarea id="prompt" class="form-control" rows="3" maxlength="3000" placeholder="Tell us what you want to understand…" required></textarea>
+    .main {
+      max-width: 920px;
+      margin: auto;
+      padding: 34px 15px;
+    }
 
-          <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mt-3">
-            <div class="source-note">AI answers can be inaccurate. Don't rely on them alone for admissions, eligibility or deadlines.</div>
-            <button id="sendButton" class="btn-main flex-shrink-0" type="submit">
-              Ask guidance <i data-lucide="arrow-up-right" style="width:16px"></i>
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
+    .hero {
+      padding: clamp(24px, 5vw, 36px);
+      border-radius: 22px;
+      color: white;
+      background:
+        radial-gradient(ellipse at 85% 0%, rgba(145, 171, 255, .25), transparent 40%),
+        linear-gradient(120deg, #1c3478, #315efb);
+    }
 
-    <div id="status" class="alert d-none mt-3"></div>
+    .hero p {
+      max-width: 650px;
+      color: #e0e8ff;
+      line-height: 1.8;
+    }
 
-    <footer class="text-center muted small mt-4">
-      Built by Fahad & Team — Arshath, Saajid, Nadeem and Althaf.
-    </footer>
-  </main>
+    .chat-card {
+      margin-top: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: white;
+    }
 
-  <script type="module">
-    import { requireUser, getProfile } from "./assets/waymark.js";
+    .chat-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+    }
 
-    const $ = id => document.getElementById(id);
-    const user = await requireUser();
+    .assistant-icon {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 13px;
+      background: #eef2ff;
+      color: var(--blue);
+    }
 
-    let profile = null;
+    .chat-body { padding: clamp(16px, 4vw, 24px); }
 
-    if (user) {
-      try {
-        profile = await getProfile(user.uid);
-      } catch {
-        profile = null;
+    #conversation {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .message {
+      max-width: 100%;
+      padding: 15px 17px;
+      border-radius: 15px;
+      font-size: 14px;
+      line-height: 1.85;
+      overflow-wrap: anywhere;
+    }
+
+    .message-user {
+      align-self: flex-end;
+      max-width: 90%;
+      color: white;
+      background: var(--blue);
+      border-bottom-right-radius: 5px;
+    }
+
+    .message-assistant {
+      align-self: flex-start;
+      width: 100%;
+      border: 1px solid #e7ecf5;
+      background: #f5f7fc;
+      border-bottom-left-radius: 5px;
+    }
+
+    .message-assistant strong { color: #172c68; }
+
+    .suggestion {
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: white;
+      color: #35415a;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+      transition: .2s;
+    }
+
+    .suggestion:hover {
+      border-color: #cbd8ff;
+      background: #f1f5ff;
+    }
+
+    .form-control {
+      min-height: 52px;
+      border-color: #dfe5ef;
+      border-radius: 12px;
+      box-shadow: none !important;
+    }
+
+    textarea.form-control {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    .form-control:focus { border-color: var(--blue); }
+
+    .btn-main {
+      min-height: 48px;
+      padding: 12px 17px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+    }
+
+    .btn-main:hover {
+      background: #2148db;
+      color: white;
+    }
+
+    .btn-main:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    .muted { color: var(--muted); }
+
+    .notice {
+      padding: 13px 15px;
+      border: 1px solid #e2e8f8;
+      border-radius: 12px;
+      background: #f7f9ff;
+      color: #56627a;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .answer-copy {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .answer-label {
+      margin-bottom: 8px;
+      color: #52638b;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 575px) {
+      .main { padding-top: 20px; }
+      .message-user { max-width: 96%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
       }
     }
+  </style></head><body>
+  <header class="topbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="dashboard.html" class="brand">
+        <span class="brand-icon"><i data-lucide="navigation"></i></span>
+        WAYMARK
+      </a>  <a href="dashboard.html" class="btn btn-outline-secondary btn-sm rounded-3">
+    <i data-lucide="layout-dashboard" style="width:15px"></i>
+    Dashboard
+  </a>
+</div>
 
-    function addBubble(text, role) {
-      const bubble = document.createElement("div");
-      bubble.className = `bubble ${role === "user" ? "user-bubble" : "assistant-bubble"} mb-3`;
-      bubble.textContent = text;
-      $("conversation").appendChild(bubble);
-      bubble.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  </header>  <main class="main">
+    <section class="hero">
+      <div class="d-flex align-items-center gap-2 small mb-3" style="color:#d4dfff">
+        <i data-lucide="sparkles" style="width:17px"></i>
+        PERSONALIZED EDUCATION GUIDANCE
+      </div>  <h1 class="fw-bold mb-3">Let's find your next step.</h1>
+
+  <p class="mb-0">
+    Explore study pathways, understand your options, and turn your questions into practical next steps.
+    Your student profile helps WAYMARK personalize its explanations.
+  </p>
+</section>
+
+<section class="chat-card">
+  <div class="chat-head d-flex align-items-center gap-3">
+    <div class="assistant-icon">
+      <i data-lucide="messages-square"></i>
+    </div>
+
+    <div class="flex-grow-1">
+      <div class="fw-bold">WAYMARK Guidance</div>
+      <div id="connectionStatus" class="muted small">Connecting to your account…</div>
+    </div>
+
+    <span class="badge rounded-pill text-bg-light border">AI</span>
+  </div>
+
+  <div class="chat-body">
+    <div id="conversation" aria-live="polite">
+      <div class="message message-assistant">
+        <div class="answer-label">WAYMARK Guidance</div>
+        <div class="answer-copy">Hi! What would you like to explore today? You can ask about study pathways, courses, entrance exams, or how to compare your options.
+
+I'll explain what I can, identify information that needs checking, and help you plan useful next steps.</div>
+</div>
+</div>
+
+    <div class="small muted fw-bold mb-2">SUGGESTED QUESTIONS</div>
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <button class="suggestion" type="button" data-prompt="How can I compare different courses after Class 12?">
+        Compare courses after Class 12
+      </button>
+
+      <button class="suggestion" type="button" data-prompt="What should I check before choosing a college?">
+        Choosing a college
+      </button>
+
+      <button class="suggestion" type="button" data-prompt="Help me create a practical study and career exploration plan based on my profile.">
+        Plan my next steps
+      </button>
+
+      <button class="suggestion" type="button" data-prompt="Explain how I can research scholarships and verify whether I am eligible.">
+        Research scholarships
+      </button>
+    </div>
+
+    <form id="promptForm">
+      <label class="form-label fw-semibold small" for="prompt">Your question</label>
+
+      <textarea
+        id="prompt"
+        class="form-control"
+        rows="3"
+        maxlength="3000"
+        placeholder="Tell WAYMARK what you want to understand…"
+        required
+      ></textarea>
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mt-3">
+        <div class="muted small">
+          Don't include passwords, OTPs or identity document numbers.
+        </div>
+
+        <button id="sendButton" class="btn-main flex-shrink-0" type="submit">
+          <span id="sendLabel">Ask guidance</span>
+          <i data-lucide="arrow-up-right" style="width:16px"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<div id="status" class="alert d-none mt-3" role="alert"></div>
+
+<div class="notice mt-3">
+  <strong>Important:</strong> AI explanations are not official admission decisions.
+  This version does not yet query a live verified college, scholarship or admissions database.
+  Confirm eligibility, fees, exam requirements and deadlines with the relevant official source.
+</div>
+
+<footer class="footer">
+  Built by Fahad & Team — Arshath, Saajid, Nadeem and Althaf.
+</footer>
+
+  </main>  <script type="module">
+    import {
+      auth,
+      requireUser,
+      getProfile
+    } from "./assets/waymark.js";
+
+    const $ = id => document.getElementById(id);
+
+    let currentUser = null;
+    let studentProfile = null;
+    let requestInProgress = false;
+
+    function showStatus(message, type = "danger") {
+      $("status").className = `alert alert-${type} mt-3`;
+      $("status").textContent = message;
     }
 
-    function showStatus(text, type = "danger") {
-      $("status").className = `alert alert-${type} mt-3`;
-      $("status").textContent = text;
+    function clearStatus() {
+      $("status").className = "alert d-none mt-3";
+      $("status").textContent = "";
+    }
+
+    function addMessage(text, role, metadata = {}) {
+      const wrapper = document.createElement("div");
+
+      wrapper.className = role === "user"
+        ? "message message-user"
+        : "message message-assistant";
+
+      if (role === "assistant") {
+        const label = document.createElement("div");
+        label.className = "answer-label";
+        label.textContent = "WAYMARK Guidance";
+        wrapper.appendChild(label);
+      }
+
+      const content = document.createElement("div");
+      content.className = "answer-copy";
+      content.textContent = text;
+      wrapper.appendChild(content);
+
+      if (role === "assistant" && metadata.sourceStatus) {
+        const note = document.createElement("div");
+        note.className = "muted small mt-3";
+        note.textContent = "No live verified education database was queried for this answer.";
+        wrapper.appendChild(note);
+      }
+
+      $("conversation").appendChild(wrapper);
+      wrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function setBusy(busy) {
+      requestInProgress = busy;
+      $("sendButton").disabled = busy;
+      $("prompt").disabled = busy;
+      $("sendLabel").textContent = busy ? "Thinking…" : "Ask guidance";
+    }
+
+    async function initialize() {
+      currentUser = await requireUser();
+
+      if (!currentUser) return;
+
+      try {
+        studentProfile = await getProfile(currentUser.uid);
+      } catch (error) {
+        console.error("Profile loading failed:", error);
+        studentProfile = null;
+      }
+
+      $("connectionStatus").textContent =
+        "Signed in · " + (studentProfile?.name || currentUser.displayName || "Student");
+
+      $("prompt").focus();
     }
 
     $("promptForm").addEventListener("submit", async event => {
       event.preventDefault();
 
+      if (requestInProgress || !currentUser) return;
+
       const prompt = $("prompt").value.trim();
-      if (!prompt || !user) return;
 
-      const button = $("sendButton");
-      button.disabled = true;
-      $("prompt").disabled = true;
-      $("status").className = "alert d-none";
+      if (!prompt) return;
 
-      addBubble(prompt, "user");
+      if (prompt.length > 3000) {
+        showStatus("Keep your question under 3,000 characters.");
+        return;
+      }
+
+      clearStatus();
+      addMessage(prompt, "user");
       $("prompt").value = "";
+      setBusy(true);
 
       try {
+        if (!auth.currentUser || auth.currentUser.uid !== currentUser.uid) {
+          throw new Error("Your session has changed. Sign in again to continue.");
+        }
+
+        const idToken = await auth.currentUser.getIdToken();
+
         const response = await fetch("/api/ai", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${idToken}`
+          },
           body: JSON.stringify({
             prompt,
-            profile: profile ? {
-              stage: profile.stage || "",
-              classLevel: profile.classLevel || "",
-              stream: profile.stream || "",
-              state: profile.state || "",
-              interests: profile.interests || ""
+            profile: studentProfile ? {
+              stage: studentProfile.stage || "",
+              classLevel: studentProfile.classLevel || "",
+              stream: studentProfile.stream || "",
+              state: studentProfile.state || "",
+              interests: studentProfile.interests || ""
             } : {}
           })
         });
 
         const data = await response.json().catch(() => ({}));
 
-        if (!response.ok) {
-          throw new Error(data.error || `The guidance service returned an error (${response.status}).`);
+        if (response.status === 401) {
+          throw new Error("Your sign-in session could not be verified. Please sign in again.");
         }
 
-        const answer = typeof data.answer === "string" ? data.answer.trim() : "";
+        if (!response.ok) {
+          throw new Error(
+            typeof data.error === "string"
+              ? data.error
+              : `The guidance service returned an error (${response.status}).`
+          );
+        }
 
-        if (!answer) {
+        if (typeof data.answer !== "string" || !data.answer.trim()) {
           throw new Error("The guidance service returned no answer.");
         }
 
-        addBubble(answer, "assistant");
+        addMessage(data.answer.trim(), "assistant", {
+          sourceStatus: data.sourceStatus
+        });
       } catch (error) {
         showStatus(
-          error.message || "Could not connect to the guidance service. Make sure /api/ai is deployed and configured.",
+          error.message || "Could not connect to WAYMARK Guidance. Please try again.",
           "warning"
         );
       } finally {
-        button.disabled = false;
-        $("prompt").disabled = false;
+        setBusy(false);
         $("prompt").focus();
       }
     });
@@ -192,7 +498,13 @@
       });
     });
 
+    try {
+      await initialize();
+    } catch (error) {
+      console.error("WAYMARK initialization failed:", error);
+      showStatus("Could not initialize your account. Refresh the page or sign in again.");
+    }
+
     lucide.createIcons();
-  </script>
-</body>
+  </script></body>
 </html>
