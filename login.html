@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Sign in to WAYMARK, your guide to education and opportunities in India.">
+  <title>Sign in — WAYMARK</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --blue: #2457e7;
+      --blue-dark: #1945c5;
+      --ink: #172033;
+      --muted: #697386;
+      --border: #e6eaf0;
+      --surface: #f7f9fc;
+      --green: #168653;
+      --red: #c73737;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--blue-dark);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 0.95fr;
+    }
+
+    .visual-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 36px 42px;
+      color: white;
+      background: #173b9d;
+    }
+
+    .visual-panel::before,
+    .visual-panel::after {
+      position: absolute;
+      content: "";
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .visual-panel::before {
+      width: 520px;
+      height: 520px;
+      right: -180px;
+      top: 18%;
+    }
+
+    .visual-panel::after {
+      width: 360px;
+      height: 360px;
+      right: -100px;
+      top: 29%;
+    }
+
+    .visual-content {
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+      margin: auto 0;
+      padding: 48px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: inherit;
+      font-family: "Manrope", sans-serif;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .brand:hover {
+      color: inherit;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--blue);
+      background: white;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgb(255 255 255 / 20%);
+      border-radius: 999px;
+      color: #e0e9ff;
+      background: rgb(255 255 255 / 7%);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .visual-content h1 {
+      max-width: 460px;
+      margin: 24px 0 18px;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(36px, 4.3vw, 57px);
+      font-weight: 800;
+      letter-spacing: -2.5px;
+      line-height: 1.12;
+    }
+
+    .visual-content h1 span {
+      color: #a9c5ff;
+    }
+
+    .visual-content > p {
+      max-width: 430px;
+      margin: 0;
+      color: #d6e1ff;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .principles {
+      display: grid;
+      gap: 15px;
+      margin-top: 38px;
+    }
+
+    .principle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #e7edff;
+      font-size: 14px;
+    }
+
+    .principle-icon {
+      display: grid;
+      width: 35px;
+      height: 35px;
+      flex: 0 0 35px;
+      place-items: center;
+      border: 1px solid rgb(255 255 255 / 15%);
+      border-radius: 10px;
+      background: rgb(255 255 255 / 8%);
+    }
+
+    .visual-footer {
+      position: relative;
+      z-index: 1;
+      color: #c1d1ff;
+      font-size: 12px;
+    }
+
+    .form-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 35px 28px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .mobile-brand {
+      display: none;
+      margin-bottom: 40px;
+      color: var(--ink);
+    }
+
+    .mobile-brand .brand-mark {
+      color: white;
+      background: var(--blue);
+    }
+
+    .auth-heading {
+      margin-bottom: 30px;
+    }
+
+    .auth-heading h2 {
+      margin: 0 0 10px;
+      font-family: "Manrope", sans-serif;
+      font-size: 31px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+    }
+
+    .auth-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .google-button,
+    .primary-button {
+      display: flex;
+      width: 100%;
+      min-height: 49px;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .google-button:hover {
+      border-color: #c7d0df;
+      background: #fafbfd;
+    }
+
+    .google-button:active,
+    .primary-button:active {
+      transform: scale(0.99);
+    }
+
+    .google-icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 25px 0;
+      color: #98a1b0;
+      font-size: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      height: 1px;
+      flex: 1;
+      content: "";
+      background: var(--border);
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #344054;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .phone-field,
+    .otp-field {
+      display: flex;
+      min-height: 50px;
+      overflow: hidden;
+      border: 1px solid #dce2eb;
+      border-radius: 12px;
+      background: white;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .phone-field:focus-within,
+    .otp-field:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgb(36 87 231 / 10%);
+    }
+
+    .country-code {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 13px;
+      border-right: 1px solid var(--border);
+      color: #344054;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .phone-field input,
+    .otp-field input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      padding: 0 14px;
+      color: var(--ink);
+      background: transparent;
+      font-size: 15px;
+    }
+
+    .otp-field input {
+      letter-spacing: 7px;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .phone-field input::placeholder,
+    .otp-field input::placeholder {
+      color: #a2aab7;
+      letter-spacing: normal;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .primary-button {
+      margin-top: 15px;
+      border-color: var(--blue);
+      color: white;
+      background: var(--blue);
+    }
+
+    .primary-button:hover {
+      border-color: var(--blue-dark);
+      color: white;
+      background: var(--blue-dark);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    .button-icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .field-help {
+      margin-top: 9px;
+      color: #7b8494;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .message {
+      display: none;
+      margin: 18px 0 0;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.error {
+      border-color: #f3cccc;
+      color: var(--red);
+      background: #fff6f6;
+    }
+
+    .message.success {
+      border-color: #ccebdc;
+      color: var(--green);
+      background: #f2fbf6;
+    }
+
+    .otp-section {
+      display: none;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .otp-section.visible {
+      display: block;
+      animation: reveal 0.25s ease;
+    }
+
+    .otp-heading {
+      margin-bottom: 16px;
+    }
+
+    .otp-heading h3 {
+      margin-bottom: 6px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .otp-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .text-button {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 0;
+      border: 0;
+      color: var(--blue);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .text-button:hover {
+      text-decoration: underline;
+    }
+
+    .auth-bottom {
+      margin-top: 29px;
+      color: #7b8494;
+      font-size: 12px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .auth-bottom a {
+      color: #526075;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .security-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 22px;
+      padding: 13px;
+      border: 1px solid #edf0f5;
+      border-radius: 12px;
+      color: #697386;
+      background: #fafbfd;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .security-note svg {
+      flex: 0 0 16px;
+      margin-top: 2px;
+      color: #526075;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 24px;
+      color: #697386;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--blue);
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 850px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-panel {
+        display: none;
+      }
+
+      .form-panel {
+        min-height: 100vh;
+        padding: 32px 22px;
+      }
+
+      .auth-card {
+        max-width: 440px;
+      }
+
+      .mobile-brand {
+        display: inline-flex;
+      }
+
+      .auth-heading h2 {
+        font-size: 29px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .form-panel {
+        padding: 25px 17px;
+      }
+
+      .auth-heading h2 {
+        font-size: 26px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <aside class="visual-panel">
+      <a class="brand" href="index.html" aria-label="WAYMARK home">
+        <span class="brand-mark">
+          <i data-lucide="compass" width="23" height="23"></i>
+        </span>
+        WAYMARK
+      </a>
+
+      <div class="visual-content">
+        <span class="eyebrow">
+          <i data-lucide="route" width="15" height="15"></i>
+          YOUR NEXT CHAPTER
+        </span>
+
+        <h1>Your future deserves <span>a clear direction.</span></h1>
+
+        <p>
+          Explore education pathways, understand your options, and make
+          informed decisions about what comes next.
+        </p>
+
+        <div class="principles">
+          <div class="principle">
+            <span class="principle-icon">
+              <i data-lucide="shield-check" width="18" height="18"></i>
+            </span>
+            Guidance built around reliable sources
+          </div>
+
+          <div class="principle">
+            <span class="principle-icon">
+              <i data-lucide="target" width="18" height="18"></i>
+            </span>
+            Recommendations shaped around your goals
+          </div>
+
+          <div class="principle">
+            <span class="principle-icon">
+              <i data-lucide="book-open" width="18" height="18"></i>
+            </span>
+            A clearer view of your available pathways
+          </div>
+        </div>
+      </div>
+
+      <div class="visual-footer">
+        WAYMARK · Education and opportunity guidance for India
+      </div>
+    </aside>
+
+    <section class="form-panel">
+      <div class="auth-card">
+        <a class="brand mobile-brand" href="index.html">
+          <span class="brand-mark">
+            <i data-lucide="compass" width="22" height="22"></i>
+          </span>
+          WAYMARK
+        </a>
+
+        <header class="auth-heading">
+          <h2>Welcome to WAYMARK</h2>
+          <p>
+            Sign in to start building your personal education and opportunity journey.
+          </p>
+        </header>
+
+        <button class="google-button" id="googleButton" type="button">
+          <svg class="google-icon" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" transform="translate(0 3)"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.75 7.18l7.73 6C44.42 38.02 46.98 31.85 46.98 24.55z"/>
+            <path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.86.93 7.51 2.56 10.78l7.97-6.19z" transform="translate(0 3)"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.94-2.13 15.92-5.8l-7.73-6c-2.15 1.45-4.9 2.3-8.19 2.3-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" transform="translate(0 -1)"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="divider">OR CONTINUE WITH PHONE</div>
+
+        <form id="phoneForm">
+          <label class="field-label" for="phoneNumber">Indian mobile number</label>
+
+          <div class="phone-field">
+            <span class="country-code">
+              <span aria-hidden="true">🇮🇳</span>
+              +91
+            </span>
+            <input
+              id="phoneNumber"
+              name="phone"
+              type="tel"
+              inputmode="numeric"
+              autocomplete="tel-national"
+              placeholder="10-digit mobile number"
+              maxlength="10"
+              pattern="[6-9][0-9]{9}"
+              required
+              aria-describedby="phoneHelp"
+            >
+          </div>
+
+          <div class="field-help" id="phoneHelp">
+            Enter a valid 10-digit Indian mobile number. We'll send you a verification code.
+          </div>
+
+          <button class="primary-button" id="sendCodeButton" type="submit">
+            Send verification code
+            <i class="button-icon" data-lucide="arrow-right"></i>
+          </button>
+        </form>
+
+        <section class="otp-section" id="otpSection" aria-labelledby="otpTitle">
+          <div class="otp-heading">
+            <h3 id="otpTitle">Verify your number</h3>
+            <p id="otpDescription">Enter the six-digit code sent to your phone.</p>
+          </div>
+
+          <form id="otpForm">
+            <label class="field-label" for="otpCode">Verification code</label>
+
+            <div class="otp-field">
+              <input
+                id="otpCode"
+                name="otp"
+                type="text"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                placeholder="000000"
+                maxlength="6"
+                pattern="[0-9]{6}"
+                required
+              >
+            </div>
+
+            <button class="primary-button" id="verifyCodeButton" type="submit">
+              Verify and continue
+              <i class="button-icon" data-lucide="check-circle-2"></i>
+            </button>
+          </form>
+
+          <button class="text-button" id="changeNumberButton" type="button">
+            Use a different number
+          </button>
+        </section>
+
+        <div id="statusMessage" class="message" role="status" aria-live="polite"></div>
+
+        <div id="recaptcha-container"></div>
+
+        <div class="security-note">
+          <i data-lucide="shield-check" width="16" height="16"></i>
+          <span>
+            Your sign-in is handled by Firebase Authentication.
+            Never share your verification code with anyone.
+          </span>
+        </div>
+
+        <footer class="auth-bottom">
+          By continuing, you agree to our
+          <a href="terms.html">Terms</a> and
+          <a href="privacy.html">Privacy Policy</a>.
+          <br>
+          Only sign in to accounts you own or are authorized to use.
+        </footer>
+
+        <a class="back-link" href="index.html">
+          <i data-lucide="arrow-left" width="15" height="15"></i>
+          Back to home
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithRedirect,
+      getRedirectResult,
+      signInWithPhoneNumber,
+      RecaptchaVerifier,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEvA6u-qa6PVWX_hYgyd_rpn17DOgrgm8",
+      authDomain: "way-mark-app.firebaseapp.com",
+      projectId: "way-mark-app",
+      storageBucket: "way-mark-app.firebasestorage.app",
+      messagingSenderId: "746746866759",
+      appId: "1:746746866759:web:715a0fcec40966157e9562",
+      measurementId: "G-SZSLGEM065"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    const googleButton = document.getElementById("googleButton");
+    const phoneForm = document.getElementById("phoneForm");
+    const phoneInput = document.getElementById("phoneNumber");
+    const sendCodeButton = document.getElementById("sendCodeButton");
+    const otpSection = document.getElementById("otpSection");
+    const otpForm = document.getElementById("otpForm");
+    const otpInput = document.getElementById("otpCode");
+    const verifyCodeButton = document.getElementById("verifyCodeButton");
+    const changeNumberButton = document.getElementById("changeNumberButton");
+    const statusMessage = document.getElementById("statusMessage");
+    const otpDescription = document.getElementById("otpDescription");
+
+    let confirmationResult = null;
+    let recaptchaVerifier = null;
+    let redirectStarted = false;
+
+    const nextPage = "onboarding.html";
+
+    const errorMessages = {
+      "auth/invalid-phone-number":
+        "That phone number isn't valid. Enter a valid 10-digit Indian mobile number.",
+      "auth/too-many-requests":
+        "Too many attempts were made. Please wait a while before trying again.",
+      "auth/quota-exceeded":
+        "SMS verification has reached its available quota. Please try again later.",
+      "auth/captcha-check-failed":
+        "The security check failed. Please refresh the page and try again.",
+      "auth/network-request-failed":
+        "A network error occurred. Check your internet connection and try again.",
+      "auth/unauthorized-domain":
+        "This website domain isn't authorized in Firebase yet. Add your deployed domain in Firebase Authentication settings.",
+      "auth/operation-not-allowed":
+        "This sign-in method hasn't been enabled in Firebase Authentication.",
+      "auth/invalid-verification-code":
+        "That verification code is incorrect. Check the code and try again.",
+      "auth/code-expired":
+        "That verification code has expired. Request a new one.",
+      "auth/session-expired":
+        "Your verification session expired. Request a new code.",
+      "auth/popup-closed-by-user":
+        "Google sign-in was closed before it finished.",
+      "auth/account-exists-with-different-credential":
+        "An account already exists with this email using another sign-in method. Sign in with that method first.",
+      "auth/credential-already-in-use":
+        "This sign-in credential is already linked to another account.",
+      "auth/invalid-credential":
+        "The sign-in details are no longer valid. Please try again.",
+      "auth/internal-error":
+        "Firebase couldn't complete the request. Please try again shortly."
+    };
+
+    function showMessage(message, type = "error") {
+      statusMessage.textContent = message;
+      statusMessage.className = `message show ${type}`;
+    }
+
+    function clearMessage() {
+      statusMessage.textContent = "";
+      statusMessage.className = "message";
+    }
+
+    function getFriendlyError(error) {
+      if (errorMessages[error?.code]) {
+        return errorMessages[error.code];
+      }
+
+      return "We couldn't complete sign-in. Please try again. If this keeps happening, check your Firebase Authentication setup.";
+    }
+
+    function setLoading(button, loading, text) {
+      if (!button.dataset.originalText) {
+        button.dataset.originalText = button.innerHTML;
+      }
+
+      button.disabled = loading;
+
+      if (loading) {
+        button.innerHTML = `<span class="spinner" aria-hidden="true"></span>${text}`;
+      } else {
+        button.innerHTML = button.dataset.originalText;
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      }
+    }
+
+    function goToNextPage() {
+      window.location.replace(nextPage);
+    }
+
+    async function handleRedirectResult() {
+      try {
+        const result = await getRedirectResult(auth);
+
+        if (result?.user) {
+          showMessage("Google sign-in successful. Opening your student setup...", "success");
+          goToNextPage();
+        }
+      } catch (error) {
+        showMessage(getFriendlyError(error));
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        googleButton.disabled = false;
+
+        if (!redirectStarted && !confirmationResult) {
+          showMessage(
+            "You're already signed in. Continue to your student setup.",
+            "success"
+          );
+
+          const continueButton = document.createElement("button");
+          continueButton.type = "button";
+          continueButton.className = "primary-button";
+          continueButton.textContent = "Continue to WAYMARK";
+          continueButton.addEventListener("click", goToNextPage);
+
+          if (!document.getElementById("continueButton")) {
+            continueButton.id = "continueButton";
+            phoneForm.insertAdjacentElement("afterend", continueButton);
+          }
+        }
+      }
+    });
+
+    googleButton.addEventListener("click", async () => {
+      clearMessage();
+      redirectStarted = true;
+      setLoading(googleButton, true, "Opening Google sign-in...");
+
+      try {
+        await signInWithRedirect(auth, googleProvider);
+      } catch (error) {
+        redirectStarted = false;
+        setLoading(googleButton, false);
+        showMessage(getFriendlyError(error));
+      }
+    });
+
+    phoneInput.addEventListener("input", () => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+    });
+
+    otpInput.addEventListener("input", () => {
+      otpInput.value = otpInput.value.replace(/\D/g, "").slice(0, 6);
+    });
+
+    async function getRecaptchaVerifier() {
+      if (!recaptchaVerifier) {
+        recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+          size: "invisible",
+          callback: () => {},
+          "expired-callback": () => {
+            showMessage("The security check expired. Please try sending the code again.");
+          }
+        });
+      }
+
+      await recaptchaVerifier.render();
+      return recaptchaVerifier;
+    }
+
+    phoneForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage();
+
+      const phone = phoneInput.value.trim();
+
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+        showMessage("Enter a valid 10-digit Indian mobile number beginning with 6, 7, 8, or 9.");
+        phoneInput.focus();
+        return;
+      }
+
+      setLoading(sendCodeButton, true, "Sending code...");
+
+      try {
+        const verifier = await getRecaptchaVerifier();
+        confirmationResult = await signInWithPhoneNumber(auth, `+91${phone}`, verifier);
+
+        otpDescription.textContent = `Enter the six-digit code sent to +91 ${phone}.`;
+        otpSection.classList.add("visible");
+        otpInput.focus();
+
+        showMessage("Verification code sent. Check your SMS messages.", "success");
+      } catch (error) {
+        showMessage(getFriendlyError(error));
+
+        if (recaptchaVerifier) {
+          try {
+            await recaptchaVerifier.clear();
+          } catch {}
+
+          recaptchaVerifier = null;
+        }
+      } finally {
+        setLoading(sendCodeButton, false);
+      }
+    });
+
+    otpForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage();
+
+      const code = otpInput.value.trim();
+
+      if (!confirmationResult) {
+        showMessage("Request a verification code before entering it.");
+        return;
+      }
+
+      if (!/^\d{6}$/.test(code)) {
+        showMessage("Enter the six-digit verification code.");
+        otpInput.focus();
+        return;
+      }
+
+      setLoading(verifyCodeButton, true, "Verifying...");
+
+      try {
+        await confirmationResult.confirm(code);
+
+        showMessage("Your phone number is verified. Opening your student setup...", "success");
+
+        window.setTimeout(goToNextPage, 500);
+      } catch (error) {
+        showMessage(getFriendlyError(error));
+      } finally {
+        setLoading(verifyCodeButton, false);
+      }
+    });
+
+    changeNumberButton.addEventListener("click", () => {
+      confirmationResult = null;
+      otpSection.classList.remove("visible");
+      otpInput.value = "";
+      phoneInput.focus();
+      clearMessage();
+    });
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    handleRedirectResult();
+  </script>
+</body>
+</html>
