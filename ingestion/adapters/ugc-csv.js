@@ -188,7 +188,7 @@ export function importUgcCsv(csv, options = {}) {
       ugcListedStatus: status || null,
       website,
       source: {
-        sourceId: "aishe",
+        sourceId: "ugc",
         sourceUrl,
         importedAt: options.importedAt || new Date().toISOString(),
         verificationStatus: "unverified"
