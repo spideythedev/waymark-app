@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Sign in to WAYMARK and plan your educational future.">
   <title>Sign in — WAYMARK</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,14 +14,14 @@
 
   <style>
     :root {
-      --ink: #152238;
-      --muted: #64748b;
-      --line: #e4e9f1;
+      --ink: #17243b;
+      --muted: #68778e;
+      --line: #e3e8f0;
       --primary: #2855d9;
-      --primary-dark: #1d43b8;
+      --primary-dark: #2047bd;
       --surface: #f7f9fc;
       --danger: #b42318;
-      --success: #16835d;
+      --success: #13795b;
     }
 
     * {
@@ -33,7 +34,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       color: var(--ink);
-      background: white;
+      background: #fff;
       font-family: "DM Sans", sans-serif;
     }
 
@@ -47,29 +48,39 @@
       font: inherit;
     }
 
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .65;
+    }
+
     .side {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 34px;
-      background: #f4f7ff;
-      border-right: 1px solid #e6ebf7;
+      background: #f3f6ff;
+      border-right: 1px solid #e7ebf5;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      width: fit-content;
       font: 800 22px Manrope, sans-serif;
       letter-spacing: -.8px;
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
+      width: 39px;
+      height: 39px;
       display: grid;
       place-items: center;
-      color: white;
+      color: #fff;
       background: var(--primary);
       border-radius: 12px;
     }
@@ -80,10 +91,29 @@
       padding: 40px 0;
     }
 
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 22px;
+      height: 2px;
+      content: "";
+      background: var(--primary);
+    }
+
     .side-content h1 {
-      margin: 0 0 18px;
-      font: 800 clamp(35px, 4vw, 54px)/1.12 Manrope, sans-serif;
-      letter-spacing: -2.5px;
+      margin: 0 0 20px;
+      font: 800 clamp(35px, 4vw, 56px)/1.12 Manrope, sans-serif;
+      letter-spacing: -2.7px;
     }
 
     .side-content h1 span {
@@ -91,8 +121,10 @@
     }
 
     .side-content p {
+      max-width: 400px;
       color: var(--muted);
-      line-height: 1.85;
+      font-size: 15px;
+      line-height: 1.9;
     }
 
     .side-note {
@@ -110,7 +142,7 @@
     .form-side {
       display: grid;
       place-items: center;
-      padding: 28px;
+      padding: 32px;
     }
 
     .form-wrap {
@@ -119,20 +151,24 @@
 
     .mobile-brand {
       display: none;
-      margin-bottom: 40px;
+      margin-bottom: 38px;
+    }
+
+    .form-heading {
+      margin-bottom: 28px;
     }
 
     h2 {
-      margin: 0 0 8px;
-      font: 800 30px Manrope, sans-serif;
-      letter-spacing: -1px;
+      margin: 0 0 9px;
+      font: 800 31px Manrope, sans-serif;
+      letter-spacing: -1.2px;
     }
 
     .subtitle {
-      margin-bottom: 28px;
+      margin: 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     .google-btn,
@@ -146,19 +182,20 @@
       padding: 12px 16px;
       border: 1px solid var(--line);
       border-radius: 12px;
-      background: white;
+      background: #fff;
       font-weight: 700;
       cursor: pointer;
-      transition: background .18s, transform .18s;
+      transition: background .18s, border-color .18s, transform .18s;
     }
 
     .google-btn:hover {
       background: var(--surface);
+      border-color: #cbd5e1;
     }
 
     .submit-btn {
       margin-top: 20px;
-      color: white;
+      color: #fff;
       background: var(--primary);
       border-color: var(--primary);
     }
@@ -167,48 +204,53 @@
       background: var(--primary-dark);
     }
 
-    button:disabled {
-      cursor: not-allowed;
-      opacity: .65;
+    .submit-btn:active,
+    .google-btn:active {
+      transform: scale(.99);
     }
 
     .divider {
       display: flex;
       align-items: center;
       gap: 13px;
-      margin: 22px 0;
+      margin: 23px 0;
       color: #94a3b8;
       font-size: 12px;
     }
 
     .divider::before,
     .divider::after {
-      content: "";
       height: 1px;
       flex: 1;
+      content: "";
       background: var(--line);
     }
 
     .field {
-      margin-bottom: 17px;
+      margin-bottom: 18px;
     }
 
     label {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
       font-size: 13px;
       font-weight: 700;
     }
 
     input {
       width: 100%;
-      min-height: 48px;
+      min-height: 49px;
       padding: 12px 14px;
       border: 1px solid #dce3ed;
       border-radius: 11px;
       outline: none;
-      background: white;
+      background: #fff;
       color: var(--ink);
+      transition: border-color .18s, box-shadow .18s;
+    }
+
+    input::placeholder {
+      color: #a0aabd;
     }
 
     input:focus {
@@ -218,9 +260,9 @@
 
     .message {
       display: none;
-      margin: 0 0 17px;
-      padding: 13px;
-      border-radius: 10px;
+      margin-bottom: 18px;
+      padding: 13px 14px;
+      border-radius: 11px;
       font-size: 13px;
       line-height: 1.7;
       overflow-wrap: anywhere;
@@ -229,29 +271,36 @@
     .message.error {
       display: block;
       color: var(--danger);
-      background: #fff2f0;
-      border: 1px solid #ffd6d1;
+      background: #fff3f1;
+      border: 1px solid #ffd8d2;
     }
 
     .message.info {
       display: block;
-      color: #2347a5;
-      background: #edf3ff;
+      color: #2449a5;
+      background: #eff4ff;
       border: 1px solid #dce7ff;
+    }
+
+    .message.success {
+      display: block;
+      color: var(--success);
+      background: #effaf5;
+      border: 1px solid #cceedd;
     }
 
     .error-code {
       display: block;
-      margin-top: 7px;
-      padding-top: 7px;
-      border-top: 1px solid #ffd6d1;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f3d1cb;
       font-family: monospace;
       font-size: 11px;
       overflow-wrap: anywhere;
     }
 
     .switch-mode {
-      margin-top: 22px;
+      margin-top: 23px;
       color: var(--muted);
       text-align: center;
       font-size: 13px;
@@ -266,21 +315,25 @@
       cursor: pointer;
     }
 
-    .legal {
-      margin-top: 28px;
-      color: #94a3b8;
-      text-align: center;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      margin-top: 22px;
+      margin-top: 24px;
       color: var(--muted);
       font-size: 13px;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .legal {
+      margin-top: 27px;
+      color: #94a3b8;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.8;
     }
 
     @media (max-width: 760px) {
@@ -294,11 +347,28 @@
 
       .form-side {
         min-height: 100vh;
-        padding: 28px 22px;
+        padding: 30px 22px;
+      }
+
+      .form-wrap {
+        max-width: 420px;
       }
 
       .mobile-brand {
         display: inline-flex;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
       }
     }
   </style>
@@ -306,38 +376,48 @@
 
 <body>
   <aside class="side">
-    <a class="brand" href="./">
+    <a class="brand" href="./index.html">
       <span class="brand-mark"><i data-lucide="compass"></i></span>
       WAYMARK
     </a>
 
     <div class="side-content">
+      <div class="eyebrow">Your journey starts here</div>
+
       <h1>Your future.<br>Your choices.<br><span>Your direction.</span></h1>
+
       <p>
-        Make education decisions with more clarity.
-        Keep your goals in view and take your next step with confidence.
+        Explore educational pathways, understand your options,
+        and make your next decision with greater clarity.
       </p>
     </div>
 
     <div class="side-note">
       <i data-lucide="shield-check" size="17"></i>
-      Your account is protected by Firebase Authentication.
+      Secure authentication for your WAYMARK account.
     </div>
   </aside>
 
   <main class="form-side">
     <div class="form-wrap">
-      <a class="brand mobile-brand" href="./">
+      <a class="brand mobile-brand" href="./index.html">
         <span class="brand-mark"><i data-lucide="compass"></i></span>
         WAYMARK
       </a>
 
-      <h2 id="form-title">Welcome back</h2>
-      <p class="subtitle" id="form-subtitle">
-        Sign in to continue your journey.
-      </p>
+      <div class="form-heading">
+        <h2 id="form-title">Welcome back</h2>
+        <p class="subtitle" id="form-subtitle">
+          Sign in to continue your education journey.
+        </p>
+      </div>
 
-      <div id="message" class="message" role="alert" aria-live="polite"></div>
+      <div
+        id="message"
+        class="message"
+        role="alert"
+        aria-live="polite"
+      ></div>
 
       <button class="google-btn" id="google-button" type="button">
         <svg width="19" height="19" viewBox="0 0 48 48" aria-hidden="true">
@@ -349,18 +429,19 @@
         Continue with Google
       </button>
 
-      <div class="divider">or use your email</div>
+      <div class="divider">or continue with email</div>
 
       <form id="auth-form">
         <div class="field">
           <label for="email">Email address</label>
           <input
             id="email"
+            name="email"
             type="email"
             autocomplete="email"
-            required
             maxlength="254"
             placeholder="you@example.com"
+            required
           >
         </div>
 
@@ -368,39 +449,41 @@
           <label for="password">Password</label>
           <input
             id="password"
+            name="password"
             type="password"
             autocomplete="current-password"
-            required
             minlength="6"
             maxlength="128"
-            placeholder="At least 6 characters"
+            placeholder="Enter your password"
+            required
           >
         </div>
 
         <button class="submit-btn" id="submit-button" type="submit">
-          Sign in <i data-lucide="arrow-right" size="17"></i>
+          <span id="submit-label">Sign in</span>
+          <i data-lucide="arrow-right" size="17"></i>
         </button>
       </form>
 
       <div class="switch-mode">
         <span id="switch-label">New to WAYMARK?</span>
-        <button type="button" id="switch-button">Create an account</button>
+        <button id="switch-button" type="button">Create an account</button>
       </div>
 
-      <a class="back-link" href="./">
+      <a class="back-link" href="./index.html">
         <i data-lucide="arrow-left" size="16"></i>
         Back to home
       </a>
 
       <p class="legal">
-        Sign in only with an email account you control.
-        Keep your password private.
+        Keep your password private. By using WAYMARK, you agree
+        to use the platform responsibly.
       </p>
     </div>
   </main>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 
     import {
       getAuth,
@@ -410,7 +493,7 @@
       createUserWithEmailAndPassword,
       updateProfile,
       onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 
     import {
       getFirestore,
@@ -418,10 +501,10 @@
       getDoc,
       setDoc,
       serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDEvA6u-qaPVWX_hYgyd_rpn17DOgrgm8",
+      apiKey: "AIzaSyDEvA6u-qa6PVWX_hYgyd_rpn17DOgrgm8",
       authDomain: "way-mark-app.firebaseapp.com",
       projectId: "way-mark-app",
       storageBucket: "way-mark-app.firebasestorage.app",
@@ -438,6 +521,7 @@
     const emailInput = document.querySelector("#email");
     const passwordInput = document.querySelector("#password");
     const submitButton = document.querySelector("#submit-button");
+    const submitLabel = document.querySelector("#submit-label");
     const googleButton = document.querySelector("#google-button");
     const switchButton = document.querySelector("#switch-button");
     const message = document.querySelector("#message");
@@ -447,6 +531,8 @@
       : "login";
 
     let busy = false;
+    let authResolved = false;
+    let redirecting = false;
 
     function showMessage(text, type = "error", code = "") {
       message.replaceChildren();
@@ -469,31 +555,49 @@
       message.className = "message";
     }
 
+    function setBusy(value) {
+      busy = value;
+
+      submitButton.disabled = value;
+      googleButton.disabled = value;
+      switchButton.disabled = value;
+
+      submitLabel.textContent = value
+        ? "Please wait…"
+        : mode === "signup"
+          ? "Create account"
+          : "Sign in";
+    }
+
     function setMode(nextMode) {
       mode = nextMode;
       clearMessage();
 
       const signup = mode === "signup";
 
-      document.querySelector("#form-title").textContent =
-        signup ? "Create your account" : "Welcome back";
+      document.querySelector("#form-title").textContent = signup
+        ? "Create your account"
+        : "Welcome back";
 
-      document.querySelector("#form-subtitle").textContent =
-        signup
-          ? "Create an account to start planning your next steps."
-          : "Sign in to continue your journey.";
+      document.querySelector("#form-subtitle").textContent = signup
+        ? "Create an account to start planning your next steps."
+        : "Sign in to continue your education journey.";
 
-      submitButton.innerHTML = signup
-        ? 'Create account <i data-lucide="arrow-right" size="17"></i>'
-        : 'Sign in <i data-lucide="arrow-right" size="17"></i>';
+      document.querySelector("#switch-label").textContent = signup
+        ? "Already have an account?"
+        : "New to WAYMARK?";
 
-      passwordInput.autocomplete = signup ? "new-password" : "current-password";
+      switchButton.textContent = signup
+        ? "Sign in"
+        : "Create an account";
 
-      document.querySelector("#switch-label").textContent =
-        signup ? "Already have an account?" : "New to WAYMARK?";
+      passwordInput.autocomplete = signup
+        ? "new-password"
+        : "current-password";
 
-      switchButton.textContent =
-        signup ? "Sign in" : "Create an account";
+      submitLabel.textContent = signup
+        ? "Create account"
+        : "Sign in";
 
       history.replaceState(
         {},
@@ -501,19 +605,26 @@
         signup ? "./login.html?mode=signup" : "./login.html"
       );
 
-      if (window.lucide) window.lucide.createIcons();
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
     }
 
     function explainError(error) {
-      console.error("Firebase error code:", error.code);
-      console.error("Firebase error message:", error.message);
+      console.error("WAYMARK Firebase error:", error.code, error.message);
 
       const messages = {
-        "auth/email-already-in-use":
-          "An account already exists for this email. Try signing in.",
+        "auth/api-key-not-valid":
+          "Firebase rejected the API key. Verify that it exactly matches the Web app configuration in Firebase Console.",
+
+        "auth/invalid-api-key":
+          "The Firebase API key is invalid. Copy the key from your Firebase project settings.",
 
         "auth/invalid-email":
           "Enter a valid email address.",
+
+        "auth/email-already-in-use":
+          "An account already exists for this email. Switch to sign in.",
 
         "auth/weak-password":
           "Choose a stronger password with at least 6 characters.",
@@ -534,49 +645,45 @@
           "Your browser blocked the Google sign-in window. Allow pop-ups and try again.",
 
         "auth/operation-not-allowed":
-          "This sign-in method is disabled in Firebase Authentication. Enable the provider in your Firebase Console.",
+          "This sign-in method is disabled. Enable the provider in Firebase Authentication settings.",
 
         "auth/unauthorized-domain":
-          "This website domain is not authorised in Firebase Authentication settings.",
+          "This website domain is not authorised. Add your deployed domain to Firebase Authentication's authorised domains.",
 
         "auth/network-request-failed":
-          "Firebase could not connect. Check your internet connection, browser restrictions, or network settings.",
-
-        "auth/api-key-not-valid":
-          "The Firebase API key is invalid or restricted. Check your Firebase project configuration.",
+          "Firebase could not connect. Check your internet connection and browser network restrictions.",
 
         "auth/app-not-authorized":
-          "This app is not authorised to use the Firebase project.",
+          "This app is not authorised to use the Firebase project. Check the project configuration.",
 
-        "auth/invalid-api-key":
-          "The Firebase API key is invalid.",
-
-        "auth/requests-to-this-api-identitytoolkit-method-google.cloud.identitytoolkit.v1.accounts.signinwithpassword-are-blocked":
-          "The password authentication request was blocked by the project's API restrictions.",
+        "auth/invalid-app-credential":
+          "Firebase could not verify the app credential. Check your authentication configuration and authorised domains.",
 
         "permission-denied":
-          "Authentication may have succeeded, but Firestore denied access. Check your published Firestore rules.",
+          "Firestore denied access to this profile. Check the deployed Firestore security rules.",
 
         "unavailable":
           "The database service is temporarily unavailable. Try again later."
       };
 
-      const text = messages[error.code] ||
-        error.message ||
-        "An unknown error occurred.";
-
       return {
-        text,
+        text: messages[error.code] ||
+          error.message ||
+          "An unknown error occurred.",
         code: error.code || "unknown"
       };
     }
 
     async function routeUser(user) {
+      if (redirecting) return;
+
       const profileRef = doc(db, "users", user.uid);
       const profileSnapshot = await getDoc(profileRef);
 
+      let profile;
+
       if (!profileSnapshot.exists()) {
-        await setDoc(profileRef, {
+        profile = {
           name: user.displayName || "",
           email: user.email || "",
           phoneNumber: user.phoneNumber || "",
@@ -589,12 +696,14 @@
           onboardingComplete: false,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp()
-        });
+        };
+
+        await setDoc(profileRef, profile);
+      } else {
+        profile = profileSnapshot.data();
       }
 
-      const profile = profileSnapshot.exists()
-        ? profileSnapshot.data()
-        : { onboardingComplete: false };
+      redirecting = true;
 
       location.replace(
         profile.onboardingComplete === true
@@ -604,14 +713,10 @@
     }
 
     async function runAuth(action) {
-      if (busy) return;
+      if (busy || redirecting) return;
 
-      busy = true;
+      setBusy(true);
       clearMessage();
-
-      submitButton.disabled = true;
-      googleButton.disabled = true;
-      switchButton.disabled = true;
 
       showMessage("Connecting to your account…", "info");
 
@@ -621,28 +726,29 @@
       } catch (error) {
         const details = explainError(error);
 
-        showMessage(
-          details.text,
-          "error",
-          details.code
-        );
+        showMessage(details.text, "error", details.code);
       } finally {
-        busy = false;
-        submitButton.disabled = false;
-        googleButton.disabled = false;
-        switchButton.disabled = false;
+        setBusy(false);
       }
     }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
+      if (!authResolved) {
+        showMessage(
+          "Firebase is still initialising. Please try again in a moment.",
+          "info"
+        );
+        return;
+      }
+
       const email = emailInput.value.trim();
       const password = passwordInput.value;
 
-      if (password.length < 6) {
+      if (!email || password.length < 6) {
         showMessage(
-          "Your password must contain at least 6 characters.",
+          "Enter a valid email address and a password with at least 6 characters.",
           "error",
           "local-validation"
         );
@@ -675,7 +781,16 @@
     });
 
     googleButton.addEventListener("click", () => {
+      if (!authResolved) {
+        showMessage(
+          "Firebase is still initialising. Please try again in a moment.",
+          "info"
+        );
+        return;
+      }
+
       const provider = new GoogleAuthProvider();
+
       provider.setCustomParameters({
         prompt: "select_account"
       });
@@ -687,32 +802,45 @@
     });
 
     switchButton.addEventListener("click", () => {
-      setMode(mode === "login" ? "signup" : "login");
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user || busy) return;
-
-      busy = true;
-      googleButton.disabled = true;
-      submitButton.disabled = true;
-
-      try {
-        await routeUser(user);
-      } catch (error) {
-        const details = explainError(error);
-
-        showMessage(
-          `You are signed in, but your profile could not be loaded. ${details.text}`,
-          "error",
-          details.code
-        );
-      } finally {
-        busy = false;
-        googleButton.disabled = false;
-        submitButton.disabled = false;
+      if (!busy) {
+        setMode(mode === "login" ? "signup" : "login");
       }
     });
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+        authResolved = true;
+
+        if (!user || busy || redirecting) return;
+
+        setBusy(true);
+        clearMessage();
+
+        showMessage("Checking your WAYMARK profile…", "info");
+
+        try {
+          await routeUser(user);
+        } catch (error) {
+          const details = explainError(error);
+
+          showMessage(
+            `You are signed in, but your profile could not be loaded. ${details.text}`,
+            "error",
+            details.code
+          );
+        } finally {
+          setBusy(false);
+        }
+      },
+      (error) => {
+        authResolved = true;
+
+        const details = explainError(error);
+
+        showMessage(details.text, "error", details.code);
+      }
+    );
 
     setMode(mode);
 
