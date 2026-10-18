@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My profile — WAYMARK</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root { --blue:#315efb; --ink:#172033; --muted:#68738a; --line:#e5eaf2; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f7f9fd; color:var(--ink); font-family:Inter,sans-serif; }
+    h1,h2 { font-family:Manrope,sans-serif; letter-spacing:-.04em; }
+    .topbar { background:white; border-bottom:1px solid var(--line); padding:18px 0; }
+    .brand { display:flex; align-items:center; gap:10px; color:var(--ink); font:800 22px Manrope,sans-serif; text-decoration:none; }
+    .brand-icon { display:grid; place-items:center; width:36px; height:36px; background:var(--blue); color:white; border-radius:11px; }
+    .card-clean { background:white; border:1px solid var(--line); border-radius:18px; padding:clamp(20px,4vw,32px); }
+    .muted { color:var(--muted); }
+    .avatar { width:68px; height:68px; display:grid; place-items:center; border-radius:20px; color:var(--blue); background:#eef2ff; font-size:26px; font-weight:800; }
+    .form-label { font-size:13px; font-weight:700; }
+    .form-control,.form-select { min-height:48px; border-color:#dfe5ef; border-radius:11px; box-shadow:none!important; }
+    .form-control:focus,.form-select:focus { border-color:var(--blue); }
+    .btn-main { min-height:47px; background:var(--blue); color:white; border:0; border-radius:11px; padding:11px 18px; font-weight:700; }
+    .btn-main:hover { background:#2148db; color:white; }
+    .btn-soft { border:1px solid var(--line); border-radius:11px; padding:11px 17px; background:white; color:var(--ink); font-weight:700; }
+    .btn-soft:hover { background:#f7f9fd; }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="dashboard.html" class="brand"><span class="brand-icon"><i data-lucide="navigation"></i></span> WAYMARK</a>
+      <a href="dashboard.html" class="btn-soft text-decoration-none"><i data-lucide="arrow-left" style="width:16px"></i> Dashboard</a>
+    </div>
+  </header>
+
+  <main class="container py-4 py-lg-5" style="max-width:900px">
+    <div class="mb-4">
+      <div class="small text-primary fw-bold text-uppercase mb-2" style="letter-spacing:.12em">Your account</div>
+      <h1 class="fw-bold">My profile</h1>
+      <p class="muted">Keep your student information up to date.</p>
+    </div>
+
+    <div id="message" class="alert d-none"></div>
+
+    <section class="card-clean mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <div id="avatar" class="avatar">W</div>
+        <div>
+          <h2 id="displayName" class="h5 fw-bold mb-1">Loading profile…</h2>
+          <div id="email" class="muted small">Loading account…</div>
+          <div id="phone" class="muted small mt-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-clean">
+      <h2 class="h5 fw-bold mb-1">Student information</h2>
+      <p class="muted small mb-4">Changes are saved to your private user profile.</p>
+
+      <form id="profileForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="name">Name</label>
+            <input id="name" class="form-control" maxlength="80" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="state">State or union territory</label>
+            <select id="state" class="form-select" required>
+              <option value="">Choose your state</option>
+              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option>
+              <option>Bihar</option><option>Chhattisgarh</option><option>Goa</option>
+              <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+              <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+              <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option>
+              <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option>
+              <option>Odisha</option><option>Punjab</option><option>Rajasthan</option>
+              <option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+              <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+              <option>West Bengal</option><option>Andaman and Nicobar Islands</option>
+              <option>Chandigarh</option><option>Dadra and Nagar Haveli and Daman and Diu</option>
+              <option>Delhi</option><option>Jammu and Kashmir</option><option>Ladakh</option>
+              <option>Lakshadweep</option><option>Puducherry</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="stage">Education stage</label>
+            <select id="stage" class="form-select" required>
+              <option value="school">School</option>
+              <option value="class12">After Class 12</option>
+              <option value="undergraduate">Undergraduate</option>
+              <option value="graduate">Graduate</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="classLevel">Class or study year</label>
+            <select id="classLevel" class="form-select" required>
+              <option value="8">Class 8</option><option value="9">Class 9</option>
+              <option value="10">Class 10</option><option value="11">Class 11</option>
+              <option value="12">Class 12</option><option value="1st-year">1st year</option>
+              <option value="2nd-year">2nd year</option><option value="3rd-year">3rd year</option>
+              <option value="4th-year">4th year</option><option value="completed">Completed</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="stream">Stream or study area</label>
+            <select id="stream" class="form-select" required>
+              <option value="science">Science</option><option value="commerce">Commerce</option>
+              <option value="arts">Arts / Humanities</option><option value="vocational">Vocational</option>
+              <option value="general">General</option><option value="other">Other / Not sure</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="interests">Interests</label>
+            <input id="interests" class="form-control" maxlength="300" placeholder="e.g. engineering, software, design">
+          </div>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+          <button id="saveButton" class="btn-main" type="submit">Save changes</button>
+          <a href="settings.html" class="btn-soft text-center text-decoration-none">Account settings</a>
+        </div>
+      </form>
+    </section>
+
+    <footer class="muted small text-center mt-4">Built by Fahad & Team — Arshath, Saajid, Nadeem and Althaf.</footer>
+  </main>
+
+  <script type="module">
+    import { requireUser, getProfile, saveProfile } from "./assets/waymark.js";
+
+    const $ = id => document.getElementById(id);
+    const user = await requireUser({ checkOnboarding: false });
+
+    function showMessage(text, type = "danger") {
+      $("message").className = `alert alert-${type}`;
+      $("message").textContent = text;
+    }
+
+    if (user) {
+      try {
+        const profile = await getProfile(user.uid) || {};
+
+        $("name").value = profile.name || user.displayName || "";
+        $("state").value = profile.state || "";
+        $("stage").value = profile.stage || "school";
+        $("classLevel").value = profile.classLevel || "other";
+        $("stream").value = profile.stream || "other";
+        $("interests").value = profile.interests || "";
+
+        $("displayName").textContent = profile.name || user.displayName || "Student";
+        $("email").textContent = user.email || "No email attached";
+        $("phone").textContent = user.phoneNumber || "";
+        $("avatar").textContent = (profile.name || user.displayName || "W").trim().charAt(0).toUpperCase();
+      } catch {
+        showMessage("Could not load your profile. Check your Firestore configuration and security rules.");
+      }
+    }
+
+    $("profileForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!user) return;
+
+      $("saveButton").disabled = true;
+      $("saveButton").textContent = "Saving…";
+
+      try {
+        await saveProfile(user.uid, {
+          name: $("name").value.trim(),
+          state: $("state").value,
+          stage: $("stage").value,
+          classLevel: $("classLevel").value,
+          stream: $("stream").value,
+          interests: $("interests").value.trim(),
+          email: user.email || "",
+          phoneNumber: user.phoneNumber || "",
+          onboardingComplete: true
+        });
+
+        $("displayName").textContent = $("name").value.trim();
+        $("avatar").textContent = $("name").value.trim().charAt(0).toUpperCase();
+        showMessage("Your profile has been updated.", "success");
+      } catch (error) {
+        showMessage(error.message || "Could not save your profile.");
+      } finally {
+        $("saveButton").disabled = false;
+        $("saveButton").textContent = "Save changes";
+      }
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
