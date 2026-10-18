@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "sources": [
+    {
+      "id": "ugc",
+      "name": "University Grants Commission",
+      "url": "https://www.ugc.gov.in/",
+      "domain": "ugc.gov.in",
+      "category": "higher-education",
+      "status": "registered",
+      "integration": "not_connected"
+    },
+    {
+      "id": "aicte",
+      "name": "All India Council for Technical Education",
+      "url": "https://www.aicte-india.org/",
+      "domain": "aicte-india.org",
+      "category": "technical-education",
+      "status": "registered",
+      "integration": "not_connected"
+    },
+    {
+      "id": "nta",
+      "name": "National Testing Agency",
+      "url": "https://nta.ac.in/",
+      "domain": "nta.ac.in",
+      "category": "entrance-examinations",
+      "status": "registered",
+      "integration": "not_connected"
+    },
+    {
+      "id": "nsp",
+      "name": "National Scholarship Portal",
+      "url": "https://scholarships.gov.in/",
+      "domain": "scholarships.gov.in",
+      "category": "scholarships",
+      "status": "registered",
+      "integration": "not_connected"
+    },
+    {
+      "id": "josaa",
+      "name": "Joint Seat Allocation Authority",
+      "url": "https://josaa.nic.in/",
+      "domain": "josaa.nic.in",
+      "category": "admissions",
+      "status": "registered",
+      "integration": "not_connected"
+    },
+    {
+      "id": "tn-dte",
+      "name": "Tamil Nadu Directorate of Technical Education",
+      "url": "https://dte.tn.gov.in/",
+      "domain": "dte.tn.gov.in",
+      "category": "technical-education",
+      "status": "registered",
+      "integration": "not_connected"
+    },
+    {
+      "id": "tnea",
+      "name": "Tamil Nadu Engineering Admissions",
+      "url": "https://www.tneaonline.org/",
+      "domain": "tneaonline.org",
+      "category": "admissions",
+      "status": "registered",
+      "integration": "not_connected"
+    }
+  ]
+}
