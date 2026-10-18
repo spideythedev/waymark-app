@@ -10,6 +10,28 @@
     "preserveOriginalSource": true
   },
   "sources": [
+{
+  "id": "ugc",
+  "name": "University Grants Commission",
+  "url": "https://www.ugc.gov.in/universitydetails/university",
+  "categories": [
+    "universities",
+    "higher_education",
+    "institution_directory"
+  ],
+  "acquisition": {
+    "method": "manual_csv_import",
+    "apiVerified": false,
+    "automationVerified": false
+  },
+  "dataLimitations": [
+    "An exported file may contain only the currently displayed page.",
+    "The export's coverage must be checked before claiming completeness.",
+    "The UGC-listed status must not be interpreted beyond its documented meaning.",
+    "Website links must be preserved only when actual URLs are available."
+  ],
+  "status": "registered_not_integrated"
+}
     {
       "id": "aishe",
       "name": "All India Survey on Higher Education",
