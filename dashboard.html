@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Your personal WAYMARK education dashboard.">
+  <title>Dashboard — WAYMARK</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --ink: #152238;
+      --muted: #64748b;
+      --line: #e4e9f1;
+      --primary: #2855d9;
+      --primary-dark: #1d43b8;
+      --surface: #f7f9fc;
+      --sidebar: 250px;
+      --green: #16835d;
+      --amber: #95600c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f8faff;
+      font-family: "DM Sans", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .layout {
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 20;
+      width: var(--sidebar);
+      display: flex;
+      flex-direction: column;
+      padding: 22px 15px;
+      background: white;
+      border-right: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 9px;
+      font: 800 21px Manrope, sans-serif;
+      letter-spacing: -.7px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--primary);
+      border-radius: 12px;
+    }
+
+    .nav-label {
+      padding: 0 12px;
+      margin: 33px 0 10px;
+      color: #94a3b8;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: grid;
+      gap: 5px;
+    }
+
+    .nav-link {
+      min-height: 43px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 12px;
+      color: #64748b;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background .15s, color .15s;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--primary);
+      background: #edf3ff;
+    }
+
+    .nav-link i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 15px 8px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .account {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 3px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      flex-shrink: 0;
+      place-items: center;
+      color: var(--primary);
+      background: #edf3ff;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .account-info {
+      min-width: 0;
+    }
+
+    .account-info strong,
+    .account-info small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .account-info strong {
+      font-size: 12px;
+    }
+
+    .account-info small {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar);
+    }
+
+    .topbar {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 0 30px;
+      background: white;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .breadcrumbs {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .breadcrumbs strong {
+      color: var(--ink);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      cursor: pointer;
+    }
+
+    .icon-button:hover {
+      color: var(--primary);
+      background: var(--surface);
+    }
+
+    .content {
+      width: min(1150px, 100%);
+      padding: 32px 30px 50px;
+      margin: 0 auto;
+    }
+
+    .welcome {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 27px;
+    }
+
+    h1 {
+      margin: 0 0 9px;
+      font: 800 clamp(25px, 3vw, 33px)/1.2 Manrope, sans-serif;
+      letter-spacing: -1.2px;
+    }
+
+    .welcome p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      color: #52647c;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .notice {
+      display: none;
+      padding: 13px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #f1d8a7;
+      border-radius: 12px;
+      color: #82540d;
+      background: #fff9eb;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 30px 0 15px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font: 800 17px Manrope, sans-serif;
+      letter-spacing: -.3px;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .summary-card {
+      min-width: 0;
+      padding: 19px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .summary-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .summary-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      background: #edf3ff;
+      border-radius: 12px;
+    }
+
+    .summary-card small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .summary-card h3 {
+      margin: 0 0 5px;
+      font-size: 15px;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .profile-panel {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 22px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .panel-heading h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .panel-heading i {
+      color: var(--primary);
+    }
+
+    .profile-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 13px 0;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .profile-item:last-child {
+      border-bottom: 0;
+    }
+
+    .profile-item span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .profile-item strong {
+      max-width: 65%;
+      overflow-wrap: anywhere;
+      text-align: right;
+      font-size: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 6px 9px;
+      color: var(--primary);
+      background: #edf3ff;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .empty {
+      padding: 16px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px dashed #dbe2ed;
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .source-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .source-row:last-child {
+      border-bottom: 0;
+    }
+
+    .source-dot {
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+      margin-top: 5px;
+      background: #c38a20;
+      border-radius: 50%;
+    }
+
+    .source-row strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .source-row small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .source-row a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    .loading {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1000px) {
+      :root {
+        --sidebar: 215px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .profile-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform .2s ease;
+        box-shadow: none;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 10px 0 35px #0f172a18;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .topbar {
+        height: 62px;
+        padding: 0 16px;
+      }
+
+      .mobile-menu {
+        display: grid;
+      }
+
+      .content {
+        padding: 24px 16px 40px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-card {
+        padding: 17px;
+      }
+
+      .welcome {
+        gap: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="./dashboard.html">
+        <span class="brand-mark"><i data-lucide="compass"></i></span>
+        WAYMARK
+      </a>
+
+      <div class="nav-label">Workspace</div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link active" href="./dashboard.html">
+          <i data-lucide="layout-dashboard"></i>
+          Dashboard
+        </a>
+
+        <a class="nav-link" href="./onboarding.html">
+          <i data-lucide="user-round-pen"></i>
+          Edit my profile
+        </a>
+
+        <a class="nav-link" href="./" id="home-link">
+          <i data-lucide="compass"></i>
+          WAYMARK home
+        </a>
+      </nav>
+
+      <div class="nav-label">Platform status</div>
+
+      <nav class="nav">
+        <a class="nav-link" href="./api/health" target="_blank" rel="noopener noreferrer">
+          <i data-lucide="activity"></i>
+          API health
+        </a>
+
+        <a class="nav-link" href="./api/education" target="_blank" rel="noopener noreferrer">
+          <i data-lucide="database"></i>
+          Education data
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="account">
+          <div class="avatar" id="avatar">W</div>
+          <div class="account-info">
+            <strong id="sidebar-name">Loading profile…</strong>
+            <small id="sidebar-email">Loading account…</small>
+          </div>
+        </div>
+
+        <button class="nav-link" id="signout-button" style="width:100%;background:white;border:0;text-align:left;cursor:pointer">
+          <i data-lucide="log-out"></i>
+          Sign out
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="icon-button mobile-menu" id="menu-button" aria-label="Open navigation">
+            <i data-lucide="menu"></i>
+          </button>
+
+          <div class="breadcrumbs">Workspace / <strong>Dashboard</strong></div>
+        </div>
+
+        <div class="top-actions">
+          <button class="icon-button" id="refresh-button" aria-label="Refresh dashboard">
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="welcome">
+          <div>
+            <h1 id="welcome-title">Your journey starts here.</h1>
+            <p>
+              Your education goals, profile, and platform information in one place.
+            </p>
+          </div>
+
+          <div class="date-chip">
+            <i data-lucide="calendar-days" size="16"></i>
+            <span id="today"></span>
+          </div>
+        </section>
+
+        <div class="notice" id="notice" role="status"></div>
+
+        <section class="summary-grid" aria-label="Dashboard summary">
+          <article class="summary-card">
+            <div class="summary-top">
+              <div class="summary-icon"><i data-lucide="user-round"></i></div>
+              <small>Account</small>
+            </div>
+            <h3 id="profile-status">Loading…</h3>
+            <p>Your student profile and preferences.</p>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-top">
+              <div class="summary-icon"><i data-lucide="database"></i></div>
+              <small>Education data</small>
+            </div>
+            <h3 id="data-status">Checking…</h3>
+            <p id="data-detail">Checking the connected education dataset.</p>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-top">
+              <div class="summary-icon"><i data-lucide="brain"></i></div>
+              <small>AI guidance</small>
+            </div>
+            <h3 id="ai-status">Checking…</h3>
+            <p id="ai-detail">Checking backend configuration.</p>
+          </article>
+        </section>
+
+        <div class="section-title">
+          <h2>Your profile</h2>
+          <span>Saved to your account</span>
+        </div>
+
+        <section class="profile-panel">
+          <article class="panel">
+            <div class="panel-heading">
+              <i data-lucide="contact-round"></i>
+              <h3>Student information</h3>
+            </div>
+
+            <div id="profile-content" class="loading" aria-live="polite">
+              Loading your profile…
+            </div>
+
+            <div style="margin-top:18px">
+              <a href="./onboarding.html" style="color:#2855d9;font-size:12px;font-weight:800">
+                Update profile <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <i data-lucide="landmark"></i>
+              <h3>Official source registry</h3>
+            </div>
+
+            <p style="color:#64748b;font-size:12px;line-height:1.8">
+              These sources are registered for future integrations.
+              Registration does not mean live data is connected or verified.
+            </p>
+
+            <div id="source-content" class="loading" aria-live="polite">
+              Loading source registry…
+            </div>
+          </article>
+        </section>
+
+        <div class="section-title">
+          <h2>Next steps</h2>
+          <span>Based on your current setup</span>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <i data-lucide="list-checks"></i>
+            <h3>Your starting checklist</h3>
+          </div>
+
+          <div class="source-row">
+            <div class="source-dot" style="background:#16835d"></div>
+            <div>
+              <strong>Set up your student profile</strong>
+              <small id="check-profile">Checking profile completion…</small>
+            </div>
+          </div>
+
+          <div class="source-row">
+            <div class="source-dot"></div>
+            <div>
+              <strong>Explore verified education information</strong>
+              <small>
+                The current dataset may be empty. Check the data endpoint
+                for the actual available records before making decisions.
+              </small>
+            </div>
+          </div>
+
+          <div class="source-row">
+            <div class="source-dot"></div>
+            <div>
+              <strong>Confirm important details with official authorities</strong>
+              <small>
+                Verify admissions, deadlines, eligibility, and fees directly
+                with the relevant institution or official authority.
+              </small>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <strong>WAYMARK</strong> · Fahad & Team — Arshath, Saajid, Nayeem, and Althaf.
+          <br>
+          Information availability depends on connected datasets.
+          Do not treat a registered source as proof that a record is current or verified.
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEvA6u-qaPVWX_hYgyd_rpn17DOgrgm8",
+      authDomain: "way-mark-app.firebaseapp.com",
+      projectId: "way-mark-app",
+      storageBucket: "way-mark-app.firebasestorage.app",
+      messagingSenderId: "746746866759",
+      appId: "1:746746866759:web:2fd78631f814d63c7e9562",
+      measurementId: "G-V0FYKMSJ93"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const $ = (selector) => document.querySelector(selector);
+
+    let currentUser = null;
+    let loadingProfile = false;
+
+    $("#today").textContent = new Intl.DateTimeFormat("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    }).format(new Date());
+
+    function showNotice(text) {
+      const notice = $("#notice");
+      notice.textContent = text;
+      notice.classList.add("show");
+    }
+
+    function hideNotice() {
+      $("#notice").textContent = "";
+      $("#notice").classList.remove("show");
+    }
+
+    function setText(selector, value) {
+      $(selector).textContent = value;
+    }
+
+    function makeProfileItem(label, value) {
+      const row = document.createElement("div");
+      row.className = "profile-item";
+
+      const name = document.createElement("span");
+      name.textContent = label;
+
+      const detail = document.createElement("strong");
+      detail.textContent = value || "Not provided";
+
+      row.append(name, detail);
+      return row;
+    }
+
+    function renderProfile(profile, user) {
+      const displayName = profile.name || user.displayName || "Student";
+      const email = user.email || profile.email || "No email available";
+
+      setText("#welcome-title", `Welcome, ${displayName.split(" ")[0]}.`);
+      setText("#sidebar-name", displayName);
+      setText("#sidebar-email", email);
+      setText("#avatar", displayName.trim().charAt(0).toUpperCase() || "W");
+      setText("#profile-status", profile.onboardingComplete ? "Profile complete" : "Profile incomplete");
+
+      const content = $("#profile-content");
+      content.replaceChildren();
+
+      content.append(
+        makeProfileItem("Name", displayName),
+        makeProfileItem("Email", email),
+        makeProfileItem("State / UT", profile.state),
+        makeProfileItem("Education stage", profile.stage),
+        makeProfileItem("Class / level", profile.classLevel),
+        makeProfileItem("Stream", profile.stream)
+      );
+
+      if (Array.isArray(profile.careerGoals) && profile.careerGoals.length) {
+        content.append(makeProfileItem("Goal", profile.careerGoals.join(", ")));
+      }
+
+      if (Array.isArray(profile.interests) && profile.interests.length) {
+        const wrapper = document.createElement("div");
+        wrapper.style.paddingTop = "14px";
+
+        const label = document.createElement("div");
+        label.style.color = "#64748b";
+        label.style.fontSize = "12px";
+        label.style.fontWeight = "700";
+        label.textContent = "Interests";
+
+        const tags = document.createElement("div");
+        tags.className = "tags";
+
+        for (const interest of profile.interests) {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = interest.replaceAll("-", " ");
+          tags.append(tag);
+        }
+
+        wrapper.append(label, tags);
+        content.append(wrapper);
+      }
+
+      setText(
+        "#check-profile",
+        profile.onboardingComplete
+          ? "Your profile is saved to your authenticated account."
+          : "Your profile is incomplete. Finish setup to personalise your experience."
+      );
+    }
+
+    function renderSources(sources) {
+      const content = $("#source-content");
+      content.replaceChildren();
+
+      if (!Array.isArray(sources) || sources.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "No source entries are currently available.";
+        content.append(empty);
+        return;
+      }
+
+      for (const source of sources) {
+        const row = document.createElement("div");
+        row.className = "source-row";
+
+        const dot = document.createElement("div");
+        dot.className = "source-dot";
+
+        const info = document.createElement("div");
+        const title = document.createElement("strong");
+        title.textContent = source.name || source.id || "Unnamed source";
+
+        const detail = document.createElement("small");
+        detail.textContent =
+          `Integration: ${source.integration || "unknown"} · Status: ${source.status || "unknown"}`;
+
+        info.append(title, detail);
+
+        if (typeof source.url === "string" && /^https:\/\/[a-z0-9.-]+\.[a-z]{2,}(\/|$)/i.test(source.url)) {
+          const link = document.createElement("a");
+          link.href = source.url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = "Official website";
+          link.style.display = "inline-block";
+          link.style.marginTop = "6px";
+          link.style.fontSize = "11px";
+          info.append(link);
+        }
+
+        row.append(dot, info);
+        content.append(row);
+      }
+    }
+
+    async function loadPlatformStatus() {
+      try {
+        const response = await fetch("./api/health", {
+          headers: { "Accept": "application/json" },
+          cache: "no-store"
+        });
+
+        if (!response.ok) throw new Error("Health endpoint unavailable");
+
+        const data = await response.json();
+
+        setText("#ai-status", data.aiConfigured ? "Configured" : "Not configured");
+        setText(
+          "#ai-detail",
+          data.aiConfigured
+            ? "An AI provider is configured on the backend."
+            : "AI guidance requires a server-side GROQ_API_KEY."
+        );
+
+        if (data.liveOfficialData === true) {
+          setText("#data-status", "Live connection reported");
+        } else {
+          setText("#data-status", "Curated dataset");
+        }
+
+        setText(
+          "#data-detail",
+          data.liveOfficialData === true
+            ? "The API reports a live-data connection. Verify each record's own source and freshness."
+            : "Live official data is not connected according to the health endpoint."
+        );
+      } catch (error) {
+        console.error("Platform status error:", error);
+        setText("#ai-status", "Status unavailable");
+        setText("#ai-detail", "The health endpoint could not be reached.");
+        setText("#data-status", "Status unavailable");
+        setText("#data-detail", "The backend health endpoint could not be reached.");
+        showNotice("Some platform information could not be loaded. Your account may still be available.");
+      }
+
+      try {
+        const response = await fetch("./api/education", {
+          headers: { "Accept": "application/json" },
+          cache: "no-store"
+        });
+
+        if (!response.ok) throw new Error("Education endpoint unavailable");
+
+        const data = await response.json();
+        const count = Number.isFinite(data.total) ? data.total : 0;
+
+        setText(
+          "#data-detail",
+          `${count} education records currently returned by the dataset. This is not a measure of total Indian education coverage.`
+        );
+
+        renderSources(data.sources);
+      } catch (error) {
+        console.error("Education data error:", error);
+
+        const content = $("#source-content");
+        content.replaceChildren();
+
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "The source registry could not be loaded. Try refreshing the dashboard.";
+        content.append(empty);
+      }
+    }
+
+    async function loadProfile(user) {
+      if (loadingProfile) return;
+
+      loadingProfile = true;
+      hideNotice();
+
+      try {
+        const snapshot = await getDoc(doc(db, "users", user.uid));
+
+        if (!snapshot.exists()) {
+          location.replace("./onboarding.html");
+          return;
+        }
+
+        const profile = snapshot.data();
+
+        if (profile.onboardingComplete !== true) {
+          location.replace("./onboarding.html");
+          return;
+        }
+
+        renderProfile(profile, user);
+      } catch (error) {
+        console.error("Profile loading error:", error);
+        showNotice(
+          "We couldn't load your saved profile. Check your Firestore rules and connection, then refresh."
+        );
+        setText("#profile-status", "Unavailable");
+        $("#profile-content").textContent = "Your profile could not be loaded.";
+      } finally {
+        loadingProfile = false;
+      }
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        location.replace("./login.html");
+        return;
+      }
+
+      currentUser = user;
+
+      await Promise.all([
+        loadProfile(user),
+        loadPlatformStatus()
+      ]);
+    });
+
+    $("#refresh-button").addEventListener("click", async () => {
+      if (!currentUser) return;
+
+      const button = $("#refresh-button");
+      button.disabled = true;
+
+      try {
+        await Promise.all([
+          loadProfile(currentUser),
+          loadPlatformStatus()
+        ]);
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    $("#signout-button").addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        location.replace("./login.html");
+      } catch (error) {
+        console.error("Sign-out error:", error);
+        showNotice("We couldn't sign you out. Please try again.");
+      }
+    });
+
+    $("#menu-button").addEventListener("click", () => {
+      const sidebar = $("#sidebar");
+      const open = sidebar.classList.toggle("open");
+
+      $("#menu-button").setAttribute("aria-expanded", String(open));
+      $("#menu-button").setAttribute(
+        "aria-label",
+        open ? "Close navigation" : "Open navigation"
+      );
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        window.innerWidth <= 720 &&
+        !$("#sidebar").contains(event.target) &&
+        !$("#menu-button").contains(event.target)
+      ) {
+        $("#sidebar").classList.remove("open");
+        $("#menu-button").setAttribute("aria-expanded", "false");
+      }
+    });
+
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+</body>
+</html>
