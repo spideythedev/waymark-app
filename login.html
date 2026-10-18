@@ -20,6 +20,7 @@
       --primary-dark: #1d43b8;
       --surface: #f7f9fc;
       --danger: #b42318;
+      --success: #16835d;
     }
 
     * {
@@ -103,7 +104,7 @@
     }
 
     .side-note i {
-      color: #16835d;
+      color: var(--success);
     }
 
     .form-side {
@@ -131,6 +132,7 @@
       margin-bottom: 28px;
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.7;
     }
 
     .google-btn,
@@ -217,10 +219,11 @@
     .message {
       display: none;
       margin: 0 0 17px;
-      padding: 12px;
+      padding: 13px;
       border-radius: 10px;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
     }
 
     .message.error {
@@ -235,6 +238,16 @@
       color: #2347a5;
       background: #edf3ff;
       border: 1px solid #dce7ff;
+    }
+
+    .error-code {
+      display: block;
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px solid #ffd6d1;
+      font-family: monospace;
+      font-size: 11px;
+      overflow-wrap: anywhere;
     }
 
     .switch-mode {
@@ -341,12 +354,27 @@
       <form id="auth-form">
         <div class="field">
           <label for="email">Email address</label>
-          <input id="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            required
+            maxlength="254"
+            placeholder="you@example.com"
+          >
         </div>
 
         <div class="field">
           <label for="password">Password</label>
-          <input id="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128" placeholder="At least 6 characters">
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            minlength="6"
+            maxlength="128"
+            placeholder="At least 6 characters"
+          >
         </div>
 
         <button class="submit-btn" id="submit-button" type="submit">
@@ -373,6 +401,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
     import {
       getAuth,
       GoogleAuthProvider,
@@ -382,6 +411,7 @@
       updateProfile,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
     import {
       getFirestore,
       doc,
@@ -418,13 +448,24 @@
 
     let busy = false;
 
-    function showMessage(text, type = "error") {
-      message.textContent = text;
+    function showMessage(text, type = "error", code = "") {
+      message.replaceChildren();
       message.className = `message ${type}`;
+
+      const description = document.createElement("div");
+      description.textContent = text;
+      message.append(description);
+
+      if (code) {
+        const errorCode = document.createElement("code");
+        errorCode.className = "error-code";
+        errorCode.textContent = `Firebase error: ${code}`;
+        message.append(errorCode);
+      }
     }
 
     function clearMessage() {
-      message.textContent = "";
+      message.replaceChildren();
       message.className = "message";
     }
 
@@ -464,21 +505,70 @@
     }
 
     function explainError(error) {
+      console.error("Firebase error code:", error.code);
+      console.error("Firebase error message:", error.message);
+
       const messages = {
-        "auth/email-already-in-use": "An account already exists for this email. Try signing in.",
-        "auth/invalid-email": "Enter a valid email address.",
-        "auth/weak-password": "Choose a stronger password with at least 6 characters.",
-        "auth/invalid-credential": "The email or password is incorrect.",
-        "auth/user-disabled": "This account has been disabled.",
-        "auth/too-many-requests": "Too many attempts. Please wait before trying again.",
-        "auth/popup-closed-by-user": "The Google sign-in window was closed before completion.",
-        "auth/popup-blocked": "Your browser blocked the sign-in window. Allow pop-ups and try again.",
-        "auth/operation-not-allowed": "This sign-in method is disabled in Firebase Authentication.",
-        "auth/unauthorized-domain": "This website domain is not authorised in Firebase Authentication."
+        "auth/email-already-in-use":
+          "An account already exists for this email. Try signing in.",
+
+        "auth/invalid-email":
+          "Enter a valid email address.",
+
+        "auth/weak-password":
+          "Choose a stronger password with at least 6 characters.",
+
+        "auth/invalid-credential":
+          "The email or password is incorrect.",
+
+        "auth/user-disabled":
+          "This account has been disabled.",
+
+        "auth/too-many-requests":
+          "Too many attempts. Wait a while before trying again.",
+
+        "auth/popup-closed-by-user":
+          "The Google sign-in window was closed before completion.",
+
+        "auth/popup-blocked":
+          "Your browser blocked the Google sign-in window. Allow pop-ups and try again.",
+
+        "auth/operation-not-allowed":
+          "This sign-in method is disabled in Firebase Authentication. Enable the provider in your Firebase Console.",
+
+        "auth/unauthorized-domain":
+          "This website domain is not authorised in Firebase Authentication settings.",
+
+        "auth/network-request-failed":
+          "Firebase could not connect. Check your internet connection, browser restrictions, or network settings.",
+
+        "auth/api-key-not-valid":
+          "The Firebase API key is invalid or restricted. Check your Firebase project configuration.",
+
+        "auth/app-not-authorized":
+          "This app is not authorised to use the Firebase project.",
+
+        "auth/invalid-api-key":
+          "The Firebase API key is invalid.",
+
+        "auth/requests-to-this-api-identitytoolkit-method-google.cloud.identitytoolkit.v1.accounts.signinwithpassword-are-blocked":
+          "The password authentication request was blocked by the project's API restrictions.",
+
+        "permission-denied":
+          "Authentication may have succeeded, but Firestore denied access. Check your published Firestore rules.",
+
+        "unavailable":
+          "The database service is temporarily unavailable. Try again later."
       };
 
-      return messages[error.code] ||
-        "We couldn't complete sign-in. Check your connection and try again.";
+      const text = messages[error.code] ||
+        error.message ||
+        "An unknown error occurred.";
+
+      return {
+        text,
+        code: error.code || "unknown"
+      };
     }
 
     async function routeUser(user) {
@@ -502,12 +592,12 @@
         });
       }
 
-      const data = profileSnapshot.exists()
+      const profile = profileSnapshot.exists()
         ? profileSnapshot.data()
         : { onboardingComplete: false };
 
       location.replace(
-        data.onboardingComplete === true
+        profile.onboardingComplete === true
           ? "./dashboard.html"
           : "./onboarding.html"
       );
@@ -518,16 +608,24 @@
 
       busy = true;
       clearMessage();
+
       submitButton.disabled = true;
       googleButton.disabled = true;
       switchButton.disabled = true;
+
+      showMessage("Connecting to your account…", "info");
 
       try {
         const user = await action();
         await routeUser(user);
       } catch (error) {
-        console.error("Authentication error:", error);
-        showMessage(explainError(error));
+        const details = explainError(error);
+
+        showMessage(
+          details.text,
+          "error",
+          details.code
+        );
       } finally {
         busy = false;
         submitButton.disabled = false;
@@ -543,7 +641,11 @@
       const password = passwordInput.value;
 
       if (password.length < 6) {
-        showMessage("Your password must contain at least 6 characters.");
+        showMessage(
+          "Your password must contain at least 6 characters.",
+          "error",
+          "local-validation"
+        );
         return;
       }
 
@@ -574,7 +676,9 @@
 
     googleButton.addEventListener("click", () => {
       const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
+      provider.setCustomParameters({
+        prompt: "select_account"
+      });
 
       runAuth(async () => {
         const result = await signInWithPopup(auth, provider);
@@ -587,21 +691,34 @@
     });
 
     onAuthStateChanged(auth, async (user) => {
-      if (!user) return;
+      if (!user || busy) return;
+
+      busy = true;
+      googleButton.disabled = true;
+      submitButton.disabled = true;
 
       try {
         await routeUser(user);
       } catch (error) {
-        console.error("Could not load profile:", error);
+        const details = explainError(error);
+
         showMessage(
-          "You signed in, but your profile could not be loaded. Check your Firestore rules and try again."
+          `You are signed in, but your profile could not be loaded. ${details.text}`,
+          "error",
+          details.code
         );
+      } finally {
+        busy = false;
+        googleButton.disabled = false;
+        submitButton.disabled = false;
       }
     });
 
     setMode(mode);
 
-    if (window.lucide) window.lucide.createIcons();
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
   </script>
 </body>
 </html>
