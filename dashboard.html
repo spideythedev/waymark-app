@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Dashboard — WAYMARK</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --blue: #245bdb;
+      --ink: #15213a;
+      --muted: #667085;
+      --line: #e8ecf3;
+      --surface: #f7f9fd;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 15px 0;
+      background: white;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font: 800 22px "Manrope", sans-serif;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--blue);
+      border-radius: 12px;
+    }
+
+    .page { padding: 35px 0 60px; }
+
+    .welcome {
+      padding: 30px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .feature-card {
+      display: block;
+      height: 100%;
+      padding: 23px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .feature-card:hover {
+      border-color: #b8cbff;
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      margin-bottom: 17px;
+      border-radius: 12px;
+      background: #edf2ff;
+      color: var(--blue);
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    .section-heading {
+      font: 800 25px "Manrope", sans-serif;
+      letter-spacing: -.8px;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .btn-outline-secondary {
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 576px) {
+      .welcome { padding: 23px 19px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container d-flex align-items-center justify-content-between gap-3">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-icon"><i data-lucide="compass"></i></span>
+        WAYMARK
+      </a>
+
+      <div class="d-flex align-items-center gap-2">
+        <a href="profile.html" class="btn btn-outline-secondary btn-sm">
+          <i data-lucide="user-round" width="16"></i> Profile
+        </a>
+        <button id="signout" class="btn btn-outline-secondary btn-sm">
+          Sign out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="welcome mb-4">
+      <p class="text-primary fw-bold small mb-2">YOUR WAYMARK DASHBOARD</p>
+      <h1 class="h2 fw-bold mb-2">Welcome, <span id="student-name">student</span>.</h1>
+      <p class="muted mb-3">
+        Your next step starts with understanding your options.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2">
+        <span id="education-stage" class="badge text-bg-light border text-dark p-2">Education stage not loaded</span>
+        <span id="student-state" class="badge text-bg-light border text-dark p-2">Location not loaded</span>
+      </div>
+    </section>
+
+    <div id="page-message" class="alert alert-danger d-none" role="status"></div>
+
+    <section class="mb-5">
+      <h2 class="section-heading mb-3">Explore your options</h2>
+
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <a href="guidance.html" class="feature-card">
+            <div class="feature-icon"><i data-lucide="brain-circuit"></i></div>
+            <h3 class="h5 fw-bold">AI guidance</h3>
+            <p>Explore education pathways with explanations based on available evidence.</p>
+            <span class="d-inline-block mt-3 text-primary fw-bold">Get guidance →</span>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <a href="colleges.html" class="feature-card">
+            <div class="feature-icon"><i data-lucide="school"></i></div>
+            <h3 class="h5 fw-bold">Explore colleges</h3>
+            <p>Search available institution records and inspect their source information.</p>
+            <span class="d-inline-block mt-3 text-primary fw-bold">Explore colleges →</span>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <a href="courses.html" class="feature-card">
+            <div class="feature-icon"><i data-lucide="book-open"></i></div>
+            <h3 class="h5 fw-bold">Explore courses</h3>
+            <p>Understand course options and the requirements published by relevant sources.</p>
+            <span class="d-inline-block mt-3 text-primary fw-bold">Explore courses →</span>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <a href="opportunities.html" class="feature-card">
+            <div class="feature-icon"><i data-lucide="target"></i></div>
+            <h3 class="h5 fw-bold">Opportunities</h3>
+            <p>Find available scholarship, admission and career opportunity information.</p>
+            <span class="d-inline-block mt-3 text-primary fw-bold">Explore opportunities →</span>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <a href="roadmap.html" class="feature-card">
+            <div class="feature-icon"><i data-lucide="map"></i></div>
+            <h3 class="h5 fw-bold">My roadmap</h3>
+            <p>Organize your next steps and track your personal planning milestones.</p>
+            <span class="d-inline-block mt-3 text-primary fw-bold">Open roadmap →</span>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <a href="saved.html" class="feature-card">
+            <div class="feature-icon"><i data-lucide="bookmark"></i></div>
+            <h3 class="h5 fw-bold">Saved items</h3>
+            <p>Return to the colleges, courses and opportunities you save.</p>
+            <span class="d-inline-block mt-3 text-primary fw-bold">View saved items →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-4 bg-white border rounded-4">
+      <h2 class="h5 fw-bold">Your information</h2>
+      <p class="muted mb-3">
+        Your profile is loaded from your signed-in Firebase account.
+        Recommendations and verified data integrations will be connected in subsequent steps.
+      </p>
+      <a href="profile.html" class="btn btn-primary px-4 py-2">
+        View my profile
+      </a>
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      auth,
+      persistenceReady,
+      requireUser,
+      getProfile,
+      signOut
+    } from "./assets/waymark.js";
+
+    const $ = (id) => document.getElementById(id);
+
+    await persistenceReady;
+
+    const user = await requireUser();
+
+    if (user) {
+      try {
+        const profile = await getProfile(user.uid);
+
+        $("student-name").textContent =
+          profile?.name ||
+          user.displayName ||
+          "student";
+
+        $("education-stage").textContent =
+          profile?.classLevel
+            ? `Class / year: ${profile.classLevel}`
+            : "Education stage not specified";
+
+        $("student-state").textContent =
+          profile?.state || "State not specified";
+      } catch (error) {
+        console.error(error);
+        $("page-message").textContent =
+          "Your account is signed in, but your profile could not be loaded. Please refresh and try again.";
+        $("page-message").classList.remove("d-none");
+      }
+    }
+
+    $("signout").addEventListener("click", async () => {
+      const button = $("signout");
+      button.disabled = true;
+
+      try {
+        await signOut(auth);
+        window.location.replace("index.html");
+      } catch (error) {
+        console.error(error);
+        $("page-message").textContent = "Sign-out failed. Please try again.";
+        $("page-message").classList.remove("d-none");
+        button.disabled = false;
+      }
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
