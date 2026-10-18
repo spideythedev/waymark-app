@@ -13,13 +13,16 @@ export function findDuplicateGroups(records) {
     }
 
     const name = normalizeIdentifier(record.name);
-    const sourceId = normalizeIdentifier(record.sourceId);
+    const state = normalizeIdentifier(record.state);
+    const sourceId = normalizeIdentifier(
+      record.source?.sourceId ?? record.sourceId
+    );
 
-    if (!name || !sourceId) {
+    if (!name || !state || !sourceId) {
       continue;
     }
 
-    const key = `${sourceId}:${name}`;
+    const key = `${sourceId}:${state}:${name}`;
 
     if (!groups.has(key)) {
       groups.set(key, []);
@@ -32,6 +35,11 @@ export function findDuplicateGroups(records) {
     .filter(([, items]) => items.length > 1)
     .map(([key, items]) => ({
       key,
-      records: items
+      count: items.length,
+      records: items.map((record) => ({
+        id: record.id ?? null,
+        name: record.name,
+        state: record.state
+      }))
     }));
 }
